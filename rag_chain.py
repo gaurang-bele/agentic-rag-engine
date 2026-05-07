@@ -4,7 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain_classic.chains import RetrievalQA
 from retriever import get_retriever
 
-load_dotenv()
+load_dotenv(override=True)
 
 def get_rag_chain():
     # OpenRouter uses OpenAI-compatible API

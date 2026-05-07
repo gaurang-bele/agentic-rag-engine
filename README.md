@@ -30,6 +30,8 @@ pip install -r requirements.txt
 ```env
 PINECONE_API_KEY=your_key_here
 PINECONE_INDEX=rag-index
+CHUNK_SIZE=500
+CHUNK_OVERLAP=50
 OPENROUTER_MODEL=mistralai/mistral-7b-instruct-v0.3
 OPENROUTER_HTTP_REFERER=http://localhost:8000
 OPENROUTER_APP_TITLE=Agentic RAG API
@@ -54,3 +56,18 @@ uvicorn main:app --reload
 - Upload a PDF to `/ingest`
 - Ask questions through `/query`
 
+## Chunking experiment
+
+Run the experiment script to compare chunk sizes and overlaps against `CN.pdf`:
+
+```powershell
+python chunking_experiment.py
+```
+
+If you want the answer-quality portion of the experiment, install the optional Anthropic SDK:
+
+```powershell
+pip install anthropic
+```
+
+After picking the best settings, update `CHUNK_SIZE` and `CHUNK_OVERLAP` in `.env` before ingesting documents.

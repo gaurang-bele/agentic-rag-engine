@@ -5,3 +5,6 @@ __pycache__/
 temp_*.pdf
 .DS_Store
 
+
+chunking_experiment.py
+CN.pdf
