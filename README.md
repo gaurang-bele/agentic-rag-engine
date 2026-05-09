@@ -8,6 +8,8 @@ A small RAG API built with FastAPI, Pinecone, LangChain, and OpenRouter.
 - Query the indexed documents with an OpenRouter-backed chat model
 - Parse scanned/image-heavy PDFs with LlamaParse before chunking
 - Multi-document retrieval with source-aware metadata filters
+- Agentic web search tool via Tavily (`web_search`)
+- Agentic file tools via boto3 S3 client (`read_file`, `write_file`)
 - Simple FastAPI endpoints for health, ingest, and query
 
 ## Tech Stack
@@ -51,6 +53,16 @@ OPENROUTER_MODEL=mistralai/mistral-7b-instruct-v0.3
 OPENROUTER_HTTP_REFERER=http://localhost:8000
 OPENROUTER_APP_TITLE=Agentic RAG API
 OPENROUTER_API_KEY=your_key_here
+TAVILY_API_KEY=your_key_here
+WEB_SEARCH_MAX_RESULTS=5
+WEB_SEARCH_DEPTH=advanced
+WEB_SEARCH_TOPIC=general
+WEB_SEARCH_INCLUDE_ANSWER=true
+WEB_SEARCH_INCLUDE_RAW_CONTENT=false
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_REGION=ap-south-1
+S3_BUCKET_NAME=your_bucket_name
 ```
 
 4. Start the server:
@@ -91,6 +103,29 @@ uvicorn main:app --reload
 `question` is required. `source`, `page_from`, `page_to`, and `top_k` are optional.
 If you send placeholder values from Swagger (for example `"source": "string"` or `0` for page/top_k),
 they are ignored and query runs with defaults.
+
+## Agentic tool: web_search
+
+`tools/web_search.py` provides a Tavily-backed tool function and a LangChain `StructuredTool`:
+
+```python
+from tools import web_search, get_web_search_tool
+
+result = web_search("latest updates on retrieval-augmented generation")
+tool = get_web_search_tool()
+```
+
+## Agentic tools: read_file and write_file
+
+`tools/file_io.py` provides S3/local read and S3 write tools:
+
+```python
+from tools import read_file, write_file, get_read_file_tool, get_write_file_tool
+
+content = read_file("notes.txt", source="local")
+s3_obj = read_file("s3://your-bucket/path/input.txt", source="s3")
+saved = write_file("hello", s3_key="outputs/hello.txt")
+```
 
 ## Chunking experiment
 

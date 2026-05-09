@@ -1,0 +1,303 @@
+WEB SEARCH RESULTS
+Query: latest news on AI
+
+Answer:
+In 2026, AI advancements include Google's Remy AI agent for Gemini and NVIDIA's Vera Rubin platform. AI is also aiding the UK's NHS and helping Thailand with the Sora app. For the latest details, visit the provided sources.
+
+Results:
+1. AI News | Latest News | Insights Powering AI-Driven Business Growth
+   URL: https://www.artificialintelligence-news.com/
+   Score: 0.885404
+   Summary: ### NVIDIA and Google infrastructure cuts AI inference costs
+
+## Latest
+
+Government & Public Sector AI
+
+May 6, 2026
+
+# US government increases AI suppliers and rethinks Anthropic’s role
+
+Google tests Remy AI agent for Gemini as focus turns to user control
+
+AI in Action
+
+May 6, 2026
+
+# Google tests Remy AI agent for Gemini as focus turns to user control
+
+Physical AI raises new governance questions for autonomous systems
+
+Physical AI
+
+May 4, 2026
+
+# Physical AI raises governance questions for autonomous systems
+
+Artificial Intelligence
+
+May 4, 2026
+
+# Google made agentic AI governance a product. Enterprises still have to catch up.
+
+Logo on headquarters as, according to SAP, enterprise AI governance secures profit margins by replacing statistical guesses with deterministic control. [...] #### Applications
+
+### Thailand becomes one of the first in Asia to get the Sora app
+
+Entertainment & Media
+
+October 30, 2025
+
+### Malaysia launches Ryt Bank, its first AI-powered bank
+
+Finance AI
+
+August 26, 2025
+
+### Google’s Veo 3 AI video creation tools are now widely available
+
+AI in Action
+
+July 29, 2025
+
+#### Computer Vision
+
+### US and Japan announce sweeping AI and tech collaboration
+
+Artificial Intelligence
+
+April 11, 2024
+
+### UK and Canada sign AI compute agreement
+
+Artificial Intelligence
+
+January 31, 2024
+
+### Quantum AI represents a ‘transformative advancement’
+
+AI Hardware & Chips
+
+November 14, 2023
+
+#### Machine Learning
+
+### IDC: How EMEA CIOs can jumpstart AI rollouts
+
+Governance, Regulation & Policy
+
+April 29, 2026 [...] AI News is part of the TechForge Publications series
+
+TechForge
+
+Service Industry AI
+
+# RingCentral adds Shopify, Calendly, and WhatsApp to AI Receptionist
+
+May 8, 2026
+
+Healthcare & Wellness AI
+
+May 7, 2026
+
+# AI helping ease the UK’s NHS burden
+
+TechEx Events
+
+May 6, 2026
+
+# HP and the art of AI and data for the enterprise
+
+Government & Public Sector AI
+
+May 6, 2026
+
+# US government increases AI suppliers and rethinks Anthropic’s role
+
+Google tests Remy AI agent for Gemini as focus turns to user control
+
+AI in Action
+
+May 6, 2026
+
+# Google tests Remy AI agent for Gemini as focus turns to user control
+
+AI Business Strategy, AI in Action, AI Market Trends, Artificial Intelligence, Featured News, Governance, Regulation & Policy, Inside AI
+
+2. Agentic AI News + AI Breakthroughs + AI Developments | 2026 | News
+   URL: https://www.crescendo.ai/news/latest-ai-news-and-updates
+   Score: 0.83452857
+   Summary: Date: January 5, 2026
+
+Summary: During its CES 2026 keynote, NVIDIA officially unveiled its latest flagship AI platform, codenamed "Vera Rubin." Following the Blackwell architecture, the Rubin platform introduces radical improvements in processing power and memory bandwidth, specifically engineered to handle the massive scaling requirements of trillion-parameter models. Named after the pioneering astronomer, the architecture features the new H300 GPUs and a dedicated AI foundry for custom silicon, signaling NVIDIA's intent to maintain its dominant lead in the global AI hardware race. The platform is expected to enter full production later this year to support the next wave of sovereign and enterprise AI infrastructure.
+
+Source: Yahoo Finance ↗ [...] Source: EY Newsroom
+
+### Tufts Researchers Build AI System That Cuts Energy Use by 100x While Boosting Accuracy
+
+Date: April 5, 2026
+
+Summary: Researchers at Tufts University developed a neuro-symbolic AI system that combines neural networks with human-like symbolic reasoning, slashing energy consumption by up to 100 times compared to conventional approaches while dramatically improving performance. In robotic task tests using the Tower of Hanoi puzzle, the hybrid system achieved a 95% success rate versus 34% for standard models and trained in just 34 minutes versus more than a day and a half for traditional systems. The research will be presented at the International Conference on Robotics and Automation in Vienna.
+
+Source: ScienceDaily [...] Date: January 5, 2026
+
+Summary: Alibaba Group Holding Ltd. has launched a new AI-driven service through its mapping unit, Amap, aimed at helping restaurants create immersive 3D digital showcases of their interiors. By utilizing Alibaba's "Tongyi Wanxiang" visual generative model, merchants can generate high-quality 3D tours simply by uploading standard photos or videos. This initiative is designed to significantly lower marketing costs for merchants and is a central part of Alibaba's strategy to reclaim market share from Meituan in China’s local services and food delivery sectors. The move aligns with CEO Eddie Wu’s broader "AI-first" mandate to integrate advanced technology across all business units to drive growth amid a fierce industry price war.
+
+Source: Bloomberg ↗
+
+3. Artificial Intelligence News -- ScienceDaily
+   URL: https://www.sciencedaily.com/news/computers_math/artificial_intelligence/
+   Score: 0.81025416
+   Summary: ScienceDaily
+
+# Artificial Intelligence News
+
+## Top Headlines
+
+## Latest Headlines
+
+## Earlier Headlines
+
+### Thursday, January 29, 2026
+
+### Wednesday, January 28, 2026
+
+### Sunday, January 25, 2026
+
+### Friday, January 16, 2026
+
+### Tuesday, January 20, 2026
+
+### Friday, January 9, 2026
+
+### Wednesday, January 7, 2026
+
+### Sunday, December 21, 2025
+
+### Monday, December 22, 2025
+
+### Wednesday, December 31, 2025
+
+### Tuesday, January 6, 2026
+
+### Friday, December 26, 2025
+
+### Wednesday, January 21, 2026
+
+### Tuesday, December 9, 2025
+
+### Monday, December 8, 2025
+
+### Sunday, January 4, 2026
+
+### Friday, November 28, 2025
+
+### Tuesday, January 13, 2026
+
+### Sunday, November 16, 2025
+
+### Sunday, February 1, 2026
+
+### Wednesday, November 5, 2025
+
+### Tuesday, October 28, 2025 [...] ### Tuesday, October 28, 2025
+
+### Wednesday, October 22, 2025
+
+### Monday, October 13, 2025
+
+### Thursday, October 9, 2025
+
+### Tuesday, October 14, 2025
+
+### Saturday, October 4, 2025
+
+### Sunday, September 28, 2025
+
+### Thursday, September 25, 2025
+
+### Wednesday, September 24, 2025
+
+### Sunday, September 21, 2025
+
+### Friday, November 14, 2025
+
+### Sunday, September 7, 2025
+
+### Friday, August 22, 2025
+
+### Wednesday, August 27, 2025
+
+### Wednesday, August 13, 2025
+
+### Saturday, November 1, 2025
+
+### Friday, July 25, 2025
+
+### Thursday, July 24, 2025
+
+### Tuesday, July 8, 2025
+
+### Wednesday, July 2, 2025
+
+### Sunday, August 24, 2025
+
+### Wednesday, June 25, 2025
+
+### Sunday, June 22, 2025
+
+### Thursday, June 26, 2025
+
+### Monday, June 30, 2025
+
+### Thursday, June 19, 2025 [...] ### Monday, June 30, 2025
+
+### Thursday, June 19, 2025
+
+### Sunday, June 22, 2025
+
+### Monday, June 16, 2025
+
+### Sunday, June 8, 2025
+
+### Saturday, August 16, 2025
+
+### Saturday, June 7, 2025
+
+### Tuesday, June 3, 2025
+
+### Monday, June 2, 2025
+
+### Friday, May 30, 2025
+
+### Wednesday, May 28, 2025
+
+### Tuesday, May 27, 2025
+
+### Thursday, May 22, 2025
+
+### Wednesday, May 21, 2025
+
+### Monday, May 19, 2025
+
+### Thursday, May 15, 2025
+
+### Wednesday, May 14, 2025
+
+### Tuesday, May 13, 2025
+
+### Monday, May 12, 2025
+
+### Thursday, May 8, 2025
+
+### Wednesday, May 7, 2025
+
+### Tuesday, May 6, 2025
+
+### Monday, May 5, 2025
+
+## Breaking
+
+## Trending Topics
+
+## Strange & Offbeat
