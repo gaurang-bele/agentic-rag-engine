@@ -10,6 +10,7 @@ A small RAG API built with FastAPI, Pinecone, LangChain, and OpenRouter.
 - Multi-document retrieval with source-aware metadata filters
 - Agentic web search tool via Tavily (`web_search`)
 - Agentic file tools via boto3 S3 client (`read_file`, `write_file`)
+- Agentic document tools: summarization and comparison (`summarize_document`, `compare_documents`)
 - Simple FastAPI endpoints for health, ingest, and query
 
 ## Tech Stack
@@ -63,6 +64,13 @@ AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 AWS_REGION=ap-south-1
 S3_BUCKET_NAME=your_bucket_name
+S3_CONNECT_TIMEOUT_SECONDS=10
+S3_READ_TIMEOUT_SECONDS=30
+S3_MAX_ATTEMPTS=3
+SUMMARIZE_MAP_REDUCE_THRESHOLD=1000
+SUMMARIZE_CHUNK_SIZE=2000
+SUMMARIZE_CHUNK_OVERLAP=100
+COMPARE_SUMMARY_THRESHOLD=1000
 ```
 
 4. Start the server:
@@ -127,18 +135,19 @@ s3_obj = read_file("s3://your-bucket/path/input.txt", source="s3")
 saved = write_file("hello", s3_key="outputs/hello.txt")
 ```
 
-## Chunking experiment
+`read_file(..., source="auto")` checks local first, then falls back to S3 if AWS credentials are configured.
 
-Run the experiment script to compare chunk sizes and overlaps against `CN.pdf`:
+## Agentic tools: summarize_document and compare_documents
 
-```powershell
-python chunking_experiment.py
+```python
+from tools import summarize_document, compare_documents
+
+summary = summarize_document("docs/design.txt", source="local", max_words=200)
+comparison = compare_documents(
+    doc1_key="docs/v1.txt",
+    doc2_key="docs/v2.txt",
+    doc1_source="local",
+    doc2_source="local",
+    focus="both",
+)
 ```
-
-If you want the answer-quality portion of the experiment, install the optional Anthropic SDK:
-
-```powershell
-pip install anthropic
-```
-
-After picking the best settings, update `CHUNK_SIZE` and `CHUNK_OVERLAP` in `.env` before ingesting documents.

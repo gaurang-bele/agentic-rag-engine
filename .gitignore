@@ -8,3 +8,5 @@ temp_*.pdf
 
 chunking_experiment.py
 CN.pdf
+Test_working.py
+test_outputs/
