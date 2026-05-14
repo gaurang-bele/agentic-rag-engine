@@ -4,7 +4,7 @@ import re
 
 from dotenv import load_dotenv
 from langchain_core.tools import StructuredTool
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from rag_chain import get_llm
 
@@ -139,20 +139,58 @@ def _build_compare_prompt(doc1_text: str, doc2_text: str, focus: str) -> str:
 
 def compare_documents(
     doc1_key: str,
-    doc2_key: str,
+    doc2_key: str | None = None,
     doc1_source: str = "auto",
     doc2_source: str = "auto",
     focus: str = "differences",
 ) -> dict:
-    normalized_focus = focus.strip().lower()
+    doc1_value = doc1_key
+    doc2_value = doc2_key
+    doc1_source_value = doc1_source
+    doc2_source_value = doc2_source
+    focus_value = focus
+
+    if not doc2_value:
+        stripped = (doc1_key or "").strip()
+        if stripped.startswith("{") and stripped.endswith("}"):
+            try:
+                parsed = json.loads(stripped)
+            except json.JSONDecodeError:
+                parsed = None
+
+            if isinstance(parsed, dict):
+                parsed_doc1 = parsed.get("doc1_key")
+                if isinstance(parsed_doc1, str):
+                    doc1_value = parsed_doc1
+
+                parsed_doc2 = parsed.get("doc2_key")
+                if isinstance(parsed_doc2, str):
+                    doc2_value = parsed_doc2
+
+                parsed_doc1_source = parsed.get("doc1_source")
+                if isinstance(parsed_doc1_source, str) and parsed_doc1_source.strip():
+                    doc1_source_value = parsed_doc1_source
+
+                parsed_doc2_source = parsed.get("doc2_source")
+                if isinstance(parsed_doc2_source, str) and parsed_doc2_source.strip():
+                    doc2_source_value = parsed_doc2_source
+
+                parsed_focus = parsed.get("focus")
+                if isinstance(parsed_focus, str) and parsed_focus.strip():
+                    focus_value = parsed_focus
+
+    if not doc2_value:
+        raise ValueError("doc2_key is required")
+
+    normalized_focus = focus_value.strip().lower()
     if normalized_focus not in {"differences", "similarities", "both"}:
         raise ValueError("focus must be one of: differences, similarities, both")
 
-    doc1_label, doc1_payload = _prepare_document_for_comparison(doc1_key, doc1_source)
+    doc1_label, doc1_payload = _prepare_document_for_comparison(doc1_value, doc1_source_value)
     if doc1_label is None:
         return {"error": "ReadFailed", "doc": "doc1", **doc1_payload}
 
-    doc2_label, doc2_payload = _prepare_document_for_comparison(doc2_key, doc2_source)
+    doc2_label, doc2_payload = _prepare_document_for_comparison(doc2_value, doc2_source_value)
     if doc2_label is None:
         return {"error": "ReadFailed", "doc": "doc2", **doc2_payload}
 
@@ -193,6 +231,38 @@ class CompareDocumentsInput(BaseModel):
     doc1_source: str = Field(default="auto", description="auto, local, or s3")
     doc2_source: str = Field(default="auto", description="auto, local, or s3")
     focus: str = Field(default="differences", description="differences, similarities, or both")
+
+    @model_validator(mode="before")
+    @classmethod
+    def _recover_from_nested_json_string(cls, data):
+        if not isinstance(data, dict):
+            return data
+
+        if data.get("doc1_key") and data.get("doc2_key"):
+            return data
+
+        raw = data.get("doc1_key")
+        if not isinstance(raw, str):
+            return data
+
+        stripped = raw.strip()
+        if not (stripped.startswith("{") and stripped.endswith("}")):
+            return data
+
+        try:
+            parsed = json.loads(stripped)
+        except json.JSONDecodeError:
+            return data
+
+        if not isinstance(parsed, dict):
+            return data
+
+        recovered = dict(data)
+        for key in ("doc1_key", "doc2_key", "doc1_source", "doc2_source", "focus"):
+            value = recovered.get(key)
+            if (value is None or value == "") and key in parsed:
+                recovered[key] = parsed[key]
+        return recovered
 
 
 def get_compare_documents_tool() -> StructuredTool:

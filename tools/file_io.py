@@ -1,3 +1,4 @@
+import json
 import os
 import tempfile
 from pathlib import Path
@@ -9,7 +10,7 @@ from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 from langchain_core.tools import StructuredTool
 from llama_parse import LlamaParse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 load_dotenv()
 _S3_CLIENT = None
@@ -59,6 +60,22 @@ def _parse_pdf_with_llamaparse(pdf_path: str) -> str:
     if not texts:
         raise ValueError("LlamaParse did not return any extractable text for this PDF.")
     return "\n\n---\n\n".join(texts)
+
+
+def _verify_s3_object(bucket: str, key: str, expected_bytes: int) -> tuple[bool, str | None]:
+    try:
+        response = get_s3_client().head_object(Bucket=bucket, Key=key)
+    except ClientError as exc:
+        error = (exc.response.get("Error") or {})
+        code = str(error.get("Code") or "ClientError")
+        message = str(error.get("Message") or str(exc))
+        return False, f"{code}: {message}"
+
+    content_length = response.get("ContentLength")
+    if isinstance(content_length, int) and content_length != expected_bytes:
+        return False, f"ContentLength mismatch (expected {expected_bytes}, got {content_length})"
+
+    return True, None
 
 
 def _has_s3_credentials() -> bool:
@@ -267,18 +284,52 @@ def read_file(path_or_key: str, source: str = "auto", encoding: str = "utf-8") -
 
 def write_file(
     content: str,
-    s3_key: str,
+    s3_key: str | None = None,
     content_type: str = "text/plain",
     local_path: str | None = None,
     encoding: str = "utf-8",
 ) -> dict:
-    key_value = s3_key.strip().lstrip("/")
+    content_value = content
+    key_value = (s3_key or "").strip().lstrip("/")
+    content_type_value = content_type
+    local_path_value = local_path
+    encoding_value = encoding
+
+    if not key_value:
+        stripped = content.strip()
+        if stripped.startswith("{") and stripped.endswith("}"):
+            try:
+                parsed = json.loads(stripped)
+            except json.JSONDecodeError:
+                parsed = None
+
+            if isinstance(parsed, dict):
+                parsed_content = parsed.get("content")
+                if isinstance(parsed_content, str):
+                    content_value = parsed_content
+
+                parsed_s3_key = parsed.get("s3_key")
+                if isinstance(parsed_s3_key, str):
+                    key_value = parsed_s3_key.strip().lstrip("/")
+
+                parsed_content_type = parsed.get("content_type")
+                if isinstance(parsed_content_type, str) and parsed_content_type.strip():
+                    content_type_value = parsed_content_type
+
+                parsed_local_path = parsed.get("local_path")
+                if parsed_local_path is None or isinstance(parsed_local_path, str):
+                    local_path_value = parsed_local_path
+
+                parsed_encoding = parsed.get("encoding")
+                if isinstance(parsed_encoding, str) and parsed_encoding.strip():
+                    encoding_value = parsed_encoding
+
     if not key_value:
         raise ValueError("s3_key is required")
-    if content == "":
+    if content_value == "":
         raise ValueError("content cannot be empty for write_file")
 
-    payload = content.encode(encoding)
+    payload = content_value.encode(encoding_value)
     bucket = get_s3_bucket_name()
 
     try:
@@ -286,7 +337,7 @@ def write_file(
             Bucket=bucket,
             Key=key_value,
             Body=payload,
-            ContentType=content_type,
+            ContentType=content_type_value,
         )
     except ClientError as exc:
         error = (exc.response.get("Error") or {})
@@ -299,11 +350,20 @@ def write_file(
             "message": message,
         }
 
+    verified, verify_error = _verify_s3_object(bucket=bucket, key=key_value, expected_bytes=len(payload))
+    if not verified:
+        return {
+            "bucket": bucket,
+            "key": key_value,
+            "error": "UploadVerificationFailed",
+            "message": verify_error or "Unable to verify uploaded object",
+        }
+
     local_written = None
-    if local_path:
-        output = Path(local_path)
+    if local_path_value:
+        output = Path(local_path_value)
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(content, encoding=encoding)
+        output.write_text(content_value, encoding=encoding_value)
         local_written = str(output.resolve())
 
     return {
@@ -326,6 +386,42 @@ class WriteFileInput(BaseModel):
     content_type: str = Field(default="text/plain", description="S3 content type")
     local_path: str | None = Field(default=None, description="Optional local backup file path")
     encoding: str = Field(default="utf-8", description="Text encoding")
+
+    @model_validator(mode="before")
+    @classmethod
+    def _recover_from_nested_json_string(cls, data):
+        if not isinstance(data, dict):
+            return data
+
+        if data.get("s3_key"):
+            return data
+
+        raw_content = data.get("content")
+        if not isinstance(raw_content, str):
+            return data
+
+        stripped = raw_content.strip()
+        if not (stripped.startswith("{") and stripped.endswith("}")):
+            return data
+
+        try:
+            parsed = json.loads(stripped)
+        except json.JSONDecodeError:
+            return data
+
+        if not isinstance(parsed, dict):
+            return data
+
+        recovered = dict(data)
+        parsed_content = parsed.get("content")
+        if isinstance(parsed_content, str) and parsed_content.strip():
+            recovered["content"] = parsed_content
+
+        for key in ("content", "s3_key", "content_type", "local_path", "encoding"):
+            value = recovered.get(key)
+            if (value is None or value == "") and key in parsed:
+                recovered[key] = parsed[key]
+        return recovered
 
 
 def get_read_file_tool() -> StructuredTool:

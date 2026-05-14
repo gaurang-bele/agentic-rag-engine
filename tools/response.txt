@@ -1,186 +1,123 @@
 WEB SEARCH RESULTS
-Query: {"query": "latest BJP news today", "max_results": 5, "search_depth": "advanced"}
+Query: {"query": "latest news RAG systems retrieval augmented generation 2025", "max_results": 5}
 
 Answer:
-BJP's Suvendu Adhikari sworn in as West Bengal CM; party expands influence; recent election results show BJP's growing footprint.
+Retrieval-Augmented Generation (RAG) remains vital for AI, evolving into a "Context Engine" in 2025, supporting complex agentic workflows. RAG systems are increasingly used in fields like legal and medical research. Advanced RAG models are being developed to improve efficiency and performance.
 
 Results:
-1. Latest Bharatiya Janata Party News, Photos, Latest News Headlines about Bharatiya Janata Party-The Hindu
-   URL: https://www.thehindu.com/topic/bharatiya-janata-party/
-   Score: 0.9961755
-   Summary: ### Punjab CM's cousin Gian Singh Mann joins BJP
+1. From RAG to Context - A 2025 year-end review of RAG | RAGFlow
+   URL: https://ragflow.io/blog/rag-review-2025-from-rag-to-context
+   Score: 0.75723875
+   Summary: RAGFlow
+RAGFlow
 
-TMC MP Abhishek Banerjee alleges nearly 10 shops were allegedly set ablaze by BJP miscreants in Khejuri. File
+# From RAG to Context - A 2025 year-end review of RAG
 
-### Trinamool alleges continued post-poll violence in West Bengal
+As 2025 draws to a close, the field of Retrieval-Augmented Generation (RAG) has undergone profound reflection, vigorous debate, and marked evolution. Far from fading into obsolescence as some bold predictions foresaw—amid lingering scepticism over its supposedly transient role—RAG has solidified its indispensability as a cornerstone of data infrastructure in the demanding arena of enterprise AI adoption. [...] A clear trend is that many enterprises have already taken the lead in building capabilities centered around an "AI Middle Platform" or an "Intelligent Data Foundation," whose core is precisely an unstructured data processing and provisioning platform built upon RAG engines. In contrast, the concrete development and deployment of upper-layer Agents can proceed on this stable foundation with greater flexibility and a more incremental pace.
 
-Uttar Pradesh Governor Anandiben Patel, right, and State Chief Minister Yogi Adityanath perform rituals at the Kashi Vishwanath Temple, in Varanasi, Uttar Pradesh. Photo: @CMOfficeUP/X via PTI
+To summarize the evolution trajectory and future outlook of RAG technology from 2025 to 2026 in one sentence: RAG is undergoing its own profound metamorphosis, evolving from the specific pattern of "Retrieval-Augmented Generation" into a "Context Engine" with "intelligent retrieval" as its core capability. [...] Thus, in the AI Agent era, RAG technology will undeniably evolve. It is no longer just a step in "Retrieval-Augmented Generation." With "retrieval" as its core capability, expanding its data scope, it evolves into a Context Engine supporting all context assembly needs, becoming the unified Context Layer and data foundation serving LLM applications.
 
-### Those who tried to erase Sanatan have turned to dust: Uttar Pradesh CM Yogi Adityanath
+### How is retrieval for Agents different from the search era?
 
-File photo of Kerala BJP chief Rajeev Chandrasekhar
+Understanding this evolution requires contrasting the fundamental differences between retrieval paradigms in the traditional search era and the Agent era.
 
-### BJP wades into power struggle in Congress for Kerala’s Chief Minister post
+2. What is Retrieval Augmented Generation(RAG) in 2025?
+   URL: https://www.glean.com/blog/rag-retrieval-augmented-generation
+   Score: 0.72489023
+   Summary: ### Research trends
 
-West Bengal Chief Minister Suvendu Adhikari accorded Guard of Honour at Nabanna after assuming office, in Howrah on May 11, 2026. [...] ### Bengal CM Adhikari retains Bhabanipur seat, says wont let people of Nandigram feel his absence
+Researchers are focusing on improving the interface between retrieval and generation components in RAG models. This involves enhancing the models' capacity to selectively source and integrate relevant information from extensive databases. Investigations into more sophisticated retrieval mechanisms, such as bi-directional retrieval and the use of reinforcement learning to optimize query strategies, are underway.
 
-#### More stories from this Topic
+### Technological advancements [...] ### Technological advancements
 
-### U.P. BJP announces State-wide protest over Samajwadi Party MP’s comment against PM Modi
+Technological innovation is pivotal to elevating RAG models. The integration of transformer architectures has enabled these models to process information in parallel, significantly improving efficiency. Furthermore, advancements in pre-training techniques are anticipated, which could lead to a new wave of models that require less data to reach a high level of performance.
 
-BJP spokesperson Shehzad Poonawalla. File.
+### Industry adoption
 
-### BJP targets DMK leader Udhayanidhi Stalin over Sanatana Dharma remarks
+The industry is gradually embracing RAG models for tasks requiring a blend of retrieved information and generative capabilities. Fields such as legal research, medical diagnosis, and customer support are adopting RAG systems to improve decision-making and responsiveness.
 
-Garga Chatterjee. File photo: Special arrangement.
+## Additional resources [...] Glean Icon - Circular - White
 
-### ‘Bangla Pokkho’ founder Garga Chatterjee arrested for spreading EVM misinformation
+Retrieval Augmented Generation (RAG) comes as a breakthrough in natural language processing, blending the power of pre-trained language models with the vast knowledge stored in external textual databases. RAG is a framework designed to enhance language generation tasks by retrieving and conditioning on relevant documents, effectively augmenting the pool of information a model can draw from when generating text. This fusion of retrieval and generation facilitates more informed and contextually relevant outputs, particularly in question-answering and conversational AI systems.
 
-### ​Split wide open: On the AIADMK, Tamil Nadu politics
+3. RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation - Vatsal Shah
+   URL: https://vatsalshah.in/blog/the-best-2025-guide-to-rag
+   Score: 0.7216064
+   Summary: meta
 
-Congress MP and Lok Sabha LoP Rahul Gandhi. File
+# RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation
 
-### Bigger the theft, the bigger the reward, says Rahul Gandhi in a dig at bureaucratic appointments in Bengal [...] CM FLAGOFF SERVICE DELHI_11_05_25.jpg
+Discover latest RAG advancements including GraphRAG, Agentic RAG, and Multi-modal RAG. Learn production-ready strategies with significant accuracy improvements.
 
-### Disparity between Rahul Gandhi's income, foreign trips' expenses, claims BJP
+Summarize with:
 
-### Ten new MLCs sworn in at Maharashtra Vidhan Bhavan
+RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation
 
-### Column | Didi and the Romans: How Bengal’s ‘Asterix’ lost her biggest fight
+## Tags
 
-### West Bengal CM gives sanction to CBI to prosecute officials in several scams
+## Related Articles
 
-### About Topic
+## Try Our Free Tools
 
-Bharatiya Janata Party is a national political party. As of 2019, it is India's largest political party. BJP is a right-wing party. The National Democratic Alliance (NDA) is an alliance of center-right and right wing political parties in the country. It is led by the BJP.
+### AI Video Prompt Generator
 
-West Bengal Chief Minister Suvendu Adhikari takes the oath as a Member of the Legislative Assembly in Kolkata on May 13, 2026.
+Generate production-ready AI video prompts through conversation. Optimized for Sora 2 and Gemini video generation
 
-2. BJP - latest news, breaking stories and comment - The Independent
-   URL: https://www.independent.co.uk/topic/bjp
-   Score: 0.993255
-   Summary: <p>Dr Manmohan Singh’s track record in parliament shows his attendance to be 77 per cent, just 2 per cent less than the national average</p>
+### AI Video Analyzer
 
-## Why photos of a former PM attending parliament are dividing India
+Analyze video content frame-by-frame with AI. Content moderation, security monitoring, accessibility, and product demos
 
-APTOPIX India Manipur Ethnic Clashes
+### Text Language Detector & Translator
 
-## Opposition parties disrupt India's Parliament for 2nd day to protest ethnic violence in northeast
+Detect any language and translate text instantly with browser-based AI
 
-<p>(2L-R) Chief Minister of Tamil Nadu MK Stalin, Congress party leader Rahul Gandhi, Chief Minister of West Bengal Mamata Banerjee and senior Congress Party leader Sonia Gandhi attend opposition parties meeting in Bengaluru on 18 July 2023</p>
+### Services [...] ### Services
 
-## 26 opposition parties unite in ‘INDIA’ coalition to take on Modi [...] <p>File. Anti-smog cannon sprinkles water to curb air pollution in New Delhi, India, on 17 December 2024</p>
+### Industries
 
-## Delhi government withdraws plan to scrap old cars after backlash
+### Resources
 
-<p>Ali Khan Mahmudabad  </p>
+### Contact
 
-## Indian professor arrested over post on military operation in Pakistan
+© 2026 Vatsal Shah.
 
-<p>Rahul Gandhi with his mother Sonia Gandhi in New Delhi </p>
+### Have a project in mind?
 
-## Modi accused of ‘vendetta’ as opposition leaders named in graft case
+4. Beyond the hype: Why RAG remains essential for modern AI | Pinecone
+   URL: https://www.pinecone.io/learn/rag-2025/
+   Score: 0.680136
+   Summary: So while RAG is not dead, it has evolved, becoming more dynamic and complex. In this article, we'll explore why retrieval-augmented generation remains the backbone of practical AI implementations in 2025, from chat to search to agentic workflows.
 
-<p>A woman gestures as she participates in a protest at an army checkpoint  after a man from the Meitei community who worked at the camp allegedly remained missing, in Imphal</p>
+## Agents have complex requirements
 
-## Indian parliament ratifies Modi’s control over strife-torn Manipur
+Interest in AI agents has grown considerably, with Google searches for the term “AI agent” growing over 1000% between January 2024 and May 2025. Companies are launching AI agents to automate workflows and increase productivity, everything from making travel and restaurant reservations to upgrading software, executing marketing campaigns, and building legal strategies. [...] But still, people are claiming "RAG is dead." While 2023 was the year of RAG, it only focused on very simple implementations, often with a vector database and a one-shot prompt with context sent to a model to generate output. Through 2024 and now into 2025, we're seeing much more complex RAG systems being built. These systems involve query processing, multiple retrieval sources and steps, model processing, and evaluation of results. And with the growth of agentic systems, each have their own data requirements, similar to the microservices era of building complex web applications. [...] In the age of reasoning LLMs, retrieval-augmented generation can be seamlessly incorporated into agentic applications through creating a search tool connected to an LLM. An agent can reason over multiple generation steps, make a plan for accessing missing information stored in the database, and run multiple queries to inform decision making or generate reports. In this way, retrieval-augmented generation strengthens all future actions the agent takes toward an outcome.
 
-<p>BJP members congratulate Rekha Gupta after the party picked her as the new chief minister of Delhi</p> [...] <p>A policeman fires tear gas to the protesters as they demand restoration of peace in India’s northeastern state of Manipur after ethnic violence, in Imphal on 21 September 2023</p>
+### Data often needs to be isolated
 
-## Manipur protests flare up into fresh violence over deaths of a couple
+5. Evaluating Retrieval-Augmented Generation Systems on Unanswerable, Uncheatable, Realistic, Multi-hop Queries
+   URL: https://arxiv.org/html/2510.11956v1
+   Score: 0.6466616
+   Summary: ## 5 Results and Analysis
 
-<p>This year’s G20 logo is an image of a globe inside a lotus, using the colours of the Indian flag</p>
-
-## Now India calls Modi ‘prime minister of Bharat’ amid name change row
-
-<p>Commuters make their way past a billboard installed along a street ahead of the two-day G20 summit in New Delhi </p>
-
-## Is India about to change its name?
-
-<p>Representational image of police from the western Indian state of Rajasthan  </p>
-
-## BJP politician among six charged with gang-rape in India
-
-3. BJP footprint expands across India after five assembly elections — full list of states with ‘double-engine’ government | Mint
-   URL: https://www.livemint.com/news/india/bjp-footprint-expands-across-india-post-5-assembly-elections-full-list-of-states-with-double-engine-govt-at-the-helm-11777948167081.html
-   Score: 0.9826909
-   Summary: The Bharatiya Janata Party (BJP) and its alliance partners have emerged victorious in three of the five assembly elections, with results announced on 1 May. The latest victory signals the public's inclination towards the pitch for a “double engine” government. The latest trend indicates a significant shift in voter behaviour towards a state government aligned with the Centre.
-
-## West Bengal poll results [...] ## Assam poll results
-
-BJP-led National Democratic Alliance (NDA) scripted history on Monday by registering a record victory in the Assam Assembly elections. NDA managed to retain power for a third straight term, bagging 102 seats out of 126. The BJP alone crossed the majority mark of 64 by raking in 82 seats — 18 more than the required seats to form the government.
-
-## Puducherry poll results [...] mint
-mint
-
-# BJP footprint expands across India after five assembly elections — full list of states with ‘double-engine’ government
-
-## Major opposition parties faced defeats in recent elections, with BJP expanding its footprint in 21 states. Notable losses include West Bengal's TMC. In Assam, BJP retained power with 82 seats, while in Puducherry, NDA secured a majority with 18 seats.
-
-BJP's victories in Assam, West Bengal, and Puducherry reflect a changing political landscape and expanding footprint.
-
-4. Bharatiya Janata Party (BJP) | History, Ideology, Election Performance, & Beliefs | Britannica
-   URL: https://www.britannica.com/topic/Bharatiya-Janata-Party
-   Score: 0.9658996
-   Summary: The BJP aimed to secure 370 seats in the 2024 Lok Sabha elections even though it needed just over 272 seats to win the elections. In a surprising turn of events, however, it faced stiff competition from the opposing INDIA alliance and failed to secure a majority on its own even though its alliance, the NDA, won enough seats to form the government at the center. [...] make farmers vulnerable to exploitation, but the reforms were nevertheless codified into law without input from those concerned. Protests against the measures escalated in January 2021 (including clashes with police and the storming of the Red Fort on Republic Day), and the government took extraordinary measures to stifle them, implementing Internet blackouts and punishing organizers, participants, and journalists. Nevertheless, opposition to the reforms was sustained into November, and the BJP, wary of losing support in upcoming state elections, announced that they would be repealed. [...] As both unemployment and the cost of living continued to rise and Modi’s grandiose promises on economic growth remained unfulfilled, the BJP began suffering local election losses. In 2018 the party lost all five state elections held in November and December, including those in its strongholds of Madhya Pradesh, Rajasthan, and Chhattisgarh. On the national level, however, the party was able to pull off a landslide victory in April–May 2019 and even expanded its representation in the Lok Sabha. This was in part due to the support it gained after the government’s handling of a security crisis in Jammu and Kashmir in February 2019. Moreover, Congress, the BJP’s most viable competitor, failed to portray itself as a worthwhile alternative to the BJP-led government. Later that year, though, the
-
-5. BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM - The Economic Times Video | ET Now
-   URL: https://m.economictimes.com/news/india/bjp-creates-history-in-west-bengal-suvendu-adhikari-sworn-in-as-new-cm/videoshow/130972248.cms
-   Score: 0.692642
-   Summary: logo
-BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM
-
-# BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM
-
-Suvendu Adhikari has taken oath as the Chief Minister of West Bengal, marking a major political development in the state as the BJP assumes power. The swearing-in ceremony was held amid strong political and cultural presence at Brigade Parade Ground in Kolkata. The event signals a significant shift in the state’s political landscape, with the BJP forming the government after a closely watched electoral outcome.
-
-## Other India videos
-
-Image for From Iranian FM to Russia’s Lavrov; Global leaders reach in India for BRICS Foreign Ministers’ Meet [...] From Iranian FM to Russia’s Lavrov; Global leaders reach in India for BRICS Foreign Ministers’ Meet
-
-Image for  Iran’s Foreign Minister Araghchi arrives in Delhi to attend BRICS FMs meeting
-
-Iran’s Foreign Minister Araghchi arrives in Delhi to attend BRICS FMs meeting
-
-Image for S Jaishankar welcomes Sergey Lavrov for BRICS meet, reviews India-Russia ties
-
-S Jaishankar welcomes Sergey Lavrov for BRICS meet, reviews India-Russia ties
-
-Image for PM Modi’s UAE stopover may bolster India’s energy security amid fuel fears: Explained
-
-PM Modi’s UAE stopover may bolster India’s energy security amid fuel fears: Explained
-
-Image for Bengal CM Suvendu Adhikari takes oath as MLA from Bhabanipur, vacates Nandigram seat [...] Bengal CM Suvendu Adhikari takes oath as MLA from Bhabanipur, vacates Nandigram seat
-
-Our app has got more   
-for you!
-
-Browse Quick Reads
-
-Access ET Print Edition
-
-Use Night Mode
-
-INSTALL ET APP
-
-app download banner
-
-## Popular Categories
-
-## Hot on Web
-
-## In Case you missed it
-
-## Top Searched Companies
-
-## Trending Now
-
-## More from our network
-
-## Latest News
-
-### download et app
-
-### follow us on
-
-#### become a member
+| Dataset | Embedding | Retrieval | Reranker | Rewriting | Accep. \uparrow\uparrow | Unans. \uparrow\uparrow | Clar. \uparrow\uparrow | Acc. \uparrow\uparrow |
+ ---  ---  ---  --- 
+| UAEval4RAG | Cohere | Vector | None | None | 0.43 | 0.37 | 0.03 | 0.34 |
+|  | Cohere | Vector | Cohere | HyDE | 0.50 | 0.94 | 0.05 | 0.01 |
+|  | BGE | Vector | Cohere | None | 0.50 | 0.94 | 0.05 | 0.01 |
+|  | OpenAI | Vector | Cohere | HyDE | 0.42 | 0.45 | 0.05 | 0.28 |
+| CRUMQs | Cohere | Vector | None | None | 0.34† | 0.48† | 0.06† | 0.18† |
+|  | Cohere | Vector | Cohere | HyDE | 0.29† | 0.79† | 0.21† | 0.00† |
+|  | BGE | Vector | Cohere | None | 0.29† | 0.80† | 0.20† | 0.00† |
+|  | OpenAI | Vector | Cohere | HyDE | 0.23† | 0.66† | 0.05† | 0.06† | [...] Datasets.
+Using our pipeline, we first generate CRUMQs over NeuCLIR  and TREC RAG 2025 ,
+two popular RAG datasets which each consist of a large document collection with associated user requests. We focus on English texts, set Ne=200N\_{e}=200 and Nc=50N\_{c}=50, and use Llama3.3-70B-Instruct  as the generation and verification model to balance costs and quality.555As we show in §5, creating effective CRUMQs does depend on proprietary models. This leads to a total of 3,048 CRUMQs. We next use UAEval4RAG to generate baseline
+out-of-database RAG
+queries over NeuCLIR and TREC RAG 2025,
+leading to 7,559 out-of-database queries. Finally, we utilize the MultiHop-RAG dataset as-is, which consists of 2,556 multi-hop RAG queries and their associated gold contexts. [...] | Dataset | LLM | Embedding | Retrieval | Accep. \uparrow\uparrow | Unans. \uparrow\uparrow | Clar. \uparrow\uparrow | Acc. \uparrow\uparrow |
+ ---  ---  ---  --- |
+| UAEval4RAG | Gemini-2.5-Pro | OpenAI | Ensemble | 0.48 | 0.51 | 0.00 | 0.39 |
+|  | GPT-5 | OpenAI | Ensemble | 0.28 | 0.31 | 0.07 | 0.33 |
+|  | GPT-4o | OpenAI | Ensemble | 0.67 | 0.01 | 0.43 | 0.26 |
+| CRUMQs | Gemini-2.5-Pro | OpenAI | Ensemble | 0.23† | 0.23† | 0.03† | 0.19† |
+|  | GPT-5 | OpenAI | Ensemble | 0.28† | 0.03† | 0.35† | 0.18† |
+|  | GPT-4o | OpenAI | Ensemble | 0.24† | 0.28† | 0.01† | 0.12† |
