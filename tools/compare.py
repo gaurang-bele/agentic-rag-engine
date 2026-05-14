@@ -78,18 +78,43 @@ def _extract_json_object(raw_text: str) -> dict:
     return parsed
 
 
-def _prepare_document_for_comparison(doc_key: str, doc_source: str) -> tuple[str, str]:
+def _prepare_document_for_comparison(doc_key: str, doc_source: str) -> tuple[str, str] | tuple[None, dict]:
     read_result = read_file(path_or_key=doc_key, source=doc_source)
+    if read_result.get("error"):
+        return None, {
+            "source": _resolve_source_label(read_result=read_result, fallback=doc_key),
+            "error": read_result.get("error"),
+            "message": read_result.get("message"),
+            "hint": read_result.get("hint"),
+            "nearby_keys": read_result.get("nearby_keys", []),
+        }
+
     content = read_result.get("content")
     if not isinstance(content, str) or not content.strip():
-        raise ValueError(f"Document is empty or invalid: {doc_key}")
+        return None, {
+            "source": _resolve_source_label(read_result=read_result, fallback=doc_key),
+            "error": "EmptyContent",
+            "message": f"Document is empty or invalid: {doc_key}",
+        }
 
     source_label = _resolve_source_label(read_result=read_result, fallback=doc_key)
     if _count_words(content) > _get_compare_summary_threshold():
         summarized = summarize_document(path_or_key=doc_key, source=doc_source)
+        if summarized.get("error"):
+            return None, {
+                "source": source_label,
+                "error": summarized.get("error"),
+                "message": summarized.get("message"),
+                "hint": summarized.get("hint"),
+            }
+
         summary_text = summarized.get("summary", "")
         if not isinstance(summary_text, str) or not summary_text.strip():
-            raise ValueError(f"Summarization failed for document: {doc_key}")
+            return None, {
+                "source": source_label,
+                "error": "SummarizationFailed",
+                "message": f"Summarization failed for document: {doc_key}",
+            }
         return source_label, summary_text
 
     return source_label, content
@@ -123,8 +148,16 @@ def compare_documents(
     if normalized_focus not in {"differences", "similarities", "both"}:
         raise ValueError("focus must be one of: differences, similarities, both")
 
-    doc1_label, doc1_text = _prepare_document_for_comparison(doc1_key, doc1_source)
-    doc2_label, doc2_text = _prepare_document_for_comparison(doc2_key, doc2_source)
+    doc1_label, doc1_payload = _prepare_document_for_comparison(doc1_key, doc1_source)
+    if doc1_label is None:
+        return {"error": "ReadFailed", "doc": "doc1", **doc1_payload}
+
+    doc2_label, doc2_payload = _prepare_document_for_comparison(doc2_key, doc2_source)
+    if doc2_label is None:
+        return {"error": "ReadFailed", "doc": "doc2", **doc2_payload}
+
+    doc1_text = doc1_payload
+    doc2_text = doc2_payload
 
     llm = get_llm()
     response = llm.invoke(_build_compare_prompt(doc1_text=doc1_text, doc2_text=doc2_text, focus=normalized_focus))

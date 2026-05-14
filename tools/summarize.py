@@ -137,9 +137,21 @@ def summarize_document(
         raise ValueError("max_words must be greater than zero")
 
     read_result = read_file(path_or_key=path_or_key, source=source)
+    if read_result.get("error"):
+        return {
+            "source": _resolve_source_label(read_result=read_result, fallback=path_or_key),
+            "error": read_result.get("error"),
+            "message": read_result.get("message"),
+            "hint": read_result.get("hint"),
+        }
+
     content = read_result.get("content")
     if not isinstance(content, str) or not content.strip():
-        raise ValueError("summarize_document requires non-empty text content")
+        return {
+            "source": _resolve_source_label(read_result=read_result, fallback=path_or_key),
+            "error": "EmptyContent",
+            "message": "summarize_document requires non-empty text content",
+        }
 
     word_count_original = _count_words(content)
     if word_count_original < _get_map_reduce_threshold():

@@ -1,11 +1,14 @@
 import os
+import tempfile
 from pathlib import Path
 from urllib.parse import urlparse
 
 import boto3
 from botocore.config import Config
+from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 from langchain_core.tools import StructuredTool
+from llama_parse import LlamaParse
 from pydantic import BaseModel, Field
 
 load_dotenv()
@@ -31,6 +34,31 @@ def _get_int_env(name: str, default: int) -> int:
     if value <= 0:
         raise ValueError(f"{name} must be greater than zero")
     return value
+
+
+def _get_llamaparse_api_key() -> str:
+    api_key = os.getenv("LLAMA_CLOUD_API_KEY") or os.getenv("LLAMAPARSE_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "Missing LlamaParse API key. Set LLAMA_CLOUD_API_KEY (or LLAMAPARSE_API_KEY) in .env."
+        )
+    return api_key
+
+
+def _parse_pdf_with_llamaparse(pdf_path: str) -> str:
+    parser = LlamaParse(
+        api_key=_get_llamaparse_api_key(),
+        result_type=os.getenv("LLAMAPARSE_RESULT_TYPE", "markdown"),
+    )
+    parsed_docs = parser.load_data(pdf_path)
+    texts: list[str] = []
+    for parsed_doc in parsed_docs:
+        text = (getattr(parsed_doc, "text", "") or "").strip()
+        if text:
+            texts.append(text)
+    if not texts:
+        raise ValueError("LlamaParse did not return any extractable text for this PDF.")
+    return "\n\n---\n\n".join(texts)
 
 
 def _has_s3_credentials() -> bool:
@@ -79,6 +107,24 @@ def _parse_s3_uri(path_or_key: str) -> tuple[str | None, str]:
     return None, value
 
 
+def _list_s3_keys(bucket: str, prefix: str, max_keys: int = 25) -> list[str]:
+    prefix_value = prefix.strip().lstrip("/")
+    if not prefix_value:
+        return []
+
+    try:
+        response = get_s3_client().list_objects_v2(Bucket=bucket, Prefix=prefix_value, MaxKeys=max_keys)
+        contents = response.get("Contents") or []
+        keys: list[str] = []
+        for item in contents:
+            key = item.get("Key")
+            if isinstance(key, str) and key:
+                keys.append(key)
+        return keys
+    except Exception:
+        return []
+
+
 def read_file(path_or_key: str, source: str = "auto", encoding: str = "utf-8") -> dict:
     mode = source.strip().lower()
     if mode not in {"auto", "local", "s3"}:
@@ -89,15 +135,45 @@ def read_file(path_or_key: str, source: str = "auto", encoding: str = "utf-8") -
         raise ValueError("path_or_key is required")
 
     local_path = Path(normalized_input)
+    is_local_pdf = local_path.suffix.lower() == ".pdf"
     if mode in {"auto", "local"} and local_path.exists() and local_path.is_dir():
         raise IsADirectoryError(f"Expected a file but found directory: {local_path}")
 
     if mode in {"auto", "local"} and local_path.exists() and local_path.is_file():
-        content = local_path.read_text(encoding=encoding)
+        if is_local_pdf:
+            try:
+                content = _parse_pdf_with_llamaparse(str(local_path))
+                return {
+                    "source": "local",
+                    "path": str(local_path.resolve()),
+                    "content": content,
+                    "parsed_as": "pdf",
+                }
+            except Exception as exc:
+                return {
+                    "source": "local",
+                    "path": str(local_path.resolve()),
+                    "error": "PdfParseError",
+                    "message": str(exc),
+                }
+        try:
+            content = local_path.read_text(encoding=encoding)
+        except UnicodeDecodeError as exc:
+            return {
+                "source": "local",
+                "path": str(local_path.resolve()),
+                "error": "DecodeError",
+                "message": str(exc),
+                "hint": (
+                    "The file is not valid UTF-8. Try specifying a different encoding "
+                    "(e.g., latin-1, cp1252, utf-16) or convert the file to UTF-8."
+                ),
+            }
         return {
             "source": "local",
             "path": str(local_path.resolve()),
             "content": content,
+            "parsed_as": "text",
         }
 
     if mode == "local":
@@ -110,14 +186,83 @@ def read_file(path_or_key: str, source: str = "auto", encoding: str = "utf-8") -
 
     bucket_from_uri, key = _parse_s3_uri(normalized_input)
     bucket = bucket_from_uri or get_s3_bucket_name()
-    response = get_s3_client().get_object(Bucket=bucket, Key=key)
-    content = response["Body"].read().decode(encoding)
-    return {
-        "source": "s3",
-        "bucket": bucket,
-        "key": key,
-        "content": content,
-    }
+    key = key.lstrip("/")
+    is_s3_pdf = key.lower().endswith(".pdf")
+
+    try:
+        response = get_s3_client().get_object(Bucket=bucket, Key=key)
+        raw_bytes = response["Body"].read()
+        if is_s3_pdf:
+            temp_path = None
+            try:
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+                    temp_file.write(raw_bytes)
+                    temp_path = temp_file.name
+                content = _parse_pdf_with_llamaparse(temp_path)
+                return {
+                    "source": "s3",
+                    "bucket": bucket,
+                    "key": key,
+                    "content": content,
+                    "parsed_as": "pdf",
+                }
+            except Exception as exc:
+                return {
+                    "source": "s3",
+                    "bucket": bucket,
+                    "key": key,
+                    "error": "PdfParseError",
+                    "message": str(exc),
+                }
+            finally:
+                if temp_path:
+                    Path(temp_path).unlink(missing_ok=True)
+        try:
+            content = raw_bytes.decode(encoding)
+        except UnicodeDecodeError as exc:
+            return {
+                "source": "s3",
+                "bucket": bucket,
+                "key": key,
+                "error": "DecodeError",
+                "message": str(exc),
+                "hint": (
+                    "The S3 object is not valid UTF-8. Try specifying a different encoding "
+                    "(e.g., latin-1, cp1252, utf-16) or upload a UTF-8 encoded text file."
+                ),
+            }
+        return {
+            "source": "s3",
+            "bucket": bucket,
+            "key": key,
+            "content": content,
+            "parsed_as": "text",
+        }
+    except ClientError as exc:
+        error = (exc.response.get("Error") or {})
+        code = str(error.get("Code") or "ClientError")
+        message = str(error.get("Message") or str(exc))
+
+        prefix = ""
+        if "/" in key:
+            prefix = key.rsplit("/", 1)[0] + "/"
+
+        suggestions = []
+        if code in {"NoSuchKey", "404", "NotFound"} and prefix:
+            suggestions = _list_s3_keys(bucket=bucket, prefix=prefix)
+
+        return {
+            "source": "s3",
+            "bucket": bucket,
+            "key": key,
+            "error": code,
+            "message": message,
+            "hint": (
+                "S3 object not found. Keys are case-sensitive and must match exactly. "
+                "Verify the object exists at s3://{bucket}/{key} or upload it first."
+            ).format(bucket=bucket, key=key),
+            "nearby_keys": suggestions,
+        }
 
 
 def write_file(
@@ -127,7 +272,7 @@ def write_file(
     local_path: str | None = None,
     encoding: str = "utf-8",
 ) -> dict:
-    key_value = s3_key.strip()
+    key_value = s3_key.strip().lstrip("/")
     if not key_value:
         raise ValueError("s3_key is required")
     if content == "":
@@ -135,12 +280,24 @@ def write_file(
 
     payload = content.encode(encoding)
     bucket = get_s3_bucket_name()
-    get_s3_client().put_object(
-        Bucket=bucket,
-        Key=key_value,
-        Body=payload,
-        ContentType=content_type,
-    )
+
+    try:
+        get_s3_client().put_object(
+            Bucket=bucket,
+            Key=key_value,
+            Body=payload,
+            ContentType=content_type,
+        )
+    except ClientError as exc:
+        error = (exc.response.get("Error") or {})
+        code = str(error.get("Code") or "ClientError")
+        message = str(error.get("Message") or str(exc))
+        return {
+            "bucket": bucket,
+            "key": key_value,
+            "error": code,
+            "message": message,
+        }
 
     local_written = None
     if local_path:

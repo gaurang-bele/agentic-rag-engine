@@ -6,6 +6,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, Field
 
+from agent import run_agent
 from ingest import ingest_pdf
 from rag_chain import answer
 
@@ -33,6 +34,9 @@ class QueryRequest(BaseModel):
             }
         }
     }
+
+class AgentRequest(BaseModel):
+    input: str = Field(..., description="Natural language instruction for the agent")
 
 def _normalize_optional_string(value: str | None) -> str | None:
     if value is None:
@@ -120,6 +124,17 @@ async def query_document(request: QueryRequest):
         raise
     except Exception as exc:
         logger.exception("Query failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+@app.post("/agent")
+async def run_agent_endpoint(request: AgentRequest):
+    try:
+        result = run_agent(request.input)
+        return result
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("Agent run failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 @app.get("/", include_in_schema=False)

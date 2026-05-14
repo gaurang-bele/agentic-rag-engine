@@ -1,303 +1,186 @@
 WEB SEARCH RESULTS
-Query: latest news on AI
+Query: {"query": "latest BJP news today", "max_results": 5, "search_depth": "advanced"}
 
 Answer:
-In 2026, AI advancements include Google's Remy AI agent for Gemini and NVIDIA's Vera Rubin platform. AI is also aiding the UK's NHS and helping Thailand with the Sora app. For the latest details, visit the provided sources.
+BJP's Suvendu Adhikari sworn in as West Bengal CM; party expands influence; recent election results show BJP's growing footprint.
 
 Results:
-1. AI News | Latest News | Insights Powering AI-Driven Business Growth
-   URL: https://www.artificialintelligence-news.com/
-   Score: 0.885404
-   Summary: ### NVIDIA and Google infrastructure cuts AI inference costs
+1. Latest Bharatiya Janata Party News, Photos, Latest News Headlines about Bharatiya Janata Party-The Hindu
+   URL: https://www.thehindu.com/topic/bharatiya-janata-party/
+   Score: 0.9961755
+   Summary: ### Punjab CM's cousin Gian Singh Mann joins BJP
 
-## Latest
+TMC MP Abhishek Banerjee alleges nearly 10 shops were allegedly set ablaze by BJP miscreants in Khejuri. File
 
-Government & Public Sector AI
+### Trinamool alleges continued post-poll violence in West Bengal
 
-May 6, 2026
+Uttar Pradesh Governor Anandiben Patel, right, and State Chief Minister Yogi Adityanath perform rituals at the Kashi Vishwanath Temple, in Varanasi, Uttar Pradesh. Photo: @CMOfficeUP/X via PTI
 
-# US government increases AI suppliers and rethinks Anthropic’s role
+### Those who tried to erase Sanatan have turned to dust: Uttar Pradesh CM Yogi Adityanath
 
-Google tests Remy AI agent for Gemini as focus turns to user control
+File photo of Kerala BJP chief Rajeev Chandrasekhar
 
-AI in Action
+### BJP wades into power struggle in Congress for Kerala’s Chief Minister post
 
-May 6, 2026
+West Bengal Chief Minister Suvendu Adhikari accorded Guard of Honour at Nabanna after assuming office, in Howrah on May 11, 2026. [...] ### Bengal CM Adhikari retains Bhabanipur seat, says wont let people of Nandigram feel his absence
 
-# Google tests Remy AI agent for Gemini as focus turns to user control
+#### More stories from this Topic
 
-Physical AI raises new governance questions for autonomous systems
+### U.P. BJP announces State-wide protest over Samajwadi Party MP’s comment against PM Modi
 
-Physical AI
+BJP spokesperson Shehzad Poonawalla. File.
 
-May 4, 2026
+### BJP targets DMK leader Udhayanidhi Stalin over Sanatana Dharma remarks
 
-# Physical AI raises governance questions for autonomous systems
+Garga Chatterjee. File photo: Special arrangement.
 
-Artificial Intelligence
+### ‘Bangla Pokkho’ founder Garga Chatterjee arrested for spreading EVM misinformation
 
-May 4, 2026
+### ​Split wide open: On the AIADMK, Tamil Nadu politics
 
-# Google made agentic AI governance a product. Enterprises still have to catch up.
+Congress MP and Lok Sabha LoP Rahul Gandhi. File
 
-Logo on headquarters as, according to SAP, enterprise AI governance secures profit margins by replacing statistical guesses with deterministic control. [...] #### Applications
+### Bigger the theft, the bigger the reward, says Rahul Gandhi in a dig at bureaucratic appointments in Bengal [...] CM FLAGOFF SERVICE DELHI_11_05_25.jpg
 
-### Thailand becomes one of the first in Asia to get the Sora app
+### Disparity between Rahul Gandhi's income, foreign trips' expenses, claims BJP
 
-Entertainment & Media
+### Ten new MLCs sworn in at Maharashtra Vidhan Bhavan
 
-October 30, 2025
+### Column | Didi and the Romans: How Bengal’s ‘Asterix’ lost her biggest fight
 
-### Malaysia launches Ryt Bank, its first AI-powered bank
+### West Bengal CM gives sanction to CBI to prosecute officials in several scams
 
-Finance AI
+### About Topic
 
-August 26, 2025
+Bharatiya Janata Party is a national political party. As of 2019, it is India's largest political party. BJP is a right-wing party. The National Democratic Alliance (NDA) is an alliance of center-right and right wing political parties in the country. It is led by the BJP.
 
-### Google’s Veo 3 AI video creation tools are now widely available
+West Bengal Chief Minister Suvendu Adhikari takes the oath as a Member of the Legislative Assembly in Kolkata on May 13, 2026.
 
-AI in Action
+2. BJP - latest news, breaking stories and comment - The Independent
+   URL: https://www.independent.co.uk/topic/bjp
+   Score: 0.993255
+   Summary: <p>Dr Manmohan Singh’s track record in parliament shows his attendance to be 77 per cent, just 2 per cent less than the national average</p>
 
-July 29, 2025
+## Why photos of a former PM attending parliament are dividing India
 
-#### Computer Vision
+APTOPIX India Manipur Ethnic Clashes
 
-### US and Japan announce sweeping AI and tech collaboration
+## Opposition parties disrupt India's Parliament for 2nd day to protest ethnic violence in northeast
 
-Artificial Intelligence
+<p>(2L-R) Chief Minister of Tamil Nadu MK Stalin, Congress party leader Rahul Gandhi, Chief Minister of West Bengal Mamata Banerjee and senior Congress Party leader Sonia Gandhi attend opposition parties meeting in Bengaluru on 18 July 2023</p>
 
-April 11, 2024
+## 26 opposition parties unite in ‘INDIA’ coalition to take on Modi [...] <p>File. Anti-smog cannon sprinkles water to curb air pollution in New Delhi, India, on 17 December 2024</p>
 
-### UK and Canada sign AI compute agreement
+## Delhi government withdraws plan to scrap old cars after backlash
 
-Artificial Intelligence
+<p>Ali Khan Mahmudabad  </p>
 
-January 31, 2024
+## Indian professor arrested over post on military operation in Pakistan
 
-### Quantum AI represents a ‘transformative advancement’
+<p>Rahul Gandhi with his mother Sonia Gandhi in New Delhi </p>
 
-AI Hardware & Chips
+## Modi accused of ‘vendetta’ as opposition leaders named in graft case
 
-November 14, 2023
+<p>A woman gestures as she participates in a protest at an army checkpoint  after a man from the Meitei community who worked at the camp allegedly remained missing, in Imphal</p>
 
-#### Machine Learning
+## Indian parliament ratifies Modi’s control over strife-torn Manipur
 
-### IDC: How EMEA CIOs can jumpstart AI rollouts
+<p>BJP members congratulate Rekha Gupta after the party picked her as the new chief minister of Delhi</p> [...] <p>A policeman fires tear gas to the protesters as they demand restoration of peace in India’s northeastern state of Manipur after ethnic violence, in Imphal on 21 September 2023</p>
 
-Governance, Regulation & Policy
+## Manipur protests flare up into fresh violence over deaths of a couple
 
-April 29, 2026 [...] AI News is part of the TechForge Publications series
+<p>This year’s G20 logo is an image of a globe inside a lotus, using the colours of the Indian flag</p>
 
-TechForge
+## Now India calls Modi ‘prime minister of Bharat’ amid name change row
 
-Service Industry AI
+<p>Commuters make their way past a billboard installed along a street ahead of the two-day G20 summit in New Delhi </p>
 
-# RingCentral adds Shopify, Calendly, and WhatsApp to AI Receptionist
+## Is India about to change its name?
 
-May 8, 2026
+<p>Representational image of police from the western Indian state of Rajasthan  </p>
 
-Healthcare & Wellness AI
+## BJP politician among six charged with gang-rape in India
 
-May 7, 2026
+3. BJP footprint expands across India after five assembly elections — full list of states with ‘double-engine’ government | Mint
+   URL: https://www.livemint.com/news/india/bjp-footprint-expands-across-india-post-5-assembly-elections-full-list-of-states-with-double-engine-govt-at-the-helm-11777948167081.html
+   Score: 0.9826909
+   Summary: The Bharatiya Janata Party (BJP) and its alliance partners have emerged victorious in three of the five assembly elections, with results announced on 1 May. The latest victory signals the public's inclination towards the pitch for a “double engine” government. The latest trend indicates a significant shift in voter behaviour towards a state government aligned with the Centre.
 
-# AI helping ease the UK’s NHS burden
+## West Bengal poll results [...] ## Assam poll results
 
-TechEx Events
+BJP-led National Democratic Alliance (NDA) scripted history on Monday by registering a record victory in the Assam Assembly elections. NDA managed to retain power for a third straight term, bagging 102 seats out of 126. The BJP alone crossed the majority mark of 64 by raking in 82 seats — 18 more than the required seats to form the government.
 
-May 6, 2026
+## Puducherry poll results [...] mint
+mint
 
-# HP and the art of AI and data for the enterprise
+# BJP footprint expands across India after five assembly elections — full list of states with ‘double-engine’ government
 
-Government & Public Sector AI
+## Major opposition parties faced defeats in recent elections, with BJP expanding its footprint in 21 states. Notable losses include West Bengal's TMC. In Assam, BJP retained power with 82 seats, while in Puducherry, NDA secured a majority with 18 seats.
 
-May 6, 2026
+BJP's victories in Assam, West Bengal, and Puducherry reflect a changing political landscape and expanding footprint.
 
-# US government increases AI suppliers and rethinks Anthropic’s role
+4. Bharatiya Janata Party (BJP) | History, Ideology, Election Performance, & Beliefs | Britannica
+   URL: https://www.britannica.com/topic/Bharatiya-Janata-Party
+   Score: 0.9658996
+   Summary: The BJP aimed to secure 370 seats in the 2024 Lok Sabha elections even though it needed just over 272 seats to win the elections. In a surprising turn of events, however, it faced stiff competition from the opposing INDIA alliance and failed to secure a majority on its own even though its alliance, the NDA, won enough seats to form the government at the center. [...] make farmers vulnerable to exploitation, but the reforms were nevertheless codified into law without input from those concerned. Protests against the measures escalated in January 2021 (including clashes with police and the storming of the Red Fort on Republic Day), and the government took extraordinary measures to stifle them, implementing Internet blackouts and punishing organizers, participants, and journalists. Nevertheless, opposition to the reforms was sustained into November, and the BJP, wary of losing support in upcoming state elections, announced that they would be repealed. [...] As both unemployment and the cost of living continued to rise and Modi’s grandiose promises on economic growth remained unfulfilled, the BJP began suffering local election losses. In 2018 the party lost all five state elections held in November and December, including those in its strongholds of Madhya Pradesh, Rajasthan, and Chhattisgarh. On the national level, however, the party was able to pull off a landslide victory in April–May 2019 and even expanded its representation in the Lok Sabha. This was in part due to the support it gained after the government’s handling of a security crisis in Jammu and Kashmir in February 2019. Moreover, Congress, the BJP’s most viable competitor, failed to portray itself as a worthwhile alternative to the BJP-led government. Later that year, though, the
 
-Google tests Remy AI agent for Gemini as focus turns to user control
+5. BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM - The Economic Times Video | ET Now
+   URL: https://m.economictimes.com/news/india/bjp-creates-history-in-west-bengal-suvendu-adhikari-sworn-in-as-new-cm/videoshow/130972248.cms
+   Score: 0.692642
+   Summary: logo
+BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM
 
-AI in Action
+# BJP creates history in West Bengal; Suvendu Adhikari sworn-in as new CM
 
-May 6, 2026
+Suvendu Adhikari has taken oath as the Chief Minister of West Bengal, marking a major political development in the state as the BJP assumes power. The swearing-in ceremony was held amid strong political and cultural presence at Brigade Parade Ground in Kolkata. The event signals a significant shift in the state’s political landscape, with the BJP forming the government after a closely watched electoral outcome.
 
-# Google tests Remy AI agent for Gemini as focus turns to user control
+## Other India videos
 
-AI Business Strategy, AI in Action, AI Market Trends, Artificial Intelligence, Featured News, Governance, Regulation & Policy, Inside AI
+Image for From Iranian FM to Russia’s Lavrov; Global leaders reach in India for BRICS Foreign Ministers’ Meet [...] From Iranian FM to Russia’s Lavrov; Global leaders reach in India for BRICS Foreign Ministers’ Meet
 
-2. Agentic AI News + AI Breakthroughs + AI Developments | 2026 | News
-   URL: https://www.crescendo.ai/news/latest-ai-news-and-updates
-   Score: 0.83452857
-   Summary: Date: January 5, 2026
+Image for  Iran’s Foreign Minister Araghchi arrives in Delhi to attend BRICS FMs meeting
 
-Summary: During its CES 2026 keynote, NVIDIA officially unveiled its latest flagship AI platform, codenamed "Vera Rubin." Following the Blackwell architecture, the Rubin platform introduces radical improvements in processing power and memory bandwidth, specifically engineered to handle the massive scaling requirements of trillion-parameter models. Named after the pioneering astronomer, the architecture features the new H300 GPUs and a dedicated AI foundry for custom silicon, signaling NVIDIA's intent to maintain its dominant lead in the global AI hardware race. The platform is expected to enter full production later this year to support the next wave of sovereign and enterprise AI infrastructure.
+Iran’s Foreign Minister Araghchi arrives in Delhi to attend BRICS FMs meeting
 
-Source: Yahoo Finance ↗ [...] Source: EY Newsroom
+Image for S Jaishankar welcomes Sergey Lavrov for BRICS meet, reviews India-Russia ties
 
-### Tufts Researchers Build AI System That Cuts Energy Use by 100x While Boosting Accuracy
+S Jaishankar welcomes Sergey Lavrov for BRICS meet, reviews India-Russia ties
 
-Date: April 5, 2026
+Image for PM Modi’s UAE stopover may bolster India’s energy security amid fuel fears: Explained
 
-Summary: Researchers at Tufts University developed a neuro-symbolic AI system that combines neural networks with human-like symbolic reasoning, slashing energy consumption by up to 100 times compared to conventional approaches while dramatically improving performance. In robotic task tests using the Tower of Hanoi puzzle, the hybrid system achieved a 95% success rate versus 34% for standard models and trained in just 34 minutes versus more than a day and a half for traditional systems. The research will be presented at the International Conference on Robotics and Automation in Vienna.
+PM Modi’s UAE stopover may bolster India’s energy security amid fuel fears: Explained
 
-Source: ScienceDaily [...] Date: January 5, 2026
+Image for Bengal CM Suvendu Adhikari takes oath as MLA from Bhabanipur, vacates Nandigram seat [...] Bengal CM Suvendu Adhikari takes oath as MLA from Bhabanipur, vacates Nandigram seat
 
-Summary: Alibaba Group Holding Ltd. has launched a new AI-driven service through its mapping unit, Amap, aimed at helping restaurants create immersive 3D digital showcases of their interiors. By utilizing Alibaba's "Tongyi Wanxiang" visual generative model, merchants can generate high-quality 3D tours simply by uploading standard photos or videos. This initiative is designed to significantly lower marketing costs for merchants and is a central part of Alibaba's strategy to reclaim market share from Meituan in China’s local services and food delivery sectors. The move aligns with CEO Eddie Wu’s broader "AI-first" mandate to integrate advanced technology across all business units to drive growth amid a fierce industry price war.
+Our app has got more   
+for you!
 
-Source: Bloomberg ↗
+Browse Quick Reads
 
-3. Artificial Intelligence News -- ScienceDaily
-   URL: https://www.sciencedaily.com/news/computers_math/artificial_intelligence/
-   Score: 0.81025416
-   Summary: ScienceDaily
+Access ET Print Edition
 
-# Artificial Intelligence News
+Use Night Mode
 
-## Top Headlines
+INSTALL ET APP
 
-## Latest Headlines
+app download banner
 
-## Earlier Headlines
+## Popular Categories
 
-### Thursday, January 29, 2026
+## Hot on Web
 
-### Wednesday, January 28, 2026
+## In Case you missed it
 
-### Sunday, January 25, 2026
+## Top Searched Companies
 
-### Friday, January 16, 2026
+## Trending Now
 
-### Tuesday, January 20, 2026
+## More from our network
 
-### Friday, January 9, 2026
+## Latest News
 
-### Wednesday, January 7, 2026
+### download et app
 
-### Sunday, December 21, 2025
+### follow us on
 
-### Monday, December 22, 2025
-
-### Wednesday, December 31, 2025
-
-### Tuesday, January 6, 2026
-
-### Friday, December 26, 2025
-
-### Wednesday, January 21, 2026
-
-### Tuesday, December 9, 2025
-
-### Monday, December 8, 2025
-
-### Sunday, January 4, 2026
-
-### Friday, November 28, 2025
-
-### Tuesday, January 13, 2026
-
-### Sunday, November 16, 2025
-
-### Sunday, February 1, 2026
-
-### Wednesday, November 5, 2025
-
-### Tuesday, October 28, 2025 [...] ### Tuesday, October 28, 2025
-
-### Wednesday, October 22, 2025
-
-### Monday, October 13, 2025
-
-### Thursday, October 9, 2025
-
-### Tuesday, October 14, 2025
-
-### Saturday, October 4, 2025
-
-### Sunday, September 28, 2025
-
-### Thursday, September 25, 2025
-
-### Wednesday, September 24, 2025
-
-### Sunday, September 21, 2025
-
-### Friday, November 14, 2025
-
-### Sunday, September 7, 2025
-
-### Friday, August 22, 2025
-
-### Wednesday, August 27, 2025
-
-### Wednesday, August 13, 2025
-
-### Saturday, November 1, 2025
-
-### Friday, July 25, 2025
-
-### Thursday, July 24, 2025
-
-### Tuesday, July 8, 2025
-
-### Wednesday, July 2, 2025
-
-### Sunday, August 24, 2025
-
-### Wednesday, June 25, 2025
-
-### Sunday, June 22, 2025
-
-### Thursday, June 26, 2025
-
-### Monday, June 30, 2025
-
-### Thursday, June 19, 2025 [...] ### Monday, June 30, 2025
-
-### Thursday, June 19, 2025
-
-### Sunday, June 22, 2025
-
-### Monday, June 16, 2025
-
-### Sunday, June 8, 2025
-
-### Saturday, August 16, 2025
-
-### Saturday, June 7, 2025
-
-### Tuesday, June 3, 2025
-
-### Monday, June 2, 2025
-
-### Friday, May 30, 2025
-
-### Wednesday, May 28, 2025
-
-### Tuesday, May 27, 2025
-
-### Thursday, May 22, 2025
-
-### Wednesday, May 21, 2025
-
-### Monday, May 19, 2025
-
-### Thursday, May 15, 2025
-
-### Wednesday, May 14, 2025
-
-### Tuesday, May 13, 2025
-
-### Monday, May 12, 2025
-
-### Thursday, May 8, 2025
-
-### Wednesday, May 7, 2025
-
-### Tuesday, May 6, 2025
-
-### Monday, May 5, 2025
-
-## Breaking
-
-## Trending Topics
-
-## Strange & Offbeat
+#### become a member

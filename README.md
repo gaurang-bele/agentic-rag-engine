@@ -11,6 +11,7 @@ A small RAG API built with FastAPI, Pinecone, LangChain, and OpenRouter.
 - Agentic web search tool via Tavily (`web_search`)
 - Agentic file tools via boto3 S3 client (`read_file`, `write_file`)
 - Agentic document tools: summarization and comparison (`summarize_document`, `compare_documents`)
+- AgentExecutor ReAct loop (`Reason -> Act -> Observe -> Repeat`) via `/agent`
 - Simple FastAPI endpoints for health, ingest, and query
 
 ## Tech Stack
@@ -71,6 +72,7 @@ SUMMARIZE_MAP_REDUCE_THRESHOLD=1000
 SUMMARIZE_CHUNK_SIZE=2000
 SUMMARIZE_CHUNK_OVERLAP=100
 COMPARE_SUMMARY_THRESHOLD=1000
+AGENT_MAX_ITERATIONS=8
 ```
 
 4. Start the server:
@@ -84,6 +86,7 @@ uvicorn main:app --reload
 - `GET /health`
 - `POST /ingest`
 - `POST /query`
+- `POST /agent`
 
 ## Usage
 
@@ -151,3 +154,20 @@ comparison = compare_documents(
     focus="both",
 )
 ```
+
+## Agent endpoint (ReAct with verbose tracing)
+
+`/agent` runs a LangChain `AgentExecutor` with `verbose=True` and tools:
+`web_search`, `read_file`, `write_file`, `summarize_document`, `compare_documents`, `answer_question`.
+
+Example payload:
+
+```json
+{
+  "input": "Read docs/design_v2.txt, summarize it, and compare with docs/design_v1.txt"
+}
+```
+
+Response includes:
+- `output` (final answer)
+- `intermediate_steps` (tool-by-tool reasoning trace for debugging)
