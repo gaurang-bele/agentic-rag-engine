@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic RAG Engine Control Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient glow overlays -->
+  <div class="glow-sphere glow-left"></div>
+  <div class="glow-sphere glow-right"></div>
+
+  <div class="app-wrapper">
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">✨</div>
+        <div>
+          <h1 class="brand-title">Agentic RAG Engine</h1>
+          <p class="brand-subtitle">Pinecone Vector DB • BGE Reranker • AWS S3 • DeepSeek V4 Pro</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-s3" title="AWS S3 Bucket Connected">☁️ S3: gaurang-rag-storage-2026</span>
+        <span class="badge badge-pinecone" title="Pinecone Namespace">⚡ Pinecone: llamaparse-v1</span>
+        <span class="badge badge-status">🟢 System Ready</span>
+      </div>
+    </header>
+
+    <!-- Main Navigation Bar -->
+    <nav class="main-tabs">
+      <button class="tab-item active" data-tab="tab-ingest">
+        <span class="tab-icon">📄</span> 1. Document Ingestion
+      </button>
+      <button class="tab-item" data-tab="tab-query">
+        <span class="tab-icon">🔍</span> 2. RAG Query & Search
+      </button>
+      <button class="tab-item" data-tab="tab-agent">
+        <span class="tab-icon">🤖</span> 3. Agentic Assistant
+      </button>
+    </nav>
+
+    <!-- TAB 1: DOCUMENT INGESTION -->
+    <section id="tab-ingest" class="tab-page active">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Upload & Ingest Knowledge PDF</h2>
+            <p class="panel-subtitle">Parse, chunk, embed, and store document vectors into Pinecone.</p>
+          </div>
+        </div>
+
+        <div class="dropzone" id="pdf-dropzone">
+          <div class="dropzone-inner">
+            <div class="dropzone-avatar">📥</div>
+            <h3 class="dropzone-heading">Drag & drop your PDF file here</h3>
+            <p class="dropzone-sub">or <span class="browse-link">browse files on your computer</span></p>
+            <input type="file" id="pdf-file-input" accept=".pdf" class="hidden">
+            <div id="file-info-badge" class="selected-file-badge hidden"></div>
+          </div>
+        </div>
+
+        <div class="options-grid mt-20">
+          <div class="form-field flex-2">
+            <label for="parser-type-select">Parsing Engine</label>
+            <select id="parser-type-select" class="form-select">
+              <option value="llamaparse" selected>🌟 LlamaParse (High Fidelity - Preserves Tables, Markdown & Layouts)</option>
+              <option value="pypdf">⚡ PyPDF (Fast Local Plain Text Stream)</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-ingest" class="action-btn primary-btn full-width mt-20" disabled>
+          <span>🚀 Start Document Ingestion</span>
+        </button>
+
+        <!-- Progress Box -->
+        <div id="ingest-progress-box" class="progress-card hidden mt-20">
+          <div class="progress-info">
+            <span id="progress-status-text" class="status-msg">Ingesting document...</span>
+            <span id="progress-percent-text" class="status-num">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: RAG QUERY & SEARCH -->
+    <section id="tab-query" class="tab-page">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Query Knowledge Base</h2>
+            <p class="panel-subtitle">Ask questions against indexed documents with BGE Cross-Encoder reranking.</p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="query-input">User Question</label>
+          <div class="input-action-group">
+            <input type="text" id="query-input" class="form-input" placeholder="e.g. What is the OSI model and what are its layers?" value="What is the OSI model?">
+            <button id="btn-query" class="action-btn primary-btn">Search & Answer</button>
+          </div>
+        </div>
+
+        <!-- Quick Question Suggestions -->
+        <div class="quick-chips mt-10">
+          <span class="chip-label">Quick Prompts:</span>
+          <button class="chip-btn" data-prompt="What is the OSI model and what are its seven layers?">OSI Model</button>
+          <button class="chip-btn" data-prompt="Explain the difference between circuit switching and packet switching.">Switching Types</button>
+          <button class="chip-btn" data-prompt="How does CRC error detection work in data link layer?">CRC Error Detection</button>
+        </div>
+
+        <div class="options-grid mt-20">
+          <div class="form-field flex-2">
+            <label for="query-source">Source Document Filter (Optional)</label>
+            <input type="text" id="query-source" class="form-input" placeholder="e.g. CN.pdf (leave empty to search all docs)">
+          </div>
+          <div class="form-field">
+            <label for="query-topk">Top K Chunks</label>
+            <input type="number" id="query-topk" class="form-input" value="5" min="1" max="20">
+          </div>
+          <div class="form-field toggle-field">
+            <label class="custom-switch">
+              <input type="checkbox" id="query-rerank" checked>
+              <span class="switch-slider"></span>
+              <span class="switch-label">BGE Reranking</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Answer Result Container -->
+      <div id="query-result-container" class="panel-card result-panel hidden">
+        <div class="result-header">
+          <h3 class="result-title">✨ Generated Answer</h3>
+          <button id="btn-copy-answer" class="icon-btn" title="Copy answer to clipboard">📋 Copy Answer</button>
+        </div>
+
+        <div id="query-answer-display" class="hero-answer-box"></div>
+
+        <div class="divider"></div>
+
+        <h4 class="section-subtitle">Retrieved Sources & Rerank Scores</h4>
+        <div id="query-sources-grid" class="sources-card-grid"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: AGENTIC ASSISTANT -->
+    <section id="tab-agent" class="tab-page">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Autonomous ReAct Agent Studio</h2>
+            <p class="panel-subtitle">The agent reasons step-by-step, searches the web, analyzes files, and uploads results to AWS S3 & local PC.</p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="agent-input">Agent Task Instruction</label>
+          <div class="input-action-group">
+            <input type="text" id="agent-input" class="form-input" placeholder="e.g. Search web for latest money making ideas without capital, summarize it, and save to a text file." value="">
+            <button id="btn-agent" class="action-btn primary-btn">Execute Agent</button>
+          </div>
+        </div>
+
+
+        <div class="options-grid mt-15">
+          <div class="form-field flex-2">
+            <label for="search-depth-select">Web Search Mode</label>
+            <select id="search-depth-select" class="form-select">
+              <option value="basic" selected>⚡ Fast Search (Basic Mode - Sub-second Snippets)</option>
+              <option value="advanced">🔬 Deep Research (Advanced Mode - Deep Web Crawling)</option>
+            </select>
+          </div>
+        </div>
+
+
+        <!-- Quick Agent Action Chips -->
+        <div class="quick-chips mt-10">
+          <span class="chip-label">Agent Presets:</span>
+          <button class="agent-chip-btn" data-agent-prompt="Search web for latest AI news, summarize key takeaways, and save to s3_key outputs/ai_summary.txt">Search Web & Save File</button>
+          <button class="agent-chip-btn" data-agent-prompt="Answer the question 'What is the OSI model?' using the answer_question tool.">Knowledge RAG Lookup</button>
+        </div>
+      </div>
+
+      <div id="agent-result-container" class="panel-card result-panel hidden">
+        <div class="result-header">
+          <h3 class="result-title">🤖 Agent Execution Output</h3>
+        </div>
+
+        <div id="agent-output-display" class="hero-answer-box"></div>
+
+        <div class="divider"></div>
+
+        <h4 class="section-subtitle">Agent Reasoning & Execution Steps</h4>
+        <div id="agent-steps-timeline" class="steps-container"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

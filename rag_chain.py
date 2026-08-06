@@ -22,22 +22,28 @@ def get_llm():
 def _build_prompt(question: str, source_documents: list) -> str:
     if not source_documents:
         return (
-            "You are a helpful assistant. No relevant context was retrieved from the knowledge base. "
-            "Tell the user you could not find enough relevant information and ask for a clearer question.\n\n"
+            "You are an expert technical assistant. No relevant context was retrieved from the knowledge base. "
+            "Explain clearly that you could not find sufficient information in the index and ask for a clearer question.\n\n"
             f"Question: {question}"
         )
 
     context = "\n\n---\n\n".join(
-        f"[Page {doc.metadata.get('page', '?')}]\n{doc.page_content}"
+        f"[Page {doc.metadata.get('page', '?')} | Source: {doc.metadata.get('source', 'Unknown')}]\n{doc.page_content}"
         for doc in source_documents
     )
     return (
-        "You are a helpful assistant. Use only the provided context to answer the question. "
-        "If the context is insufficient, explicitly say so.\n\n"
-        f"Context:\n{context}\n\n"
-        f"Question: {question}\n\n"
-        "Answer:"
+        "You are an expert technical AI assistant specializing in Retrieval-Augmented Generation (RAG).\n"
+        "Provide a comprehensive, detailed, and well-structured answer to the user's question using ONLY the provided context.\n"
+        "Rules:\n"
+        "- Explain concepts clearly and thoroughly with necessary technical context.\n"
+        "- If the context has details, synthesize them fully instead of giving a 1-sentence answer.\n"
+        "- Cite relevant page numbers when referencing specific facts.\n"
+        "- If the context is truly insufficient to answer the question, state that explicitly.\n\n"
+        f"Retrieved Context:\n{context}\n\n"
+        f"User Question: {question}\n\n"
+        "Detailed Answer:"
     )
+
 
 def _extract_text(response) -> str:
     content = response.content

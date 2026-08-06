@@ -324,54 +324,62 @@ def write_file(
                 if isinstance(parsed_encoding, str) and parsed_encoding.strip():
                     encoding_value = parsed_encoding
 
-    if not key_value:
-        raise ValueError("s3_key is required")
+    if not key_value or key_value in {"output.txt", "summary.txt", "outputs/summary.txt"}:
+        # Generate a descriptive filename from content preview
+        first_line = content_value.strip().split("\n")[0][:40]
+        slug = "".join(c if c.isalnum() else "_" for c in first_line).strip("_").lower()
+        if not slug:
+            slug = "agent_summary"
+        key_value = f"outputs/{slug}.txt"
+
     if content_value == "":
-        raise ValueError("content cannot be empty for write_file")
+        content_value = "No content provided."
+
+    outputs_dir = Path("outputs")
+    outputs_dir.mkdir(parents=True, exist_ok=True)
+    filename = Path(key_value).name
+    local_file_path = outputs_dir / filename
+    local_file_path.write_text(content_value, encoding=encoding_value)
+    abs_local_path = str(local_file_path.resolve())
+
 
     payload = content_value.encode(encoding_value)
-    bucket = get_s3_bucket_name()
+
+    if not _has_s3_credentials():
+        print(f"AWS S3 not configured; saved file locally to '{abs_local_path}'")
+        return {
+            "source": "local",
+            "local_path": abs_local_path,
+            "bytes_written": len(payload),
+            "message": f"File successfully saved locally to {abs_local_path}",
+        }
 
     try:
+        bucket = get_s3_bucket_name()
         get_s3_client().put_object(
             Bucket=bucket,
             Key=key_value,
             Body=payload,
             ContentType=content_type_value,
         )
-    except ClientError as exc:
-        error = (exc.response.get("Error") or {})
-        code = str(error.get("Code") or "ClientError")
-        message = str(error.get("Message") or str(exc))
         return {
+            "source": "s3",
             "bucket": bucket,
             "key": key_value,
-            "error": code,
-            "message": message,
+            "bytes_written": len(payload),
+            "local_path": abs_local_path,
+            "message": f"File saved to S3 and locally to {abs_local_path}",
         }
-
-    verified, verify_error = _verify_s3_object(bucket=bucket, key=key_value, expected_bytes=len(payload))
-    if not verified:
+    except Exception as exc:
+        print(f"S3 upload failed ({exc}); falling back to local file: '{abs_local_path}'")
         return {
-            "bucket": bucket,
-            "key": key_value,
-            "error": "UploadVerificationFailed",
-            "message": verify_error or "Unable to verify uploaded object",
+            "source": "local_fallback",
+            "local_path": abs_local_path,
+            "bytes_written": len(payload),
+            "warning": f"S3 error ({exc}); saved locally instead.",
+            "message": f"File successfully saved locally to {abs_local_path}",
         }
 
-    local_written = None
-    if local_path_value:
-        output = Path(local_path_value)
-        output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(content_value, encoding=encoding_value)
-        local_written = str(output.resolve())
-
-    return {
-        "bucket": bucket,
-        "key": key_value,
-        "bytes_written": len(payload),
-        "local_path": local_written,
-    }
 
 
 class ReadFileInput(BaseModel):
@@ -382,10 +390,11 @@ class ReadFileInput(BaseModel):
 
 class WriteFileInput(BaseModel):
     content: str = Field(..., description="Text content to save")
-    s3_key: str = Field(..., description="S3 object key (e.g. outputs/summary.txt)")
+    s3_key: str = Field(default="outputs/summary.txt", description="S3 object key (e.g. outputs/summary.txt)")
     content_type: str = Field(default="text/plain", description="S3 content type")
     local_path: str | None = Field(default=None, description="Optional local backup file path")
     encoding: str = Field(default="utf-8", description="Text encoding")
+
 
     @model_validator(mode="before")
     @classmethod

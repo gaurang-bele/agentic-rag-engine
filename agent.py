@@ -168,8 +168,8 @@ def get_agent_tools() -> list:
 
 def _get_agent_prompt() -> PromptTemplate:
     return PromptTemplate.from_template(
-        """You are an agentic RAG assistant.
-You can reason step by step, call tools, observe results, and continue until you can provide the best final answer.
+        """You are an expert autonomous RAG and Web Agent.
+You can reason step by step, call tools, observe results, and continue until you provide the final answer.
 
 You have access to the following tools:
 {tools}
@@ -180,20 +180,35 @@ Format A (tool use):
 Question: the user input question
 Thought: think about what to do next
 Action: the action to take, must be one of [{tool_names}]
-Action Input: the input to the action (use JSON for tool args when appropriate)
+Action Input: the input to the action (must be valid JSON or plain string on a single line)
 Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat many times)
+... (this Thought/Action/Action Input/Observation cycle can repeat)
 
 Format B (final answer):
 Question: the user input question
 Thought: I now know the final answer
 Final Answer: the final answer to the user
 
+EXAMPLES:
+
+Example 1:
+Question: Search web for AI news and save to a file
+Thought: I will first search the web for AI news.
+Action: web_search
+Action Input: {{"query": "latest AI news 2026"}}
+Observation: WEB SEARCH RESULTS...
+Thought: Now I will save this summary to a file.
+Action: write_file
+Action Input: {{"content": "Summary of AI news...", "s3_key": "outputs/ai_news.txt"}}
+Observation: File successfully saved locally to outputs/ai_news.txt
+Thought: I now know the final answer
+Final Answer: I have searched the web for AI news, summarized the findings, and saved the result to outputs/ai_news.txt.
+
 Rules:
-- ALWAYS put Action or Final Answer on its own line immediately after Thought.
-- NEVER output Action Input without an Action line directly above it.
-- NEVER wrap your response in code fences or JSON objects with "thought"/"action" keys.
-- If you are done, use "Final Answer:" (do NOT write "Action: Final Answer").
+- ALWAYS put Action Input directly below Action.
+- NEVER wrap Action Input in markdown ```json ``` code fences.
+- ALWAYS use valid tool names from [{tool_names}].
+- If you are finished, use "Final Answer:".
 
 Question: {input}
 Thought:{agent_scratchpad}"""
@@ -207,6 +222,16 @@ def _get_max_iterations() -> int:
     return value
 
 
+def _handle_parsing_error(error) -> str:
+    return (
+        "Output format error. Please strictly output:\n"
+        "Action: <tool_name>\n"
+        'Action Input: {{"key": "value"}}\n'
+        "Do NOT use markdown code fences."
+    )
+
+
+
 def _build_agent_executor(verbose: bool) -> AgentExecutor:
     llm = get_llm()
     tools = get_agent_tools()
@@ -216,7 +241,7 @@ def _build_agent_executor(verbose: bool) -> AgentExecutor:
         tools=tools,
         verbose=verbose,
         return_intermediate_steps=True,
-        handle_parsing_errors=True,
+        handle_parsing_errors=_handle_parsing_error,
         max_iterations=_get_max_iterations(),
     )
 
@@ -235,9 +260,13 @@ def get_agent_executor(verbose: bool = True) -> AgentExecutor:
 def _serialize_intermediate_steps(steps) -> list[dict]:
     serialized: list[dict] = []
     for action, observation in steps:
+        tool_name = getattr(action, "tool", None)
+        # Filter out internal parser exception steps
+        if tool_name == "_Exception":
+            continue
         serialized.append(
             {
-                "tool": getattr(action, "tool", None),
+                "tool": tool_name,
                 "tool_input": getattr(action, "tool_input", None),
                 "log": getattr(action, "log", None),
                 "observation": observation,
@@ -257,3 +286,4 @@ def run_agent(user_input: str) -> dict:
         "output": result.get("output", ""),
         "intermediate_steps": _serialize_intermediate_steps(result.get("intermediate_steps", [])),
     }
+

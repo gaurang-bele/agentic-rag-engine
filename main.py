@@ -2,7 +2,11 @@ import logging
 import os
 import shutil
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, Request
+import uuid
+from datetime import datetime
+
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, Field
 
@@ -14,21 +18,70 @@ logger = logging.getLogger("uvicorn.error")
 
 app = FastAPI(title="Agentic RAG API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+ingestion_jobs: dict[str, dict] = {}
+
+def _run_background_ingest(job_id: str, temp_path: str, filename: str, parser_type: str):
+    def update_progress(percent: int, message: str):
+        if job_id in ingestion_jobs:
+            ingestion_jobs[job_id]["progress"] = percent
+            ingestion_jobs[job_id]["message"] = message
+
+    try:
+        update_progress(5, "Started ingestion task...")
+        res = ingest_pdf(
+            pdf_path=temp_path,
+            source_name=filename,
+            parser_type=parser_type,
+            progress_callback=update_progress,
+        )
+        if job_id in ingestion_jobs:
+            ingestion_jobs[job_id].update({
+                "status": res.get("status", "completed"),
+                "progress": 100,
+                "message": f"Successfully ingested {filename}",
+                "result": res,
+                "completed_at": datetime.now().isoformat(),
+            })
+    except Exception as exc:
+        logger.exception("Background ingestion failed")
+        if job_id in ingestion_jobs:
+            ingestion_jobs[job_id].update({
+                "status": "failed",
+                "progress": 100,
+                "message": str(exc),
+                "error": str(exc),
+                "failed_at": datetime.now().isoformat(),
+            })
+    finally:
+        if os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+
 class QueryRequest(BaseModel):
     question: str = Field(..., description="User question")
-    source: str | None = Field(default=None, description="Optional source filename filter")
+    source: str | None = Field(default=None, description="Optional source filename filter (leave null/empty for all files)")
     page_from: int | None = Field(default=None, description="Optional start page (1-based)")
     page_to: int | None = Field(default=None, description="Optional end page (1-based)")
     top_k: int | None = Field(default=None, description="Optional number of chunks to use")
-    rerank: bool = Field(default=True, description="Enable reranking")
+    rerank: bool = Field(default=True, description="Enable BGE CrossEncoder reranking for maximum accuracy")
 
     model_config = {
         "json_schema_extra": {
             "example": {
                 "question": "What is the OSI model?",
-                "source": "temp_CN.pdf",
-                "page_from": 18,
-                "page_to": 30,
+                "source": None,
+                "page_from": None,
+                "page_to": None,
                 "top_k": 5,
                 "rerank": True,
             }
@@ -44,7 +97,7 @@ def _normalize_optional_string(value: str | None) -> str | None:
     normalized = value.strip()
     if not normalized:
         return None
-    if normalized.lower() in {"string", "none", "null"}:
+    if normalized.lower() in {"string", "none", "null", "temp_cn.pdf"}:
         return None
     return normalized
 
@@ -74,24 +127,73 @@ def build_metadata_filter(
     return metadata_filter or None
 
 @app.post("/ingest")
-async def ingest_document(file: UploadFile = File(...)):
-    # Save uploaded file temporarily
-    temp_path = f"temp_{file.filename}"
+def ingest_document(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    parser_type: str = "llamaparse",
+    wait: bool = True,
+):
+    job_id = str(uuid.uuid4())[:8]
+    temp_path = f"temp_{job_id}_{file.filename}"
     try:
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        ingest_pdf(temp_path, source_name=file.filename)
-        return {"message": f"Successfully ingested {file.filename}"}
+        if wait:
+            # 1-Step Direct Sync Ingestion (Default)
+            res = ingest_pdf(
+                pdf_path=temp_path,
+                source_name=file.filename,
+                parser_type=parser_type,
+            )
+            return {
+                "message": f"Successfully ingested {file.filename}",
+                "status": "completed",
+                "result": res,
+            }
+
+        # Background Task Ingestion (Optional)
+        ingestion_jobs[job_id] = {
+            "job_id": job_id,
+            "filename": file.filename,
+            "parser_type": parser_type,
+            "status": "processing",
+            "progress": 0,
+            "message": "File received and queued for ingestion.",
+            "created_at": datetime.now().isoformat(),
+        }
+
+        background_tasks.add_task(_run_background_ingest, job_id, temp_path, file.filename, parser_type)
+        return {
+            "job_id": job_id,
+            "filename": file.filename,
+            "status": "processing",
+            "message": f"Ingestion started in background for {file.filename}. Check progress at /ingest/status/{job_id}",
+        }
     except Exception as exc:
         logger.exception("Ingest failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     finally:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
+        if wait and os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+
+
+@app.get("/ingest/status/{job_id}")
+def get_ingest_status(job_id: str):
+    if job_id not in ingestion_jobs:
+        raise HTTPException(status_code=404, detail=f"Ingestion job '{job_id}' not found.")
+    return ingestion_jobs[job_id]
+
+@app.get("/ingest/jobs")
+def list_ingest_jobs():
+    return list(ingestion_jobs.values())
+
 
 @app.post("/query")
-async def query_document(request: QueryRequest):
+def query_document(request: QueryRequest):
     try:
         source = _normalize_optional_string(request.source)
         page_from = _normalize_optional_positive_int(request.page_from)
@@ -127,7 +229,7 @@ async def query_document(request: QueryRequest):
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 @app.post("/agent")
-async def run_agent_endpoint(request: AgentRequest):
+def run_agent_endpoint(request: AgentRequest):
     try:
         result = run_agent(request.input)
         return result
@@ -137,10 +239,20 @@ async def run_agent_endpoint(request: AgentRequest):
         logger.exception("Agent run failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
 @app.get("/", include_in_schema=False)
-async def root(request: Request):
+def root(request: Request):
+    index_file = os.path.join("static", "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
     return RedirectResponse(url=str(request.url_for("swagger_ui_html")), status_code=302)
 
 @app.get("/health")
-async def health():
+def health():
     return {"status": "running"}
+

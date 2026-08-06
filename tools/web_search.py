@@ -29,10 +29,11 @@ def get_default_max_results() -> int:
 
 
 def get_default_search_depth() -> str:
-    value = os.getenv("WEB_SEARCH_DEPTH", "advanced").strip().lower()
+    value = os.getenv("WEB_SEARCH_DEPTH", "basic").strip().lower()
     if value not in {"basic", "advanced"}:
-        return "advanced"
+        return "basic"
     return value
+
 
 
 def get_default_topic() -> str:

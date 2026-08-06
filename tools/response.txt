@@ -1,119 +1,77 @@
 WEB SEARCH RESULTS
-Query: {"query": "agentic AI definition", "max_results": 5, "search_depth": "advanced"}
+Query: {"query": "latest money making ideas without starting capital 2025 2026", "max_results": 10, "search_depth": "advanced"}
 
 Answer:
-Agentic AI refers to autonomous systems that can plan, execute, and adapt tasks independently with minimal human intervention. It uses advanced reasoning and feedback to operate proactively. Agentic AI differs from generative AI by focusing on action and decision-making.
+Freelancing, creating digital products, and renting out personal assets are low-cost money-making ideas in 2025-2026. Passive income from stock photos and print-on-demand services also work without startup capital.
 
 Results:
-1. What is agentic AI: A comprehensive 2026 guide
-   URL: https://www.tiledb.com/blog/what-is-agentic-ai
-   Score: 0.81595254
-   Summary: Agentic AI refers to autonomous artificial intelligence systems that can plan, decide and perform goal-directed action with minimal human help. Unlike purely generative AI models that require explicit instructions from users, agentic systems operate proactively through continuous perception-reasoning-action (PRA) loops that enable them to analyze, plan, execute and refine tasks dynamically. These agentic AI systems work by integrating advanced reasoning models, memory architectures and feedback mechanisms that allow them to sense their environment, gather diverse data, analyze context, take action, and iteratively optimize their behavior. [...] ## What is agentic AI?
+1. 21 Best Side Hustle Ideas with a Low Startup Cost (2026)
+   URL: https://www.sofi.com/learn/content/low-cost-side-hustles
+   Score: 0.8467682
+   Summary: If you enjoy making crafts and artwork, you might find a market on Etsy or other online marketplaces to sell your stuff. Custom signs, homemade soaps and candles, knitted scarves and blankets, and handmade jewelry are just a few examples of what artists currently sell. This can be a good opportunity to turn a hobby you love into an income stream. [...] You might start by updating your LinkedIn to show that you are looking for clients in the social media space. A website highlighting your own personal social media stats might be a good idea, too. To kick off your side hustle, you could consider building your portfolio by offering free services to a nonprofit or local business with a limited budget.
 
-Agentic AI describes artificial intelligence systems that act as autonomous agents capable of perceiving their environment, reasoning over complex goals, and taking purposeful action all without supervision. Rather than simply generating outputs from a user or system’s request, agentic AI continuously plans, executes, and adapts its behavior based on feedback. This means it blends the structured optimization of reinforcement learning with the flexible reasoning of large language models (LLMs). [...] ### What is the meaning of “agentic” in AI?
+A social media manager who is just starting out might earn $15 an hour; those with more experience may earn four times that amount or more. [...] If you are an online content creator on Instagram, TikTok, or YouTube with a devoted following, this could be an ideal role for you. As an affiliate marketer, you’ll earn money by recommending products you use and like by providing a tracking link to the product that’s unique to you. Every time someone uses the link to purchase the product, you’ll get a percentage of the sale.
 
-The term agentic comes from “agent,” meaning an entity capable of independent action and decisionmaking. In AI, agentic describes systems that have the ability to proactively initiate behavior aligned with defined objectives. This idea extends software bots coded for a specific function into intelligent, adaptive entities that can gather information, plan, learn, act and adapt within open-ended environments.
+2. 12 business ideas that require little or no startup capital
+   URL: https://baremetrics.com/academy/12-business-ideas-require-little-no-startup-capital
+   Score: 0.846159
+   Summary: A concierge partnership model is a business arrangement where you provide a service — such as airport transportation — through partnerships with hotel staff who refer guests in exchange for a commission. This requires minimal capital since you can use existing ride-share drivers.
 
-## How does agentic AI work?
+Ask local Uber and Lyft drivers if they'd like to earn extra money working for your company. [...] Nowadays (thanks to ride-sharing) everyone loves on-demand services. I wish I could book my hairdresser to cut my hair in my home office on busy days without paying $500 per visit.
 
-Agentic AI operates as a closed loop that senses its environment, reasons about objectives, chooses actions, and learns from outcomes. It then repeats this cycle to iteratively improve performance over time. In practice, this unfolds as a sequence of interacting subsystems in the AI agent:
+It probably wouldn't be too hard to partner up with a couple local barber shops or salons and negotiate a split with the owner for booking jobs for their stylists. You'd just have to foot the bill for the tech. Or, build a website yourself and optimize it for SERPs rankings. [...] ## 9. Sell Custom Products via Facebook Ads
 
-1. 1
+Print-on-demand is a business model where you sell customized products — such as mugs, t-shirts, or posters — without holding any inventory. You only purchase the product from the manufacturer after a customer has already paid you.
 
-2. Tavily — Introduction to Agentic search tool - Shankar Kumarasamy
-   URL: https://shankar-k.medium.com/tavily-introduction-to-agentic-search-tool-8720b9d6aa19
-   Score: 0.79769903
-   Summary: `{  
-"tool_name": "tavily_search",  
-"arguments": {  
-"query": "latest developments in AI and top companies",  
-"max_results": 5,  
-"search_depth": "advanced"  
-}  
-}`  
-4. Final response generation by LLM - Tavily search API returns the relevant and highly precise data snippets for the LLM to generate the final answer for the query.
+3. 8 Side Hustles to Build Passive Income in 2026
+   URL: https://www.meriwest.com/our-story/blog/8-side-hustles-build-passive-income-2026
+   Score: 0.81665546
+   Summary: ## Passive Income Ideas in 2026
 
-3. What is agentic AI? Definition and differentiators
-   URL: https://cloud.google.com/discover/what-is-agentic-ai
-   Score: 0.7825466
-   Summary: Generative AI, as its name suggests, is focused on the creation of new content, such as text, images, code, or music, based on input prompts. The LLM is at the heart of generative AI, and the value is generated by what the model can do and simple extensions of the LLM's capabilities. For example, you can generate or edit content, and even perform simple function calling and chain together various options.
+### 1. Create and Sell Digital Products
 
-Agentic AI is a subset of generative AI that is centered around the orchestration and execution of agents that use LLMs as a "brain" to perform actions through tools. Agentic AI goes beyond content creation and function calling by executing actions in underlying systems to achieve higher-level goals. [...] # What is agentic AI?
+Effort Level: Medium upfront, low ongoing  
+Potential Income: $500–$5,000+/month  
+Why It’s Hot in 2025: Digital products like eBooks, templates, and printables require one-time creation but can sell repeatedly. Etsy and Gumroad report rising demand for digital planners and educational resources.
 
-Agentic AI is an advanced form of artificial intelligence focused on autonomous decision-making and action. Unlike traditional AI, which primarily responds to commands or analyzes data, agentic AI can set goals, plan, and execute tasks with minimal human intervention. This emerging technology has the potential to revolutionize various industries by automating complex processes and optimizing workflows.
+How to Start: [...] Start Small: Test ideas with minimal investment (e.g., $50 for digital products).   
+Leverage Trends: Use TikTok or X to spot what’s hot (e.g., #SideHustle2025).   
+Automate: Use tools like Zapier or Buffer to streamline tasks.   
+Diversify: Combine hustles (e.g., blog + affiliate marketing) for multiple streams.   
+Stay Consistent: Passive income takes upfront work—commit for 6–12 months.
 
-Video about agentic AI for developers
+## Final Thoughts [...] Effort Level: Low upfront, low ongoing  
+Potential Income: $200–$5,000+/month  
+Why It’s Hot in 2025: Peer-to-peer rental platforms like Turo and Fat Llama are growing, letting you monetize unused assets like cars, cameras, or even storage space.
 
-## Key concepts of agentic AI
+How to Start:
 
-Agentic AI systems are designed to operate with a higher degree of autonomy. It works by using AI agents, which are essentially autonomous entities designed to perform specific tasks. At its core, this technology is built on several key components: [...] While an AI agent might focus on a specific task, agentic AI employs multiple agents to handle complex workflows. Agentic AI acts as an overarching system that coordinates and manages these agents to achieve broader objectives.
+ List your car on Turo or equipment on Fat Llama.
+ Use Neighbor to rent out storage space (e.g., garage).
+ Set clear terms and invest in insurance for protection.
+ Promote locally via Nextdoor or community boards.
 
-### Examples of agentic AI automation
+4. 25 Best Passive Income Ideas to Make Money in 2026
+   URL: https://www.investopedia.com/terms/p/passiveincome.asp
+   Score: 0.8066246
+   Summary: Investing in a business where you don’t materially participate offers the potential for passive income. This typically involves putting capital into a venture without involvement in its day-to-day operations or management decisions. Your role is not active. Your involvement is primarily financial. [...] Passive income is money earned from sources other than a traditional job. It includes earnings from rental properties, stock dividends, courses sold online, and other projects where you're not actively involved in the continued generation of revenue.
 
-Agentic AI is being applied across various industries to automate tasks and optimize processes. Here are a few examples:
+You may have had to put time, money, or effort into starting up such ventures, but you eventually collect income passively without much work.
 
-### Customer service
+## 25 Ways to Make Passive Income in 2026 [...] ## The Bottom Line
 
-Customer service
+Passive income can be derived over time through different means. From renting out property and leveraging automated technologies to creating digital content, these avenues offer the potential for sustainable financial growth.
 
-Agentic AI can empower human agents to tackle more complex problems by managing customer inquiries, resolving issues, and delivering personalized support.
+5. 11 Passive Income Ideas to Increase Your Cash Flow in 2026
+   URL: https://www.coursera.org/articles/passive-income
+   Score: 0.78572035
+   Summary: Building passive income with little to no money upfront is possible, but it typically requires investing something else instead: your time, skills, or creativity. Options like creating content on YouTube, selling worksheets or templates on platforms like Etsy, or writing and self-publishing an e-book can all be started with minimal financial investment. The trade-off is that these approaches often demand significant effort early on before any income starts to flow. If you need money sooner, [...] ### 9. Sell stock photos.
 
-### Supply chain management
+Whether you’re an amateur or seasoned photographer, you can sell your original photos as stock images using sites like Alamy, Shutterstock, Stocksy, or Adobe Stock.
 
-Supply chain management
+| Pros | Be mindful of... |
+ --- |
+| Start a photography business without needing to find clients | A lot of legalities to learn and navigate |
+| Retain creative control over the work you produce | Host websites may charge sales fees |
 
-By analyzing data from diverse sources like sales, inventory, and shipping, agentic AI can optimize supply chains, predict demand, and automate logistics.
-
-4. Agentic AI, explained
-   URL: https://mitsloan.mit.edu/ideas-made-to-matter/agentic-ai-explained
-   Score: 0.7610953
-   Summary: # Agentic AI, explained
-
-By
-
-What you’ll learn:
-
-Rewind a few years, and large language models and generative artificial intelligence were barely on the public radar, let alone a catalyst for changing how we work and perform everyday tasks.
-
-Today, attention has shifted to the next evolution of generative AI: AI agents or agentic AI, a new breed of AI systems that are semi- or fully autonomous and thus able to perceive, reason, and act on their own. Different from the now familiar chatbots that field questions and solve problems, this emerging class of AI integrates with other software systems to complete tasks independently or with minimal human supervision. [...] Aral draws a slight distinction between AI agents and the broader category of agentic AI, although most people still refer to the two interchangeably. He defines agentic AI as systems that incorporate multiple, different agents that are orchestrating a task together — for example, a marketplace of agents representing both the buy and sell side during a negotiation or transaction.
-
-## How are businesses using agentic AI? [...] ## What is agentic AI?
-
-While there isn’t a universally agreed upon definition of agentic AI, there are broad characteristics associated with it. While generative AI automates the creation of complex text, images, and video based on human language interaction, AI agents go further, acting and making decisions in a way a human might, said MIT Sloan associate professor John Horton.
-
-5. What is Agentic AI?
-   URL: https://www.exabeam.com/explainers/ai-cyber-security/agentic-ai-how-it-works-and-7-real-world-use-cases
-   Score: 0.7366474
-   Summary: Agentic AI extends beyond content generation to decision-making and autonomous execution. It perceives its environment, reasons through complex scenarios, takes action, and learns from feedback. While generative AI models like OpenAI GPT-4o or Anthropic Claude create text based on learned patterns, agentic AI systems integrate decision-making frameworks, enabling them to operate independently within dynamic environments. [...] Skip to content 
-
-Exabeam Expands Behavior Intelligence to Secure the Agentic Enterprise — Read the News
-
-Exabeam logo   Menu;)
-
-  ;)
- EN;)
- Contact Us
-
-Get a Demo
-
- Home
- >
- Explainers
- >
- AI Cyber Security
-
-# What is Agentic AI and How It Works: 8 Real-World Use Cases
-
- Share
-
- 13 minutes to read
-
-Table of Contents
-
-## What Is Agentic AI?
-
-Agentic AI refers to autonomous artificial intelligence systems that can set goals, plan tasks, and take action independently to achieve a desired outcome, requiring minimal human intervention. Unlike traditional AI or chatbots that merely respond to prompts, agentic systems can reason through complex workflows and use tools to execute operations. [...] Agentic AI is a newer concept, representing purpose-built systems that exhibit a higher degree of autonomy and problem-solving ability. Agentic AI does not simply follow fixed rules but dynamically adjusts its behavior based on contextual understanding. This enables it to navigate complex environments, make independent decisions, and learn from interactions. All agentic AI systems are AI agents, but not all AI agents qualify as agentic AI. For example, an agentic AI in a SOC could investigate an alert, correlate threat signals across multiple systems, determine the likelihood of an active attack, and proactively execute mitigation actions without requiring human intervention.
-
-## Real-World Applications of Agentic AI
-
-### 1. Automating IT Support and Service Management
+### 10. Create an app. [...] You can sell your original designs on shirts, hats, mugs, posters, and other products without dealing with inventory and fulfillment by opening a print-on-demand shop. All you need to do is select your provider—companies like Printful, Printify, or Gelato—upload your file, choose the products you want to sell, and advertise them on your online store.

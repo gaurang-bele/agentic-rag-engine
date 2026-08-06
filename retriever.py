@@ -9,7 +9,7 @@ from sentence_transformers import CrossEncoder
 
 from embedding_config import get_embeddings
 
-load_dotenv()
+load_dotenv(override=True)
 
 def get_pinecone_namespace() -> str:
     return os.getenv("PINECONE_NAMESPACE", "llamaparse-v1")
@@ -60,20 +60,32 @@ def rerank_documents(question: str, documents: list, top_k: int) -> list:
     if not documents:
         return []
 
-    pairs = [(question, doc.page_content) for doc in documents]
-    scores = get_reranker().predict(pairs)
-    ranked = sorted(
-        zip(documents, scores),
-        key=lambda item: float(item[1]),
-        reverse=True,
-    )
+    try:
+        pairs = [(question, doc.page_content) for doc in documents]
+        scores = get_reranker().predict(pairs)
+        ranked = sorted(
+            zip(documents, scores),
+            key=lambda item: float(item[1]),
+            reverse=True,
+        )
 
-    best_docs = []
-    for doc, score in ranked[:top_k]:
-        doc.metadata = dict(doc.metadata)
-        doc.metadata["rerank_score"] = round(float(score), 4)
-        best_docs.append(doc)
-    return best_docs
+        best_docs = []
+        for doc, score in ranked[:top_k]:
+            doc.metadata = dict(doc.metadata)
+            doc.metadata["rerank_score"] = round(float(score), 4)
+            best_docs.append(doc)
+        return best_docs
+    except Exception as exc:
+        print(f"Warning: Reranking failed ({exc}); falling back to vector similarity results.")
+        return documents[:top_k]
+
+def get_adaptive_fetch_k(target_top_k: int, estimated_pages: int = 10) -> int:
+    # Smart Adaptive fetch_k:
+    # If estimated document page count > 50, fetch 20 candidates for deep coverage.
+    # If standard document <= 50 pages, fetch 10 candidates for 2x faster reranking speed.
+    if estimated_pages > 50:
+        return max(20, target_top_k * 4)
+    return max(10, target_top_k * 2)
 
 def retrieve_documents(
     question: str,
@@ -82,7 +94,9 @@ def retrieve_documents(
     rerank: bool | None = None,
 ) -> list:
     final_top_k = max(top_k or get_top_k(), 1)
-    fetch_k = max(get_fetch_k(), final_top_k)
+    
+    # Adaptive candidate fetch
+    fetch_k = get_adaptive_fetch_k(target_top_k=final_top_k, estimated_pages=15)
 
     docs = get_vectorstore().similarity_search(
         question,
@@ -92,7 +106,17 @@ def retrieve_documents(
     if not docs:
         return []
 
+    # If initial vector search returns > 15 chunks (large doc), dynamically upgrade candidate pool
+    if len(docs) >= 15 and fetch_k < 20:
+        fetch_k = 20
+        docs = get_vectorstore().similarity_search(
+            question,
+            k=fetch_k,
+            filter=metadata_filter,
+        )
+
     should_rerank = get_reranker_enabled() if rerank is None else rerank
     if should_rerank:
         return rerank_documents(question, docs, final_top_k)
     return docs[:final_top_k]
+

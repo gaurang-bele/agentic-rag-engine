@@ -1,6 +1,7 @@
 import os
 from hashlib import sha1
 from pathlib import Path
+from typing import Callable
 
 import pinecone
 from dotenv import load_dotenv
@@ -11,13 +12,25 @@ from langchain_pinecone import PineconeVectorStore as PineconeStore
 from llama_parse import LlamaParse
 from pinecone import Pinecone, ServerlessSpec
 
-load_dotenv()
+from pypdf import PdfReader
+
+
+load_dotenv(override=True)
+
+INGESTED_HASHES_CACHE: set[str] = set()
 
 def _env_bool(name: str, default: bool) -> bool:
     value = os.getenv(name)
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
+
+def compute_file_sha256(file_path: str) -> str:
+    hasher = sha1()
+    with open(file_path, "rb") as f:
+        while chunk := f.read(65536):
+            hasher.update(chunk)
+    return hasher.hexdigest()
 
 def get_llamaparse_api_key() -> str:
     api_key = os.getenv("LLAMA_CLOUD_API_KEY") or os.getenv("LLAMAPARSE_API_KEY")
@@ -54,6 +67,23 @@ def _normalize_page_number(raw_page: object, fallback_page: int, zero_based: boo
         return raw_page + 1 if zero_based else raw_page
     return fallback_page
 
+def load_pdf_with_pypdf(pdf_path: str, source_name: str, source_id: str) -> list[Document]:
+    reader = PdfReader(pdf_path)
+    pages: list[Document] = []
+    for index, page in enumerate(reader.pages):
+        text = (page.extract_text() or "").strip()
+        if not text:
+            continue
+        metadata = {
+            "source": source_name,
+            "source_id": source_id,
+            "page": index + 1,
+            "parser": "pypdf",
+        }
+        pages.append(Document(page_content=text, metadata=metadata))
+    print(f"Loaded {len(pages)} pages with fast PyPDF parser")
+    return pages
+
 def load_pdf_with_llamaparse(pdf_path: str, source_name: str, source_id: str) -> list[Document]:
     parser = LlamaParse(
         api_key=get_llamaparse_api_key(),
@@ -77,6 +107,7 @@ def load_pdf_with_llamaparse(pdf_path: str, source_name: str, source_id: str) ->
         metadata = dict(getattr(parsed_doc, "metadata", {}) or {})
         metadata["source"] = source_name
         metadata["source_id"] = source_id
+        metadata["parser"] = "llamaparse"
         metadata["page"] = _normalize_page_number(
             metadata.get("page"),
             fallback_page=index + 1,
@@ -89,6 +120,24 @@ def load_pdf_with_llamaparse(pdf_path: str, source_name: str, source_id: str) ->
 
     print(f"Loaded {len(pages)} parsed sections with LlamaParse")
     return pages
+
+def load_pdf_documents(
+    pdf_path: str,
+    source_name: str,
+    source_id: str,
+    parser_type: str = "llamaparse",
+) -> tuple[list[Document], str]:
+    mode = (parser_type or "llamaparse").strip().lower()
+    if mode == "pypdf":
+        pages = load_pdf_with_pypdf(pdf_path, source_name, source_id)
+        if not pages:
+            raise ValueError("PyPDF could not extract any text from this PDF.")
+        return pages, "pypdf"
+
+    # Default & Primary: LlamaParse for maximum Markdown quality & table preservation
+    return load_pdf_with_llamaparse(pdf_path, source_name, source_id), "llamaparse"
+
+
 
 def get_chunking_settings(chunk_size: int | None = None, chunk_overlap: int | None = None) -> tuple[int, int]:
     size = chunk_size if chunk_size is not None else int(os.getenv("CHUNK_SIZE", "500"))
@@ -106,21 +155,52 @@ def get_chunking_settings(chunk_size: int | None = None, chunk_overlap: int | No
 def get_embedding_dimension(embeddings) -> int:
     return len(embeddings.embed_query("dimension probe"))
 
-def ingest_pdf(pdf_path: str, source_name: str | None = None):
+def ingest_pdf(
+    pdf_path: str,
+    source_name: str | None = None,
+    parser_type: str = "llamaparse",
+    progress_callback: Callable | None = None,
+) -> dict:
+    def _notify(progress: int, message: str):
+        if progress_callback:
+            try:
+                progress_callback(progress, message)
+            except Exception as exc:
+                print(f"Progress callback warning: {exc}")
+
     normalized_source_name = _normalize_source_name(source_name, pdf_path)
     source_id = _build_source_id(normalized_source_name)
+    file_hash = compute_file_sha256(pdf_path)
 
+    if file_hash in INGESTED_HASHES_CACHE:
+        _notify(100, f"File '{normalized_source_name}' already ingested (SHA-256 hash match).")
+        print(f"Skipping re-ingestion for '{normalized_source_name}' (hash match)")
+        return {
+            "status": "already_ingested",
+            "source": normalized_source_name,
+            "source_id": source_id,
+            "chunks_count": 0,
+        }
+
+    _notify(15, f"Reading and parsing PDF '{normalized_source_name}'...")
     # 1. Load PDF
-    pages = load_pdf_with_llamaparse(pdf_path, normalized_source_name, source_id)
+    pages, used_parser = load_pdf_documents(
+        pdf_path=pdf_path,
+        source_name=normalized_source_name,
+        source_id=source_id,
+        parser_type=parser_type,
+    )
+    _notify(45, f"Extracted {len(pages)} pages using {used_parser}. Splitting text into chunks...")
 
     # 2. Split into chunks
     chunk_size, chunk_overlap = get_chunking_settings()
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap
+        chunk_overlap=chunk_overlap,
     )
     chunks = splitter.split_documents(pages)
     print(f"Created {len(chunks)} chunks using chunk_size={chunk_size}, chunk_overlap={chunk_overlap}")
+    _notify(65, f"Generated {len(chunks)} chunks. Initializing Pinecone vectorstore...")
 
     # 3. Create embeddings model
     embeddings = get_embeddings()
@@ -133,19 +213,16 @@ def ingest_pdf(pdf_path: str, source_name: str | None = None):
     # Compatibility shim for langchain_community (expects module-level pinecone.Index type)
     if not hasattr(pinecone, "list_indexes"):
         pinecone.list_indexes = pc.list_indexes
-    
-    # Create index if it doesn't exist
-    index_name = os.getenv("PINECONE_INDEX", "rag-index")
 
+    index_name = os.getenv("PINECONE_INDEX", "rag-index")
     if index_name not in pc.list_indexes().names():
         pc.create_index(
             name=index_name,
             dimension=embedding_dimension,
             metric="cosine",
-            spec=ServerlessSpec(cloud="aws", region="us-east-1")
+            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
         )
 
-    # Ensure pinecone.Index is a type (langchain_community uses isinstance checks)
     index = pc.Index(index_name)
     if not hasattr(pinecone, "Index") or not isinstance(pinecone.Index, type):
         pinecone.Index = type(index)
@@ -174,6 +251,7 @@ def ingest_pdf(pdf_path: str, source_name: str | None = None):
         )
         print(f"Removed existing vectors for source '{normalized_source_name}'")
 
+    _notify(80, f"Upserting {len(chunks)} vectors into Pinecone namespace '{namespace}'...")
     # 5. Store chunks in Pinecone
     chunk_ids = [
         sha1(
@@ -190,11 +268,23 @@ def ingest_pdf(pdf_path: str, source_name: str | None = None):
         namespace=namespace,
         ids=chunk_ids,
     )
+    INGESTED_HASHES_CACHE.add(file_hash)
+
+    _notify(100, f"Successfully stored {len(chunks)} chunks in Pinecone namespace '{namespace}'.")
     print(
         f"Stored {len(chunks)} chunks in namespace '{namespace}' "
-        f"for source '{normalized_source_name}'"
+        f"for source '{normalized_source_name}' using {used_parser}"
     )
-    return vectorstore
+    return {
+        "status": "completed",
+        "source": normalized_source_name,
+        "source_id": source_id,
+        "parser": used_parser,
+        "pages_count": len(pages),
+        "chunks_count": len(chunks),
+        "file_hash": file_hash,
+    }
 
 if __name__ == "__main__":
     ingest_pdf("your_document.pdf")
+
