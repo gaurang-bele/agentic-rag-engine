@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from embedding_config import get_embedding_model_name, get_embeddings
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Pinecone as PineconeStore
+from langchain_pinecone import PineconeVectorStore as PineconeStore
 from llama_parse import LlamaParse
 from pinecone import Pinecone, ServerlessSpec
 

@@ -3,7 +3,7 @@ from functools import lru_cache
 
 import pinecone
 from dotenv import load_dotenv
-from langchain_community.vectorstores import Pinecone as PineconeStore
+from langchain_pinecone import PineconeVectorStore as PineconeStore
 from pinecone import Pinecone
 from sentence_transformers import CrossEncoder
 

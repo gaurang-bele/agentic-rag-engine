@@ -1,123 +1,119 @@
 WEB SEARCH RESULTS
-Query: {"query": "latest news RAG systems retrieval augmented generation 2025", "max_results": 5}
+Query: {"query": "agentic AI definition", "max_results": 5, "search_depth": "advanced"}
 
 Answer:
-Retrieval-Augmented Generation (RAG) remains vital for AI, evolving into a "Context Engine" in 2025, supporting complex agentic workflows. RAG systems are increasingly used in fields like legal and medical research. Advanced RAG models are being developed to improve efficiency and performance.
+Agentic AI refers to autonomous systems that can plan, execute, and adapt tasks independently with minimal human intervention. It uses advanced reasoning and feedback to operate proactively. Agentic AI differs from generative AI by focusing on action and decision-making.
 
 Results:
-1. From RAG to Context - A 2025 year-end review of RAG | RAGFlow
-   URL: https://ragflow.io/blog/rag-review-2025-from-rag-to-context
-   Score: 0.75723875
-   Summary: RAGFlow
-RAGFlow
+1. What is agentic AI: A comprehensive 2026 guide
+   URL: https://www.tiledb.com/blog/what-is-agentic-ai
+   Score: 0.81595254
+   Summary: Agentic AI refers to autonomous artificial intelligence systems that can plan, decide and perform goal-directed action with minimal human help. Unlike purely generative AI models that require explicit instructions from users, agentic systems operate proactively through continuous perception-reasoning-action (PRA) loops that enable them to analyze, plan, execute and refine tasks dynamically. These agentic AI systems work by integrating advanced reasoning models, memory architectures and feedback mechanisms that allow them to sense their environment, gather diverse data, analyze context, take action, and iteratively optimize their behavior. [...] ## What is agentic AI?
 
-# From RAG to Context - A 2025 year-end review of RAG
+Agentic AI describes artificial intelligence systems that act as autonomous agents capable of perceiving their environment, reasoning over complex goals, and taking purposeful action all without supervision. Rather than simply generating outputs from a user or system’s request, agentic AI continuously plans, executes, and adapts its behavior based on feedback. This means it blends the structured optimization of reinforcement learning with the flexible reasoning of large language models (LLMs). [...] ### What is the meaning of “agentic” in AI?
 
-As 2025 draws to a close, the field of Retrieval-Augmented Generation (RAG) has undergone profound reflection, vigorous debate, and marked evolution. Far from fading into obsolescence as some bold predictions foresaw—amid lingering scepticism over its supposedly transient role—RAG has solidified its indispensability as a cornerstone of data infrastructure in the demanding arena of enterprise AI adoption. [...] A clear trend is that many enterprises have already taken the lead in building capabilities centered around an "AI Middle Platform" or an "Intelligent Data Foundation," whose core is precisely an unstructured data processing and provisioning platform built upon RAG engines. In contrast, the concrete development and deployment of upper-layer Agents can proceed on this stable foundation with greater flexibility and a more incremental pace.
+The term agentic comes from “agent,” meaning an entity capable of independent action and decisionmaking. In AI, agentic describes systems that have the ability to proactively initiate behavior aligned with defined objectives. This idea extends software bots coded for a specific function into intelligent, adaptive entities that can gather information, plan, learn, act and adapt within open-ended environments.
 
-To summarize the evolution trajectory and future outlook of RAG technology from 2025 to 2026 in one sentence: RAG is undergoing its own profound metamorphosis, evolving from the specific pattern of "Retrieval-Augmented Generation" into a "Context Engine" with "intelligent retrieval" as its core capability. [...] Thus, in the AI Agent era, RAG technology will undeniably evolve. It is no longer just a step in "Retrieval-Augmented Generation." With "retrieval" as its core capability, expanding its data scope, it evolves into a Context Engine supporting all context assembly needs, becoming the unified Context Layer and data foundation serving LLM applications.
+## How does agentic AI work?
 
-### How is retrieval for Agents different from the search era?
+Agentic AI operates as a closed loop that senses its environment, reasons about objectives, chooses actions, and learns from outcomes. It then repeats this cycle to iteratively improve performance over time. In practice, this unfolds as a sequence of interacting subsystems in the AI agent:
 
-Understanding this evolution requires contrasting the fundamental differences between retrieval paradigms in the traditional search era and the Agent era.
+1. 1
 
-2. What is Retrieval Augmented Generation(RAG) in 2025?
-   URL: https://www.glean.com/blog/rag-retrieval-augmented-generation
-   Score: 0.72489023
-   Summary: ### Research trends
+2. Tavily — Introduction to Agentic search tool - Shankar Kumarasamy
+   URL: https://shankar-k.medium.com/tavily-introduction-to-agentic-search-tool-8720b9d6aa19
+   Score: 0.79769903
+   Summary: `{  
+"tool_name": "tavily_search",  
+"arguments": {  
+"query": "latest developments in AI and top companies",  
+"max_results": 5,  
+"search_depth": "advanced"  
+}  
+}`  
+4. Final response generation by LLM - Tavily search API returns the relevant and highly precise data snippets for the LLM to generate the final answer for the query.
 
-Researchers are focusing on improving the interface between retrieval and generation components in RAG models. This involves enhancing the models' capacity to selectively source and integrate relevant information from extensive databases. Investigations into more sophisticated retrieval mechanisms, such as bi-directional retrieval and the use of reinforcement learning to optimize query strategies, are underway.
+3. What is agentic AI? Definition and differentiators
+   URL: https://cloud.google.com/discover/what-is-agentic-ai
+   Score: 0.7825466
+   Summary: Generative AI, as its name suggests, is focused on the creation of new content, such as text, images, code, or music, based on input prompts. The LLM is at the heart of generative AI, and the value is generated by what the model can do and simple extensions of the LLM's capabilities. For example, you can generate or edit content, and even perform simple function calling and chain together various options.
 
-### Technological advancements [...] ### Technological advancements
+Agentic AI is a subset of generative AI that is centered around the orchestration and execution of agents that use LLMs as a "brain" to perform actions through tools. Agentic AI goes beyond content creation and function calling by executing actions in underlying systems to achieve higher-level goals. [...] # What is agentic AI?
 
-Technological innovation is pivotal to elevating RAG models. The integration of transformer architectures has enabled these models to process information in parallel, significantly improving efficiency. Furthermore, advancements in pre-training techniques are anticipated, which could lead to a new wave of models that require less data to reach a high level of performance.
+Agentic AI is an advanced form of artificial intelligence focused on autonomous decision-making and action. Unlike traditional AI, which primarily responds to commands or analyzes data, agentic AI can set goals, plan, and execute tasks with minimal human intervention. This emerging technology has the potential to revolutionize various industries by automating complex processes and optimizing workflows.
 
-### Industry adoption
+Video about agentic AI for developers
 
-The industry is gradually embracing RAG models for tasks requiring a blend of retrieved information and generative capabilities. Fields such as legal research, medical diagnosis, and customer support are adopting RAG systems to improve decision-making and responsiveness.
+## Key concepts of agentic AI
 
-## Additional resources [...] Glean Icon - Circular - White
+Agentic AI systems are designed to operate with a higher degree of autonomy. It works by using AI agents, which are essentially autonomous entities designed to perform specific tasks. At its core, this technology is built on several key components: [...] While an AI agent might focus on a specific task, agentic AI employs multiple agents to handle complex workflows. Agentic AI acts as an overarching system that coordinates and manages these agents to achieve broader objectives.
 
-Retrieval Augmented Generation (RAG) comes as a breakthrough in natural language processing, blending the power of pre-trained language models with the vast knowledge stored in external textual databases. RAG is a framework designed to enhance language generation tasks by retrieving and conditioning on relevant documents, effectively augmenting the pool of information a model can draw from when generating text. This fusion of retrieval and generation facilitates more informed and contextually relevant outputs, particularly in question-answering and conversational AI systems.
+### Examples of agentic AI automation
 
-3. RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation - Vatsal Shah
-   URL: https://vatsalshah.in/blog/the-best-2025-guide-to-rag
-   Score: 0.7216064
-   Summary: meta
+Agentic AI is being applied across various industries to automate tasks and optimize processes. Here are a few examples:
 
-# RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation
+### Customer service
 
-Discover latest RAG advancements including GraphRAG, Agentic RAG, and Multi-modal RAG. Learn production-ready strategies with significant accuracy improvements.
+Customer service
 
-Summarize with:
+Agentic AI can empower human agents to tackle more complex problems by managing customer inquiries, resolving issues, and delivering personalized support.
 
-RAG 2.0: The 2025 Guide to Advanced Retrieval-Augmented Generation
+### Supply chain management
 
-## Tags
+Supply chain management
 
-## Related Articles
+By analyzing data from diverse sources like sales, inventory, and shipping, agentic AI can optimize supply chains, predict demand, and automate logistics.
 
-## Try Our Free Tools
+4. Agentic AI, explained
+   URL: https://mitsloan.mit.edu/ideas-made-to-matter/agentic-ai-explained
+   Score: 0.7610953
+   Summary: # Agentic AI, explained
 
-### AI Video Prompt Generator
+By
 
-Generate production-ready AI video prompts through conversation. Optimized for Sora 2 and Gemini video generation
+What you’ll learn:
 
-### AI Video Analyzer
+Rewind a few years, and large language models and generative artificial intelligence were barely on the public radar, let alone a catalyst for changing how we work and perform everyday tasks.
 
-Analyze video content frame-by-frame with AI. Content moderation, security monitoring, accessibility, and product demos
+Today, attention has shifted to the next evolution of generative AI: AI agents or agentic AI, a new breed of AI systems that are semi- or fully autonomous and thus able to perceive, reason, and act on their own. Different from the now familiar chatbots that field questions and solve problems, this emerging class of AI integrates with other software systems to complete tasks independently or with minimal human supervision. [...] Aral draws a slight distinction between AI agents and the broader category of agentic AI, although most people still refer to the two interchangeably. He defines agentic AI as systems that incorporate multiple, different agents that are orchestrating a task together — for example, a marketplace of agents representing both the buy and sell side during a negotiation or transaction.
 
-### Text Language Detector & Translator
+## How are businesses using agentic AI? [...] ## What is agentic AI?
 
-Detect any language and translate text instantly with browser-based AI
+While there isn’t a universally agreed upon definition of agentic AI, there are broad characteristics associated with it. While generative AI automates the creation of complex text, images, and video based on human language interaction, AI agents go further, acting and making decisions in a way a human might, said MIT Sloan associate professor John Horton.
 
-### Services [...] ### Services
+5. What is Agentic AI?
+   URL: https://www.exabeam.com/explainers/ai-cyber-security/agentic-ai-how-it-works-and-7-real-world-use-cases
+   Score: 0.7366474
+   Summary: Agentic AI extends beyond content generation to decision-making and autonomous execution. It perceives its environment, reasons through complex scenarios, takes action, and learns from feedback. While generative AI models like OpenAI GPT-4o or Anthropic Claude create text based on learned patterns, agentic AI systems integrate decision-making frameworks, enabling them to operate independently within dynamic environments. [...] Skip to content 
 
-### Industries
+Exabeam Expands Behavior Intelligence to Secure the Agentic Enterprise — Read the News
 
-### Resources
+Exabeam logo   Menu;)
 
-### Contact
+  ;)
+ EN;)
+ Contact Us
 
-© 2026 Vatsal Shah.
+Get a Demo
 
-### Have a project in mind?
+ Home
+ >
+ Explainers
+ >
+ AI Cyber Security
 
-4. Beyond the hype: Why RAG remains essential for modern AI | Pinecone
-   URL: https://www.pinecone.io/learn/rag-2025/
-   Score: 0.680136
-   Summary: So while RAG is not dead, it has evolved, becoming more dynamic and complex. In this article, we'll explore why retrieval-augmented generation remains the backbone of practical AI implementations in 2025, from chat to search to agentic workflows.
+# What is Agentic AI and How It Works: 8 Real-World Use Cases
 
-## Agents have complex requirements
+ Share
 
-Interest in AI agents has grown considerably, with Google searches for the term “AI agent” growing over 1000% between January 2024 and May 2025. Companies are launching AI agents to automate workflows and increase productivity, everything from making travel and restaurant reservations to upgrading software, executing marketing campaigns, and building legal strategies. [...] But still, people are claiming "RAG is dead." While 2023 was the year of RAG, it only focused on very simple implementations, often with a vector database and a one-shot prompt with context sent to a model to generate output. Through 2024 and now into 2025, we're seeing much more complex RAG systems being built. These systems involve query processing, multiple retrieval sources and steps, model processing, and evaluation of results. And with the growth of agentic systems, each have their own data requirements, similar to the microservices era of building complex web applications. [...] In the age of reasoning LLMs, retrieval-augmented generation can be seamlessly incorporated into agentic applications through creating a search tool connected to an LLM. An agent can reason over multiple generation steps, make a plan for accessing missing information stored in the database, and run multiple queries to inform decision making or generate reports. In this way, retrieval-augmented generation strengthens all future actions the agent takes toward an outcome.
+ 13 minutes to read
 
-### Data often needs to be isolated
+Table of Contents
 
-5. Evaluating Retrieval-Augmented Generation Systems on Unanswerable, Uncheatable, Realistic, Multi-hop Queries
-   URL: https://arxiv.org/html/2510.11956v1
-   Score: 0.6466616
-   Summary: ## 5 Results and Analysis
+## What Is Agentic AI?
 
-| Dataset | Embedding | Retrieval | Reranker | Rewriting | Accep. \uparrow\uparrow | Unans. \uparrow\uparrow | Clar. \uparrow\uparrow | Acc. \uparrow\uparrow |
- ---  ---  ---  --- 
-| UAEval4RAG | Cohere | Vector | None | None | 0.43 | 0.37 | 0.03 | 0.34 |
-|  | Cohere | Vector | Cohere | HyDE | 0.50 | 0.94 | 0.05 | 0.01 |
-|  | BGE | Vector | Cohere | None | 0.50 | 0.94 | 0.05 | 0.01 |
-|  | OpenAI | Vector | Cohere | HyDE | 0.42 | 0.45 | 0.05 | 0.28 |
-| CRUMQs | Cohere | Vector | None | None | 0.34† | 0.48† | 0.06† | 0.18† |
-|  | Cohere | Vector | Cohere | HyDE | 0.29† | 0.79† | 0.21† | 0.00† |
-|  | BGE | Vector | Cohere | None | 0.29† | 0.80† | 0.20† | 0.00† |
-|  | OpenAI | Vector | Cohere | HyDE | 0.23† | 0.66† | 0.05† | 0.06† | [...] Datasets.
-Using our pipeline, we first generate CRUMQs over NeuCLIR  and TREC RAG 2025 ,
-two popular RAG datasets which each consist of a large document collection with associated user requests. We focus on English texts, set Ne=200N\_{e}=200 and Nc=50N\_{c}=50, and use Llama3.3-70B-Instruct  as the generation and verification model to balance costs and quality.555As we show in §5, creating effective CRUMQs does depend on proprietary models. This leads to a total of 3,048 CRUMQs. We next use UAEval4RAG to generate baseline
-out-of-database RAG
-queries over NeuCLIR and TREC RAG 2025,
-leading to 7,559 out-of-database queries. Finally, we utilize the MultiHop-RAG dataset as-is, which consists of 2,556 multi-hop RAG queries and their associated gold contexts. [...] | Dataset | LLM | Embedding | Retrieval | Accep. \uparrow\uparrow | Unans. \uparrow\uparrow | Clar. \uparrow\uparrow | Acc. \uparrow\uparrow |
- ---  ---  ---  --- |
-| UAEval4RAG | Gemini-2.5-Pro | OpenAI | Ensemble | 0.48 | 0.51 | 0.00 | 0.39 |
-|  | GPT-5 | OpenAI | Ensemble | 0.28 | 0.31 | 0.07 | 0.33 |
-|  | GPT-4o | OpenAI | Ensemble | 0.67 | 0.01 | 0.43 | 0.26 |
-| CRUMQs | Gemini-2.5-Pro | OpenAI | Ensemble | 0.23† | 0.23† | 0.03† | 0.19† |
-|  | GPT-5 | OpenAI | Ensemble | 0.28† | 0.03† | 0.35† | 0.18† |
-|  | GPT-4o | OpenAI | Ensemble | 0.24† | 0.28† | 0.01† | 0.12† |
+Agentic AI refers to autonomous artificial intelligence systems that can set goals, plan tasks, and take action independently to achieve a desired outcome, requiring minimal human intervention. Unlike traditional AI or chatbots that merely respond to prompts, agentic systems can reason through complex workflows and use tools to execute operations. [...] Agentic AI is a newer concept, representing purpose-built systems that exhibit a higher degree of autonomy and problem-solving ability. Agentic AI does not simply follow fixed rules but dynamically adjusts its behavior based on contextual understanding. This enables it to navigate complex environments, make independent decisions, and learn from interactions. All agentic AI systems are AI agents, but not all AI agents qualify as agentic AI. For example, an agentic AI in a SOC could investigate an alert, correlate threat signals across multiple systems, determine the likelihood of an active attack, and proactively execute mitigation actions without requiring human intervention.
+
+## Real-World Applications of Agentic AI
+
+### 1. Automating IT Support and Service Management

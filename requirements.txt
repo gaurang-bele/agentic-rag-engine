@@ -11,5 +11,6 @@ langchain-openai
 langchain-text-splitters
 llama-parse
 pinecone
+langchain-pinecone
 tavily-python
 boto3

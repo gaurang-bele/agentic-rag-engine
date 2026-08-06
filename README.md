@@ -1,47 +1,168 @@
 # Agentic RAG Engine
 
-A small RAG API built with FastAPI, Pinecone, LangChain, and OpenRouter.
+A production-ready RAG API and Autonomous Agent system built with **FastAPI**, **Pinecone**, **LangChain**, **LlamaParse**, and **OpenRouter**.
+
+---
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    Client["Client / User / Swagger UI"]
+
+    subgraph API ["FastAPI Application (main.py)"]
+        HealthEP["GET /health"]
+        IngestEP["POST /ingest"]
+        QueryEP["POST /query"]
+        AgentEP["POST /agent"]
+    end
+
+    subgraph DocumentIngestion ["Ingestion Pipeline (ingest.py)"]
+        LlamaParse["LlamaParse API (PDF Parser)"]
+        Splitter["RecursiveCharacterTextSplitter"]
+        Embedder["HuggingFace Embeddings (bge-small-en-v1.5)"]
+    end
+
+    subgraph VectorDB ["Pinecone Vector Database"]
+        PineconeIndex["Pinecone Index (rag-index)"]
+    end
+
+    subgraph RetrievalChain ["Retrieval & Generation (rag_chain.py & retriever.py)"]
+        Retriever["Similarity Search (PineconeVectorStore)"]
+        Reranker["CrossEncoder Reranker (bge-reranker-base)"]
+        RAGChain["LangChain RAG Chain"]
+    end
+
+    subgraph ReActAgent ["Autonomous ReAct Agent (agent.py)"]
+        AgentExecutor["AgentExecutor (Reason -> Act -> Observe)"]
+        
+        subgraph AgentTools ["Agent Tools"]
+            WebSearchTool["web_search (Tavily API)"]
+            FileIOTool["read_file / write_file (Local / AWS S3)"]
+            DocTools["summarize_document / compare_documents"]
+            RAGTool["answer_question (Internal RAG)"]
+        end
+    end
+
+    subgraph ExternalServices ["External LLM & Cloud APIs"]
+        OpenRouter["OpenRouter LLM API (DeepSeek / Mistral)"]
+        Tavily["Tavily Search API"]
+        AWSS3["AWS S3 Bucket"]
+    end
+
+    %% Client Interactions
+    Client --> HealthEP
+    Client --> IngestEP
+    Client --> QueryEP
+    Client --> AgentEP
+
+    %% Ingestion Flow
+    IngestEP --> LlamaParse --> Splitter --> Embedder --> PineconeIndex
+
+    %% Query & Retrieval Flow
+    QueryEP --> Retriever
+    Retriever --> PineconeIndex
+    Retriever --> Reranker --> RAGChain
+    RAGChain --> OpenRouter
+
+    %% ReAct Agent Flow
+    AgentEP --> AgentExecutor
+    AgentExecutor --> AgentTools
+    WebSearchTool --> Tavily
+    FileIOTool --> AWSS3
+    RAGTool --> RAGChain
+    AgentExecutor --> OpenRouter
+```
+
+---
 
 ## Features
 
-- Upload PDFs and ingest them into Pinecone
-- Query the indexed documents with an OpenRouter-backed chat model
-- Parse scanned/image-heavy PDFs with LlamaParse before chunking
-- Multi-document retrieval with source-aware metadata filters
-- Agentic web search tool via Tavily (`web_search`)
-- Agentic file tools via boto3 S3 client (`read_file`, `write_file`)
-- Agentic document tools: summarization and comparison (`summarize_document`, `compare_documents`)
-- AgentExecutor ReAct loop (`Reason -> Act -> Observe -> Repeat`) via `/agent`
-- Simple FastAPI endpoints for health, ingest, and query
+- **Document Ingestion**: Upload PDFs and convert scanned/complex documents into clean markdown via LlamaParse before indexing into Pinecone.
+- **Reranked Multi-Document Retrieval**: Perform metadata-filtered vector searches combined with cross-encoder re-ranking (`BAAI/bge-reranker-base`) for maximum context precision.
+- **Autonomous ReAct Agent (`/agent`)**: LangChain-powered agent executing iterative reasoning loops (`Reasoning -> Acting -> Observing`) using custom tools.
+- **Web Search Integration**: Access real-time web search capabilities via Tavily.
+- **Cloud & Local Storage**: Read/write documents seamlessly between local storage and AWS S3 buckets.
+- **Document Summarization & Comparison**: Built-in tools for Map-Reduce document summarization and cross-document comparison.
+- **Docker Support**: Containerized setup via `Dockerfile` and `docker-compose.yml`.
+
+---
 
 ## Tech Stack
 
-- FastAPI
-- LangChain
-- Pinecone
-- OpenRouter
-- LlamaParse
-- sentence-transformers
+- **Framework**: FastAPI & Uvicorn
+- **Agent & Orchestration**: LangChain, LangChain Core, LangChain Community, `langchain-pinecone`
+- **Vector Database**: Pinecone (`pinecone-client`)
+- **LLM Provider**: OpenRouter API (`mistralai/mistral-7b-instruct-v0.3`, `deepseek/deepseek-v4-pro`)
+- **PDF Parser**: LlamaParse (`llama-parse`)
+- **Embeddings & Re-ranking**: `sentence-transformers` (`BAAI/bge-small-en-v1.5` & `BAAI/bge-reranker-base`)
+- **External Tools**: Tavily API (`tavily-python`), AWS S3 (`boto3`)
+- **Containerization**: Docker & Docker Compose
 
-## Setup
+---
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
+## Setup & Quickstart
 
-```powershell
-pip install -r requirements.txt
-```
+### Prerequisites
 
-3. Add your API keys to `.env`:
+- Python 3.11+
+- Pinecone, OpenRouter, and LlamaParse API keys
+
+### Option A: Local Virtual Environment
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/gaurang-bele/agentic-rag-engine.git
+   cd agentic-rag-engine
+   ```
+
+2. **Create and activate a virtual environment**:
+   ```powershell
+   # On Windows PowerShell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables**:
+   Create a `.env` file in the root directory (see example configuration below).
+
+5. **Start the FastAPI server**:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+### Option B: Docker Compose
+
+1. Create and configure your `.env` file.
+2. Build and run the container:
+   ```bash
+   docker-compose up --build
+   ```
+3. The server will be accessible at `http://localhost:8000`.
+
+---
+
+## Environment Variables (`.env`)
 
 ```env
-PINECONE_API_KEY=your_key_here
+# Vector Database (Pinecone)
+PINECONE_API_KEY=your_pinecone_api_key
 PINECONE_INDEX=rag-index
 PINECONE_NAMESPACE=llamaparse-v1
 PINECONE_CLEAR_NAMESPACE_BEFORE_INGEST=false
 PINECONE_REPLACE_SOURCE_ON_INGEST=true
-LLAMA_CLOUD_API_KEY=your_key_here
+
+# PDF Parsing (LlamaParse)
+LLAMA_CLOUD_API_KEY=your_llama_cloud_api_key
 LLAMAPARSE_RESULT_TYPE=markdown
+
+# Embeddings & Retrieval
 CHUNK_SIZE=500
 CHUNK_OVERLAP=50
 EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
@@ -51,116 +172,51 @@ RETRIEVER_TOP_K=5
 RETRIEVER_FETCH_K=20
 ENABLE_RERANKING=true
 RERANKER_MODEL=BAAI/bge-reranker-base
+
+# LLM Configuration (OpenRouter)
 OPENROUTER_MODEL=mistralai/mistral-7b-instruct-v0.3
 OPENROUTER_HTTP_REFERER=http://localhost:8000
 OPENROUTER_APP_TITLE=Agentic RAG API
-OPENROUTER_API_KEY=your_key_here
-TAVILY_API_KEY=your_key_here
+OPENROUTER_API_KEY=your_openrouter_api_key
+
+# Web Search Tool (Tavily)
+TAVILY_API_KEY=your_tavily_api_key
 WEB_SEARCH_MAX_RESULTS=5
-WEB_SEARCH_DEPTH=advanced
-WEB_SEARCH_TOPIC=general
-WEB_SEARCH_INCLUDE_ANSWER=true
-WEB_SEARCH_INCLUDE_RAW_CONTENT=false
+
+# Storage (AWS S3)
 AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 AWS_REGION=ap-south-1
 S3_BUCKET_NAME=your_bucket_name
-S3_CONNECT_TIMEOUT_SECONDS=10
-S3_READ_TIMEOUT_SECONDS=30
-S3_MAX_ATTEMPTS=3
-SUMMARIZE_MAP_REDUCE_THRESHOLD=1000
-SUMMARIZE_CHUNK_SIZE=2000
-SUMMARIZE_CHUNK_OVERLAP=100
-COMPARE_SUMMARY_THRESHOLD=1000
+
+# Agent Controls
 AGENT_MAX_ITERATIONS=8
 ```
 
-4. Start the server:
+---
 
-```powershell
-uvicorn main:app --reload
-```
+## API Endpoints
 
-## Endpoints
+- `GET /health`: Health check endpoint.
+- `GET /`: Redirects directly to `/docs` (Interactive Swagger UI).
+- `POST /ingest`: Upload a PDF file to parse with LlamaParse and index into Pinecone.
+- `POST /query`: Query indexed documents with optional metadata filtering and re-ranking.
+- `POST /agent`: Execute multi-step natural language instructions with the ReAct Agent.
 
-- `GET /health`
-- `POST /ingest`
-- `POST /query`
-- `POST /agent`
-
-## Usage
-
-- Open `http://127.0.0.1:8000/docs`
-- Upload a PDF to `/ingest`
-- Ask questions through `/query`
-- `/` now redirects directly to `/docs`
-- `/ingest` now uses LlamaParse (no PyPDFLoader fallback)
-- Ingestion writes `source` + `source_id` metadata for each chunk
-- `PINECONE_REPLACE_SOURCE_ON_INGEST=true` replaces only the re-uploaded document vectors (good for multi-document indexes)
-
-`/query` supports metadata filtering and retrieval controls:
+### Sample `/query` Request
 
 ```json
 {
   "question": "What is the OSI model?",
   "source": "CN.pdf",
-  "page_from": 18,
+  "page_from": 1,
   "page_to": 30,
   "top_k": 5,
   "rerank": true
 }
 ```
 
-`question` is required. `source`, `page_from`, `page_to`, and `top_k` are optional.
-If you send placeholder values from Swagger (for example `"source": "string"` or `0` for page/top_k),
-they are ignored and query runs with defaults.
-
-## Agentic tool: web_search
-
-`tools/web_search.py` provides a Tavily-backed tool function and a LangChain `StructuredTool`:
-
-```python
-from tools import web_search, get_web_search_tool
-
-result = web_search("latest updates on retrieval-augmented generation")
-tool = get_web_search_tool()
-```
-
-## Agentic tools: read_file and write_file
-
-`tools/file_io.py` provides S3/local read and S3 write tools:
-
-```python
-from tools import read_file, write_file, get_read_file_tool, get_write_file_tool
-
-content = read_file("notes.txt", source="local")
-s3_obj = read_file("s3://your-bucket/path/input.txt", source="s3")
-saved = write_file("hello", s3_key="outputs/hello.txt")
-```
-
-`read_file(..., source="auto")` checks local first, then falls back to S3 if AWS credentials are configured.
-
-## Agentic tools: summarize_document and compare_documents
-
-```python
-from tools import summarize_document, compare_documents
-
-summary = summarize_document("docs/design.txt", source="local", max_words=200)
-comparison = compare_documents(
-    doc1_key="docs/v1.txt",
-    doc2_key="docs/v2.txt",
-    doc1_source="local",
-    doc2_source="local",
-    focus="both",
-)
-```
-
-## Agent endpoint (ReAct with verbose tracing)
-
-`/agent` runs a LangChain `AgentExecutor` with `verbose=True` and tools:
-`web_search`, `read_file`, `write_file`, `summarize_document`, `compare_documents`, `answer_question`.
-
-Example payload:
+### Sample `/agent` Request
 
 ```json
 {
@@ -168,30 +224,8 @@ Example payload:
 }
 ```
 
-Response includes:
-- `output` (final answer)
-- `intermediate_steps` (tool-by-tool reasoning trace for debugging)
+---
 
 ## License
 
-MIT License
-
-Copyright (c) 2026 gaurang-bele
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+MIT License - Copyright (c) 2026 gaurang-bele
