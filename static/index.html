@@ -7,8 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=2">
 </head>
+
 <body>
   <!-- Ambient glow overlays -->
   <div class="glow-sphere glow-left"></div>
@@ -140,8 +141,13 @@
       <div id="query-result-container" class="panel-card result-panel hidden">
         <div class="result-header">
           <h3 class="result-title">✨ Generated Answer</h3>
-          <button id="btn-copy-answer" class="icon-btn" title="Copy answer to clipboard">📋 Copy Answer</button>
+          <div class="header-actions">
+            <button id="btn-export-query-md" class="icon-btn" title="Export report as Markdown">📝 Export MD</button>
+            <button id="btn-export-query-pdf" class="icon-btn" title="Export report as PDF">📄 Export PDF</button>
+            <button id="btn-copy-answer" class="icon-btn" title="Copy answer to clipboard">📋 Copy</button>
+          </div>
         </div>
+
 
         <div id="query-answer-display" class="hero-answer-box"></div>
 
@@ -193,7 +199,12 @@
       <div id="agent-result-container" class="panel-card result-panel hidden">
         <div class="result-header">
           <h3 class="result-title">🤖 Agent Execution Output</h3>
+          <div class="header-actions">
+            <button id="btn-export-agent-md" class="icon-btn" title="Export report as Markdown">📝 Export MD</button>
+            <button id="btn-export-agent-pdf" class="icon-btn" title="Export report as PDF">📄 Export PDF</button>
+          </div>
         </div>
+
 
         <div id="agent-output-display" class="hero-answer-box"></div>
 
@@ -205,6 +216,7 @@
     </section>
   </div>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=2"></script>
 </body>
 </html>
+

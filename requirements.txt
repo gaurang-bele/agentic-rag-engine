@@ -14,3 +14,5 @@ pinecone
 langchain-pinecone
 tavily-python
 boto3
+fpdf2
+

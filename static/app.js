@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       updateProgress(100, `Completed! Ingested ${data.result?.chunks_count || 0} chunks.`);
-      alert(`Success: ${data.message || 'Document ingested successfully!'}`);
     } catch (err) {
       updateProgress(100, 'Ingestion Error');
       alert('Ingestion error: ' + err.message);
@@ -172,9 +171,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const err = await res.json();
         throw new Error(err.detail || 'Query failed');
       }
-
       const data = await res.json();
       queryAnswerDisplay.textContent = data.answer || 'No answer returned.';
+
+      window.lastQueryResult = {
+        title: "RAG Query Report",
+        query: question,
+        answer: data.answer,
+        sources: data.sources || [],
+      };
 
       querySourcesGrid.innerHTML = '';
       if (data.sources && data.sources.length > 0) {
@@ -231,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ input: input }),
       });
 
-
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.detail || 'Agent execution failed');
@@ -239,6 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       agentOutputDisplay.textContent = data.output || 'Agent task completed.';
+
+      window.lastAgentResult = {
+        title: "Agent Autonomous Task Report",
+        query: input,
+        answer: data.output,
+        steps: data.intermediate_steps || [],
+      };
 
       agentStepsTimeline.innerHTML = '';
       if (data.intermediate_steps && data.intermediate_steps.length > 0) {
@@ -266,6 +277,42 @@ document.addEventListener('DOMContentLoaded', () => {
       btnAgent.textContent = 'Execute Agent';
     }
   });
+
+  // EXPORT REPORT HANDLERS
+  async function downloadReport(payload, format) {
+    if (!payload || !payload.answer) return alert('No active result to export.');
+    payload.format = format;
+
+    try {
+      const res = await fetch('/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || 'Export failed');
+      }
+
+      const data = await res.json();
+      const link = document.createElement('a');
+      link.href = data.download_url;
+      link.download = data.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert(`✅ Report exported successfully as ${data.filename}!\nSaved locally to outputs/ and uploaded to S3.`);
+    } catch (err) {
+      alert('Export error: ' + err.message);
+    }
+  }
+
+  document.getElementById('btn-export-query-md')?.addEventListener('click', () => downloadReport(window.lastQueryResult, 'markdown'));
+  document.getElementById('btn-export-query-pdf')?.addEventListener('click', () => downloadReport(window.lastQueryResult, 'pdf'));
+  document.getElementById('btn-export-agent-md')?.addEventListener('click', () => downloadReport(window.lastAgentResult, 'markdown'));
+  document.getElementById('btn-export-agent-pdf')?.addEventListener('click', () => downloadReport(window.lastAgentResult, 'pdf'));
 
   function escapeHtml(str) {
     if (!str) return '';

@@ -26,6 +26,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
+
+
 ingestion_jobs: dict[str, dict] = {}
 
 def _run_background_ingest(job_id: str, temp_path: str, filename: str, parser_type: str):
@@ -239,11 +243,67 @@ def run_agent_endpoint(request: AgentRequest):
         logger.exception("Agent run failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
+from export_utils import generate_markdown_report, generate_pdf_report, save_and_upload_report
+
+
+class ExportRequest(BaseModel):
+    title: str = "Agentic RAG Technical Report"
+    query: str
+    answer: str
+    sources: list[dict] | None = None
+    steps: list[dict] | None = None
+    format: str = "markdown"
+
+
+@app.post("/export")
+def export_report_endpoint(request: ExportRequest):
+    try:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        fmt = request.format.lower().strip()
+
+        if fmt == "pdf":
+            filename = f"rag_report_{ts}.pdf"
+            content_bytes = generate_pdf_report(
+                title=request.title,
+                query=request.query,
+                answer=request.answer,
+                sources=request.sources,
+                steps=request.steps,
+            )
+            media_type = "application/pdf"
+        else:
+            filename = f"rag_report_{ts}.md"
+            md_text = generate_markdown_report(
+                title=request.title,
+                query=request.query,
+                answer=request.answer,
+                sources=request.sources,
+                steps=request.steps,
+            )
+            content_bytes = md_text.encode("utf-8")
+            media_type = "text/markdown"
+
+        storage_res = save_and_upload_report(filename, content_bytes, media_type)
+        return {
+            "status": "success",
+            "filename": filename,
+            "format": fmt,
+            "storage": storage_res,
+            "download_url": f"/outputs/{filename}",
+        }
+    except Exception as exc:
+        logger.exception("Export report failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
+
+if os.path.exists("outputs"):
+    app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs_static")
 
 @app.get("/", include_in_schema=False)
 def root(request: Request):
@@ -255,4 +315,5 @@ def root(request: Request):
 @app.get("/health")
 def health():
     return {"status": "running"}
+
 
