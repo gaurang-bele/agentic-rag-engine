@@ -23,12 +23,15 @@ try:
         cw_handler = watchtower.CloudWatchLogHandler(
             log_group_name="/aws/ec2/agentic-rag-engine",
             log_stream_name="api-server-logs",
-            region_name=os.getenv("AWS_REGION", "ap-south-1")
+            region_name=os.getenv("AWS_REGION", "ap-south-1"),
+            create_log_group=True,
         )
+        logging.getLogger().addHandler(cw_handler)
         logger.addHandler(cw_handler)
-        logger.info("AWS CloudWatch Logging handler attached successfully!")
+        logging.info("AWS CloudWatch Logging handler attached successfully!")
 except Exception as cw_err:
     logger.warning(f"CloudWatch Logger not attached: {cw_err}")
+
 
 from retriever import get_reranker
 from embedding_config import get_embeddings
