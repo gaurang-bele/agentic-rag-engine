@@ -17,9 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy requirements first to leverage Docker layer caching
 COPY requirements.txt .
 
-# Upgrade pip and install Python dependencies
+# Upgrade pip and install CPU-only PyTorch first to save 5GB+ of disk space
 RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r requirements.txt
+
 
 # Copy application source code
 COPY . .
