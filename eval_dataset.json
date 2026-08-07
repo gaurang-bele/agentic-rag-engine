@@ -1,0 +1,82 @@
+[
+  {
+    "question": "What is the primary architecture of the Hybrid RAG Engine?",
+    "ground_truth": "The engine uses Dense Vector Embeddings with Pinecone and BAE Cross-Encoder reranking (BAAI/bge-reranker-base) combined with DeepSeek V4 Pro for synthesis."
+  },
+  {
+    "question": "How does candidate scaling work for retrieved documents?",
+    "ground_truth": "Adaptive fetch_k candidate scaling dynamically adjusts candidate count between 10 candidates for small files and 20 candidates for large multi-page documents."
+  },
+  {
+    "question": "What cross-encoder model is used for document reranking?",
+    "ground_truth": "The BAAI/bge-reranker-base cross-encoder model is used to score and rerank candidate text chunks."
+  },
+  {
+    "question": "Where are generated PDF and Markdown reports stored?",
+    "ground_truth": "Reports are saved locally in the outputs/ directory and uploaded automatically to AWS S3 bucket s3://gaurang-rag-storage-2026/."
+  },
+  {
+    "question": "How does the Gmail tool send outbound agent notifications?",
+    "ground_truth": "It uses Python smtplib with TLS encryption over port 587 using Google App Passwords for live inbox dispatch with file attachments."
+  },
+  {
+    "question": "What vector database is integrated into the engine?",
+    "ground_truth": "Pinecone vector database is integrated with namespace support for index querying."
+  },
+  {
+    "question": "How is model cold start latency eliminated at server launch?",
+    "ground_truth": "The BGE Cross-Encoder reranker and embeddings are pre-warmed in RAM during the FastAPI @app.on_event('startup') event."
+  },
+  {
+    "question": "What parser is used for parsing complex PDF documents?",
+    "ground_truth": "LlamaParse is integrated for multi-format document ingestion and parsing."
+  },
+  {
+    "question": "What is the purpose of the real-time analytics ticker?",
+    "ground_truth": "It displays real-time latency in seconds, top BGE rerank score, estimated query cost in USD, and candidate chunk count."
+  },
+  {
+    "question": "How does the Agentic Assistant handle multi-step tasks?",
+    "ground_truth": "It uses a ReAct reasoning loop with up to 8 iterations to chain tools like web_search, summarize, write_file, and send_email."
+  },
+  {
+    "question": "What search engine API powers the web search tool?",
+    "ground_truth": "The Tavily Python SDK powers real-time web search with basic and deep research depth modes."
+  },
+  {
+    "question": "How is static asset caching managed in FastAPI?",
+    "ground_truth": "No-cache HTTP middleware sets Cache-Control, Pragma, and Expires headers alongside ?v=2 cache-busting query strings."
+  },
+  {
+    "question": "What cloud platform and container technology hosts the live application?",
+    "ground_truth": "AWS EC2 instance running Docker Compose and FastAPI backend on port 80."
+  },
+  {
+    "question": "How are email file attachments handled by the agent?",
+    "ground_truth": "The send_email tool attaches local files or outputs/ directory documents using MIMEApplication headers."
+  },
+  {
+    "question": "What happens if Gmail credentials are missing from .env?",
+    "ground_truth": "The email tool runs in safe simulation mode, logging the action without throwing errors."
+  },
+  {
+    "question": "How does the document comparison tool compare two text files?",
+    "ground_truth": "It reads both sources, computes word counts, and synthesizes key differences and similarities using LLM map-reduce."
+  },
+  {
+    "question": "What model handles fast multi-step tool reasoning in the agent?",
+    "ground_truth": "meta-llama/llama-3.3-70b-instruct via OpenRouter API handles fast sub-second tool reasoning."
+  },
+  {
+    "question": "How are single curly braces handled in LangChain prompt templates?",
+    "ground_truth": "JSON examples in prompt templates are double-escaped as {{ \"key\": \"value\" }} to avoid variable missing exceptions."
+  },
+  {
+    "question": "What is the maximum allowed query length for Tavily web search?",
+    "ground_truth": "Queries longer than 350 characters are automatically truncated to concise keywords to prevent API limits."
+  },
+  {
+    "question": "How does the PDF exporter format report content?",
+    "ground_truth": "It uses fpdf2 with UTF-8 encoding, custom glassmorphism header styling, and metadata footers."
+  }
+]

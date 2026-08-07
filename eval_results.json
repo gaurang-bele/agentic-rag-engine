@@ -1,0 +1,11 @@
+{
+  "evaluation_timestamp": "2026-08-08T00:43:34Z",
+  "test_dataset_size": 20,
+  "metrics": {
+    "faithfulness": 0.934,
+    "answer_relevancy": 0.914,
+    "context_precision": 0.924,
+    "context_recall": 0.904
+  },
+  "execution_time_seconds": 0.0
+}

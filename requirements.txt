@@ -15,4 +15,6 @@ langchain-pinecone
 tavily-python
 boto3
 fpdf2
-
+ragas
+datasets
+watchtower
