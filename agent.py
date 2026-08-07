@@ -155,6 +155,9 @@ def get_answer_question_tool() -> StructuredTool:
     )
 
 
+from tools.gmail import get_send_email_tool
+
+
 def get_agent_tools() -> list:
     return [
         get_web_search_tool(),
@@ -163,7 +166,9 @@ def get_agent_tools() -> list:
         get_summarize_tool(),
         get_compare_documents_tool(),
         get_answer_question_tool(),
+        get_send_email_tool(),
     ]
+
 
 
 def _get_agent_prompt() -> PromptTemplate:
@@ -222,28 +227,87 @@ def _get_max_iterations() -> int:
     return value
 
 
-def _handle_parsing_error(error) -> str:
-    return (
-        "Output format error. Please strictly output:\n"
-        "Action: <tool_name>\n"
-        'Action Input: {{"key": "value"}}\n'
-        "Do NOT use markdown code fences."
-    )
+import re
+import json
+from langchain_core.agents import AgentAction, AgentFinish
+from langchain_core.exceptions import OutputParserException
+from langchain_core.output_parsers import BaseOutputParser
 
+
+class RobustReActOutputParser(BaseOutputParser[AgentAction | AgentFinish]):
+    def parse(self, text: str) -> AgentAction | AgentFinish:
+        cleaned = text.strip()
+
+        # Check for Final Answer
+        if "Final Answer:" in cleaned:
+            answer = cleaned.split("Final Answer:", 1)[1].strip()
+            return AgentFinish(return_values={"output": answer}, log=text)
+
+        # Regex search for Action and Action Input
+        action_match = re.search(r"Action:\s*([^\n]+)", cleaned)
+        action_input_match = re.search(r"Action Input:\s*([\s\S]+)", cleaned)
+
+        if not action_match or not action_input_match:
+            # Fallback if text contains an answer without "Final Answer:" prefix
+            if "Thought:" in cleaned and not action_match:
+                thought_parts = cleaned.split("Thought:")
+                return AgentFinish(return_values={"output": thought_parts[-1].strip()}, log=text)
+            raise OutputParserException(f"Could not parse LLM output: {text}")
+
+        action = action_match.group(1).strip().strip("`").strip("'").strip('"')
+        raw_input = action_input_match.group(1).strip()
+
+        # Strip code fences ```json ... ```
+        if "```" in raw_input:
+            raw_input = re.sub(r"```(?:json)?", "", raw_input).strip("` \n")
+
+        # Extract first valid JSON object or clean string
+        if raw_input.startswith("{") and "}" in raw_input:
+            end_idx = raw_input.rfind("}") + 1
+            json_str = raw_input[:end_idx]
+            try:
+                action_input = json.loads(json_str)
+            except json.JSONDecodeError:
+                action_input = raw_input
+        else:
+            action_input = raw_input
+
+        # Log format MUST start after Question to prevent scratchpad duplication loops
+        log_text = cleaned
+        if "Thought:" in cleaned:
+            log_text = "Thought:" + cleaned.split("Thought:", 1)[1]
+
+        return AgentAction(tool=action, tool_input=action_input, log=log_text)
+
+    @property
+    def _type(self) -> str:
+        return "robust_react"
+
+
+
+from rag_chain import get_llm, get_agent_llm
 
 
 def _build_agent_executor(verbose: bool) -> AgentExecutor:
-    llm = get_llm()
+    llm = get_agent_llm()
     tools = get_agent_tools()
-    agent = create_react_agent(llm=llm, tools=tools, prompt=_get_agent_prompt())
+    agent = create_react_agent(
+        llm=llm,
+        tools=tools,
+        prompt=_get_agent_prompt(),
+        output_parser=RobustReActOutputParser(),
+    )
     return AgentExecutor(
         agent=agent,
         tools=tools,
         verbose=verbose,
         return_intermediate_steps=True,
-        handle_parsing_errors=_handle_parsing_error,
+        handle_parsing_errors=True,
         max_iterations=_get_max_iterations(),
     )
+
+
+
 
 
 @lru_cache(maxsize=1)

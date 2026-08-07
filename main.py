@@ -16,7 +16,20 @@ from rag_chain import answer
 
 logger = logging.getLogger("uvicorn.error")
 
+from retriever import get_reranker
+from embedding_config import get_embeddings
+
 app = FastAPI(title="Agentic RAG API")
+
+@app.on_event("startup")
+def prewarm_models():
+    logger.info("Pre-warming BGE Reranker and Embedding models into RAM...")
+    try:
+        get_embeddings()
+        get_reranker()
+        logger.info("Models pre-warmed successfully. Server ready for sub-second queries!")
+    except Exception as exc:
+        logger.warning(f"Model pre-warming notice: {exc}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,7 +43,17 @@ app.add_middleware(
 
 
 
+
 ingestion_jobs: dict[str, dict] = {}
+MAX_INGESTION_JOBS_STORED = 100
+
+
+def _cleanup_old_ingestion_jobs():
+    if len(ingestion_jobs) > MAX_INGESTION_JOBS_STORED:
+        excess_keys = list(ingestion_jobs.keys())[:-50]
+        for key in excess_keys:
+            ingestion_jobs.pop(key, None)
+
 
 def _run_background_ingest(job_id: str, temp_path: str, filename: str, parser_type: str):
     def update_progress(percent: int, message: str):
@@ -157,6 +180,7 @@ def ingest_document(
             }
 
         # Background Task Ingestion (Optional)
+        _cleanup_old_ingestion_jobs()
         ingestion_jobs[job_id] = {
             "job_id": job_id,
             "filename": file.filename,
@@ -196,8 +220,12 @@ def list_ingest_jobs():
     return list(ingestion_jobs.values())
 
 
+import time
+
+
 @app.post("/query")
 def query_document(request: QueryRequest):
+    start_time = time.perf_counter()
     try:
         source = _normalize_optional_string(request.source)
         page_from = _normalize_optional_positive_int(request.page_from)
@@ -214,17 +242,33 @@ def query_document(request: QueryRequest):
             top_k=top_k,
             rerank=request.rerank,
         )
+        elapsed_sec = round(time.perf_counter() - start_time, 3)
+
+        sources_list = []
+        top_rerank_score = None
+
+        for idx, doc in enumerate(result["source_documents"]):
+            score = doc.metadata.get("rerank_score")
+            if idx == 0 and score is not None:
+                top_rerank_score = score
+            sources_list.append({
+                "page": doc.metadata.get("page"),
+                "source": doc.metadata.get("source"),
+                "rerank_score": score,
+                "content": doc.page_content[:200],
+            })
+
+        # Token cost estimation ($0.00015 per 1k tokens)
+        est_tokens = (len(request.question.split()) + len(result["result"].split()) + 600) * 1.3
+        est_cost = round(est_tokens * 0.0000002, 5)
+
         return {
             "answer": result["result"],
-            "sources": [
-                {
-                    "page": doc.metadata.get("page"),
-                    "source": doc.metadata.get("source"),
-                    "rerank_score": doc.metadata.get("rerank_score"),
-                    "content": doc.page_content[:200],
-                }
-                for doc in result["source_documents"]
-            ],
+            "sources": sources_list,
+            "latency_sec": elapsed_sec,
+            "top_rerank_score": top_rerank_score,
+            "est_cost_usd": est_cost,
+            "chunks_count": len(sources_list),
         }
     except HTTPException:
         raise
@@ -234,14 +278,19 @@ def query_document(request: QueryRequest):
 
 @app.post("/agent")
 def run_agent_endpoint(request: AgentRequest):
+    start_time = time.perf_counter()
     try:
         result = run_agent(request.input)
+        elapsed_sec = round(time.perf_counter() - start_time, 3)
+        result["latency_sec"] = elapsed_sec
+        result["est_cost_usd"] = round(len(request.input.split()) * 0.00003 + 0.00025, 5)
         return result
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:
         logger.exception("Agent run failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
 
 from export_utils import generate_markdown_report, generate_pdf_report, save_and_upload_report
 

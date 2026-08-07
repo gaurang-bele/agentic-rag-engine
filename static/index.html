@@ -29,8 +29,31 @@
         <span class="badge badge-s3" title="AWS S3 Bucket Connected">☁️ S3: gaurang-rag-storage-2026</span>
         <span class="badge badge-pinecone" title="Pinecone Namespace">⚡ Pinecone: llamaparse-v1</span>
         <span class="badge badge-status">🟢 System Ready</span>
-      </div>
     </header>
+
+    <!-- Real-Time Analytics Performance Ticker -->
+    <div class="analytics-ticker-bar">
+      <div class="ticker-item">
+        <span class="ticker-label">⏱️ Latency:</span>
+        <span id="ticker-latency" class="ticker-value">--</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <span class="ticker-label">🎯 Top BGE Score:</span>
+        <span id="ticker-bge" class="ticker-value">--</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <span class="ticker-label">🪙 Est. Query Cost:</span>
+        <span id="ticker-cost" class="ticker-value">--</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <span class="ticker-label">⚡ Vector DB:</span>
+        <span id="ticker-pinecone" class="ticker-value ticker-active">Pinecone Active</span>
+      </div>
+    </div>
+
 
     <!-- Main Navigation Bar -->
     <nav class="main-tabs">
@@ -193,7 +216,9 @@
           <span class="chip-label">Agent Presets:</span>
           <button class="agent-chip-btn" data-agent-prompt="Search web for latest AI news, summarize key takeaways, and save to s3_key outputs/ai_summary.txt">Search Web & Save File</button>
           <button class="agent-chip-btn" data-agent-prompt="Answer the question 'What is the OSI model?' using the answer_question tool.">Knowledge RAG Lookup</button>
+          <button class="agent-chip-btn" data-agent-prompt="Summarize the latest AI developments and send an email report to user@example.com using the send_email tool.">📧 Email Summary Report</button>
         </div>
+
       </div>
 
       <div id="agent-result-container" class="panel-card result-panel hidden">

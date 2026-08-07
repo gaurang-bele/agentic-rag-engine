@@ -7,7 +7,7 @@ load_dotenv(override=True)
 
 def get_llm():
     # OpenRouter uses OpenAI-compatible API
-    model_name = os.getenv("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct-v0.3")
+    model_name = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-v4-pro")
     return ChatOpenAI(
         model=model_name,
         api_key=os.getenv("OPENROUTER_API_KEY"),
@@ -18,6 +18,21 @@ def get_llm():
         },
         temperature=0,
     )
+
+def get_agent_llm():
+    # Fast model for agent multi-step loops (sub-second tool calls)
+    model_name = os.getenv("AGENT_OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct")
+    return ChatOpenAI(
+        model=model_name,
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        base_url="https://openrouter.ai/api/v1",
+        default_headers={
+            "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "http://localhost:8000"),
+            "X-Title": os.getenv("OPENROUTER_APP_TITLE", "Agentic RAG API"),
+        },
+        temperature=0,
+    )
+
 
 def _build_prompt(question: str, source_documents: list) -> str:
     if not source_documents:
@@ -73,8 +88,23 @@ def answer(
     )
     llm = get_llm()
     prompt = _build_prompt(question, source_documents)
-    response = llm.invoke(prompt)
-    result_text = _extract_text(response)
+    try:
+        response = llm.invoke(prompt)
+        result_text = _extract_text(response)
+    except Exception as exc:
+        print(f"Primary LLM call failed ({exc}). Retrying with fallback model...")
+        fallback_llm = ChatOpenAI(
+            model="mistralai/mistral-7b-instruct-v0.3",
+            api_key=os.getenv("OPENROUTER_API_KEY"),
+            base_url="https://openrouter.ai/api/v1",
+            default_headers={
+                "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "http://localhost:8000"),
+                "X-Title": os.getenv("OPENROUTER_APP_TITLE", "Agentic RAG API"),
+            },
+            temperature=0,
+        )
+        response = fallback_llm.invoke(prompt)
+        result_text = _extract_text(response)
     
     print(f"\nQuestion: {question}")
     print(f"\nAnswer: {result_text}")

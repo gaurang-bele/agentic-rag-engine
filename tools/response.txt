@@ -1,77 +1,46 @@
 WEB SEARCH RESULTS
-Query: {"query": "latest money making ideas without starting capital 2025 2026", "max_results": 10, "search_depth": "advanced"}
+Query: new technologies to attract women
 
 Answer:
-Freelancing, creating digital products, and renting out personal assets are low-cost money-making ideas in 2025-2026. Passive income from stock photos and print-on-demand services also work without startup capital.
+To attract more women to tech, focus on raising awareness, providing role models, and removing macho jargon from job ads. Engaging with DEI experts also helps retain female talent.
 
 Results:
-1. 21 Best Side Hustle Ideas with a Low Startup Cost (2026)
-   URL: https://www.sofi.com/learn/content/low-cost-side-hustles
-   Score: 0.8467682
-   Summary: If you enjoy making crafts and artwork, you might find a market on Etsy or other online marketplaces to sell your stuff. Custom signs, homemade soaps and candles, knitted scarves and blankets, and handmade jewelry are just a few examples of what artists currently sell. This can be a good opportunity to turn a hobby you love into an income stream. [...] You might start by updating your LinkedIn to show that you are looking for clients in the social media space. A website highlighting your own personal social media stats might be a good idea, too. To kick off your side hustle, you could consider building your portfolio by offering free services to a nonprofit or local business with a limited budget.
+1. How to Attract More Women into Tech - Women in Technology
+   URL: https://www.womenintech.co.uk/attracting-women-tech-2
+   Score: 0.65146625
+   Summary: Raising awareness and educating females on the rise of technology and the opportunities it can provide is one way of attracting women in tech.
 
-A social media manager who is just starting out might earn $15 an hour; those with more experience may earn four times that amount or more. [...] If you are an online content creator on Instagram, TikTok, or YouTube with a devoted following, this could be an ideal role for you. As an affiliate marketer, you’ll earn money by recommending products you use and like by providing a tracking link to the product that’s unique to you. Every time someone uses the link to purchase the product, you’ll get a percentage of the sale.
+2. How to attract and retain women in tech
+   URL: https://techinformed.com/report/women-in-tech
+   Score: 0.6461259
+   Summary: This report features women from BT, Percona, Raspberry Pi and more. Growth happens when women have role models, mentors, and examples to follow. This report
 
-2. 12 business ideas that require little or no startup capital
-   URL: https://baremetrics.com/academy/12-business-ideas-require-little-no-startup-capital
-   Score: 0.846159
-   Summary: A concierge partnership model is a business arrangement where you provide a service — such as airport transportation — through partnerships with hotel staff who refer guests in exchange for a commission. This requires minimal capital since you can use existing ride-share drivers.
+3. The Future of Women's Health: 8 New Technologies Improving Lives
+   URL: https://www.gatesfoundation.org/ideas/science-innovation-technology/future-womens-health-technology
+   Score: 0.6219319
+   Summary: Contraceptive options have remained largely unchanged for generations, despite women’s changing needs. To address this inequity, our foundation has committed US$280 million annually from 2021 to 2030 to develop new and improved contraceptive technologies that respond to the preferences of women and girls in low- and middle-income countries and address the barriers that prevent them from using contraceptives, including cost and access. [...] Investments in R&D have yielded new options for HIV prevention and better and more efficient treatment and care delivery strategies. These include long-acting injectables such as cabotegravir (CAB-LA), a type of pre-exposure prophylaxis (PrEP) that can help address some of the unique risks faced by young women and adolescent girls, including stigma associated with taking daily oral forms of PrEP. [...] That’s why we’re investing $2.5B through 2030 to advance over 40 innovations in five key areas—across a woman’s lifespan—that have the potential to deliver the greatest impact on women’s health; including obstetric care, maternal health and nutrition, contraception, gynecological and menstrual health, and sexually transmitted infection (STIs) prevention. Across the five areas, we see significant potential for health innovations—some already proven and ready to be scaled, and some still in
 
-Ask local Uber and Lyft drivers if they'd like to earn extra money working for your company. [...] Nowadays (thanks to ride-sharing) everyone loves on-demand services. I wish I could book my hairdresser to cut my hair in my home office on busy days without paying $500 per visit.
+4. How the tech industry is attracting more women
+   URL: https://www.ft.com/content/d5d6035a-f63e-11e7-a4c9-bbdefa4f210b
+   Score: 0.49509352
+   Summary: How the tech industry is attracting more women. Removing macho jargon from job ads is one of the strategies that is producing results.
 
-It probably wouldn't be too hard to partner up with a couple local barber shops or salons and negotiate a split with the owner for booking jobs for their stylists. You'd just have to foot the bill for the tech. Or, build a website yourself and optimize it for SERPs rankings. [...] ## 9. Sell Custom Products via Facebook Ads
+5. 6 Ways to Attract And Retain Female Tech Talent - I by IMD
+   URL: https://www.imd.org/ibyimd/brain-circuits/6-ways-to-attract-and-retain-female-tech-talent
+   Score: 0.477238
+   Summary: Engaging with Diversity, Equity, and Inclusion (DEI) experts can provide valuable insights and tools to attract and retain women in tech.
 
-Print-on-demand is a business model where you sell customized products — such as mugs, t-shirts, or posters — without holding any inventory. You only purchase the product from the manufacturer after a customer has already paid you.
+6. How To Attract More Women To The Technology Field: Start Young
+   URL: https://www.forbes.com/councils/forbestechcouncil/2023/11/30/how-to-attract-more-women-to-the-technology-field-start-young
+   Score: 0.47022632
+   Summary: Expand the perception of IT early. Early exposure to technology is key to planting a seed of interest. STEM and STEAM schools, Introduce young
 
-3. 8 Side Hustles to Build Passive Income in 2026
-   URL: https://www.meriwest.com/our-story/blog/8-side-hustles-build-passive-income-2026
-   Score: 0.81665546
-   Summary: ## Passive Income Ideas in 2026
+7. How to Attract More Female Talents into Tech?
+   URL: https://www.talentlyft.com/blog/how-to-attract-more-female-talents-into-tech
+   Score: 0.32988858
+   Summary: #1 Spark the interest from an early age · #2 Give greater space to female role models · #3 Encourage women to apply · #4 Allow flexible working
 
-### 1. Create and Sell Digital Products
-
-Effort Level: Medium upfront, low ongoing  
-Potential Income: $500–$5,000+/month  
-Why It’s Hot in 2025: Digital products like eBooks, templates, and printables require one-time creation but can sell repeatedly. Etsy and Gumroad report rising demand for digital planners and educational resources.
-
-How to Start: [...] Start Small: Test ideas with minimal investment (e.g., $50 for digital products).   
-Leverage Trends: Use TikTok or X to spot what’s hot (e.g., #SideHustle2025).   
-Automate: Use tools like Zapier or Buffer to streamline tasks.   
-Diversify: Combine hustles (e.g., blog + affiliate marketing) for multiple streams.   
-Stay Consistent: Passive income takes upfront work—commit for 6–12 months.
-
-## Final Thoughts [...] Effort Level: Low upfront, low ongoing  
-Potential Income: $200–$5,000+/month  
-Why It’s Hot in 2025: Peer-to-peer rental platforms like Turo and Fat Llama are growing, letting you monetize unused assets like cars, cameras, or even storage space.
-
-How to Start:
-
- List your car on Turo or equipment on Fat Llama.
- Use Neighbor to rent out storage space (e.g., garage).
- Set clear terms and invest in insurance for protection.
- Promote locally via Nextdoor or community boards.
-
-4. 25 Best Passive Income Ideas to Make Money in 2026
-   URL: https://www.investopedia.com/terms/p/passiveincome.asp
-   Score: 0.8066246
-   Summary: Investing in a business where you don’t materially participate offers the potential for passive income. This typically involves putting capital into a venture without involvement in its day-to-day operations or management decisions. Your role is not active. Your involvement is primarily financial. [...] Passive income is money earned from sources other than a traditional job. It includes earnings from rental properties, stock dividends, courses sold online, and other projects where you're not actively involved in the continued generation of revenue.
-
-You may have had to put time, money, or effort into starting up such ventures, but you eventually collect income passively without much work.
-
-## 25 Ways to Make Passive Income in 2026 [...] ## The Bottom Line
-
-Passive income can be derived over time through different means. From renting out property and leveraging automated technologies to creating digital content, these avenues offer the potential for sustainable financial growth.
-
-5. 11 Passive Income Ideas to Increase Your Cash Flow in 2026
-   URL: https://www.coursera.org/articles/passive-income
-   Score: 0.78572035
-   Summary: Building passive income with little to no money upfront is possible, but it typically requires investing something else instead: your time, skills, or creativity. Options like creating content on YouTube, selling worksheets or templates on platforms like Etsy, or writing and self-publishing an e-book can all be started with minimal financial investment. The trade-off is that these approaches often demand significant effort early on before any income starts to flow. If you need money sooner, [...] ### 9. Sell stock photos.
-
-Whether you’re an amateur or seasoned photographer, you can sell your original photos as stock images using sites like Alamy, Shutterstock, Stocksy, or Adobe Stock.
-
-| Pros | Be mindful of... |
- --- |
-| Start a photography business without needing to find clients | A lot of legalities to learn and navigate |
-| Retain creative control over the work you produce | Host websites may charge sales fees |
-
-### 10. Create an app. [...] You can sell your original designs on shirts, hats, mugs, posters, and other products without dealing with inventory and fulfillment by opening a print-on-demand shop. All you need to do is select your provider—companies like Printful, Printify, or Gelato—upload your file, choose the products you want to sell, and advertise them on your online store.
+8. How to Attract Women
+   URL: https://markmanson.net/attract-women
+   Score: 0.25848082
+   Summary: Without getting too deep into the research on female arousal (it’s messy and confusing, which shouldn’t surprise you), the leading theory on female arousal is women are turned on by bold behaviors, displays of bravery, and direct sexual desire, particularly when directed at the woman who is getting aroused. [...] Needy behavior will only attract other needy women. Neediness finds its own level. So if you’re an angry, misogynist who lies to women to get them to sleep with you, the only women who will tolerate your behavior long enough to sleep with you will be angry, distrusting women who lie to get things from men. If you are open and honest about your intentions and genuinely care about the women you meet and interact with, then you will attract genuine and caring women who will be honest with you. [...] If you choose to be cold, calculating and manipulative with women, you will naturally screen for women who will create a cold, calculating and manipulative relationship with you. If you pursue women with a neediness and an idealization of them, then you will attract equally naive and insecure women who will create a relationship of neediness and false idolization. If you pursue women in a rude and harsh manner, you will attract women who respond to harsh emotions and elicit harsh emotions

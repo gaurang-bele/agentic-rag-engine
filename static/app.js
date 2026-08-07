@@ -174,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
       queryAnswerDisplay.textContent = data.answer || 'No answer returned.';
 
+      updateTickerMetrics(data);
+
       window.lastQueryResult = {
         title: "RAG Query Report",
         query: question,
@@ -244,12 +246,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
       agentOutputDisplay.textContent = data.output || 'Agent task completed.';
 
+      updateTickerMetrics(data);
+
       window.lastAgentResult = {
         title: "Agent Autonomous Task Report",
         query: input,
         answer: data.output,
         steps: data.intermediate_steps || [],
       };
+
 
       agentStepsTimeline.innerHTML = '';
       if (data.intermediate_steps && data.intermediate_steps.length > 0) {
@@ -313,6 +318,28 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-export-query-pdf')?.addEventListener('click', () => downloadReport(window.lastQueryResult, 'pdf'));
   document.getElementById('btn-export-agent-md')?.addEventListener('click', () => downloadReport(window.lastAgentResult, 'markdown'));
   document.getElementById('btn-export-agent-pdf')?.addEventListener('click', () => downloadReport(window.lastAgentResult, 'pdf'));
+
+  const tickerLatency = document.getElementById('ticker-latency');
+  const tickerBge = document.getElementById('ticker-bge');
+  const tickerCost = document.getElementById('ticker-cost');
+
+  function updateTickerMetrics(data) {
+    if (!data) return;
+    if (data.latency_sec !== undefined && tickerLatency) {
+      tickerLatency.textContent = `${data.latency_sec}s`;
+    }
+    if (tickerBge) {
+      if (data.top_rerank_score !== undefined && data.top_rerank_score !== null) {
+        tickerBge.textContent = `${data.top_rerank_score}`;
+      } else {
+        tickerBge.textContent = `N/A`;
+      }
+    }
+    if (data.est_cost_usd !== undefined && tickerCost) {
+      tickerCost.textContent = `$${data.est_cost_usd.toFixed(5)}`;
+    }
+  }
+
 
   function escapeHtml(str) {
     if (!str) return '';

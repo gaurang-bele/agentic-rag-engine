@@ -95,6 +95,10 @@ def web_search(
     if not normalized_query:
         raise ValueError("web_search requires a non-empty query")
 
+    # Truncate query to 350 chars max for Tavily API query limits
+    if len(normalized_query) > 350:
+        normalized_query = normalized_query[:350].rsplit(" ", 1)[0]
+
     final_max_results = max_results if max_results is not None else get_default_max_results()
     final_max_results = max(final_max_results, 1)
 
@@ -113,6 +117,7 @@ def web_search(
         topic=final_topic,
         max_results=final_max_results,
         include_answer=_env_bool("WEB_SEARCH_INCLUDE_ANSWER", True),
+
         include_raw_content=_env_bool("WEB_SEARCH_INCLUDE_RAW_CONTENT", False),
         days=get_default_days(),
     )
