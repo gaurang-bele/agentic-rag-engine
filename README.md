@@ -100,11 +100,28 @@ GMAIL_SENDER_EMAIL=your_email@gmail.com
 GMAIL_APP_PASSWORD=your_16_char_app_password
 ```
 
-### 3. Run via Docker Compose
+### 3. Local Launch (Windows Virtual Environment - Recommended)
+Run the following command in PowerShell from the project root directory:
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
+```
+*(Or if your virtual environment is active: `uvicorn main:app --reload --port 8000`)*
+
+- **Web Dashboard**: [http://localhost:8000/](http://localhost:8000/)
+- **Swagger API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 4. Run RAGAS Benchmark Evaluation Locally
+To run the automated 20-pair RAGAS evaluation suite and update metric reports:
+```powershell
+.\.venv\Scripts\python.exe eval_ragas.py
+```
+
+### 5. Alternative Run via Docker Compose
 ```bash
 docker compose up -d --build
 ```
 Access the application at [http://localhost:8000/](http://localhost:8000/).
+
 
 ---
 
