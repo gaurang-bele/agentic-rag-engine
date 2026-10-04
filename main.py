@@ -1,7 +1,8 @@
-import logging
-import os
-import shutil
-import watchtower
+try:
+    import watchtower
+    HAS_WATCHTOWER = True
+except ImportError:
+    HAS_WATCHTOWER = False
 
 import uuid
 from datetime import datetime
@@ -17,20 +18,22 @@ from rag_chain import answer
 
 logger = logging.getLogger("uvicorn.error")
 
-# Configure AWS CloudWatch Logger if AWS credentials are set
-try:
-    if os.getenv("AWS_ACCESS_KEY_ID") and os.getenv("AWS_SECRET_ACCESS_KEY"):
-        cw_handler = watchtower.CloudWatchLogHandler(
-            log_group_name="/aws/ec2/agentic-rag-engine",
-            log_stream_name="api-server-logs",
-            region_name=os.getenv("AWS_REGION", "ap-south-1"),
-            create_log_group=True,
-        )
-        logging.getLogger().addHandler(cw_handler)
-        logger.addHandler(cw_handler)
-        logging.info("AWS CloudWatch Logging handler attached successfully!")
-except Exception as cw_err:
-    logger.warning(f"CloudWatch Logger not attached: {cw_err}")
+# Configure AWS CloudWatch Logger if watchtower is installed and AWS credentials are set
+if HAS_WATCHTOWER:
+    try:
+        if os.getenv("AWS_ACCESS_KEY_ID") and os.getenv("AWS_SECRET_ACCESS_KEY"):
+            cw_handler = watchtower.CloudWatchLogHandler(
+                log_group_name="/aws/ec2/agentic-rag-engine",
+                log_stream_name="api-server-logs",
+                region_name=os.getenv("AWS_REGION", "ap-south-1"),
+                create_log_group=True,
+            )
+            logging.getLogger().addHandler(cw_handler)
+            logger.addHandler(cw_handler)
+            logging.info("AWS CloudWatch Logging handler attached successfully!")
+    except Exception as cw_err:
+        logger.warning(f"CloudWatch Logger not attached: {cw_err}")
+
 
 
 from retriever import get_reranker

@@ -50,6 +50,7 @@ def get_clear_namespace_before_ingest() -> bool:
         return _env_bool("PINECONE_CLEAR_BEFORE_INGEST", False)
     return False
 
+
 def get_replace_source_before_ingest() -> bool:
     return _env_bool("PINECONE_REPLACE_SOURCE_ON_INGEST", True)
 
