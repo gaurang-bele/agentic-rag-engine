@@ -1,4 +1,83 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 3D PERSPECTIVE TILT HANDLER
+  const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function applyTilt(card) {
+    if (rm || !card) return;
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateX(${-y * 8}deg) rotateY(${x * 10}deg)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  }
+
+  document.querySelectorAll('.panel-card, .main-tabs, .analytics-ticker-bar').forEach(applyTilt);
+
+  // LIGHTWEIGHT 60FPS CANVAS PARTICLE BG
+  const cv = document.getElementById('bg');
+  if (cv) {
+    const ctx = cv.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const sp = document.createElement('canvas');
+    sp.width = sp.height = 32;
+    const sc = sp.getContext('2d');
+    const g = sc.createRadialGradient(16, 16, 0, 16, 16, 16);
+    g.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    g.addColorStop(0.25, 'rgba(34, 211, 238, 0.55)');
+    g.addColorStop(1, 'rgba(34, 211, 238, 0)');
+    sc.fillStyle = g;
+    sc.fillRect(0, 0, 32, 32);
+
+    let W, H, N = [], px = 0, tx = 0;
+    function resizeCanvas() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      cv.width = W * dpr;
+      cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      N = Array.from({ length: Math.min(30, Math.round(W / 40)) }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        s: Math.random() * 12 + 6,
+        v: Math.random() * 0.3 + 0.1,
+        p: Math.random() * 6.28,
+        k: Math.random() * 0.02 + 0.01
+      }));
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      px += (tx - px) * 0.05;
+      for (const a of N) {
+        a.y -= a.v;
+        a.p += a.k;
+        if (a.y < -20) {
+          a.y = H + 20;
+          a.x = Math.random() * W;
+        }
+        ctx.globalAlpha = 0.2 + 0.5 * Math.abs(Math.sin(a.p));
+        ctx.drawImage(sp, a.x + Math.sin(a.p) * 12 + px * a.s * 0.08, a.y, a.s * 2, a.s * 2);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function animLoop() {
+      drawParticles();
+      if (!rm) requestAnimationFrame(animLoop);
+    }
+
+    window.addEventListener('pointermove', e => {
+      tx = (e.clientX / window.innerWidth - 0.5) * 30;
+    });
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    animLoop();
+  }
+
   // TAB SWITCHING
   const tabItems = document.querySelectorAll('.tab-item');
   const tabPages = document.querySelectorAll('.tab-page');
@@ -13,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(targetId).classList.add('active');
     });
   });
+
 
   // QUICK CHIP PROMPTS (Query)
   const chipBtns = document.querySelectorAll('.chip-btn');

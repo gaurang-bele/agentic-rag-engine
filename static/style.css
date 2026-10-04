@@ -704,3 +704,187 @@ input:-webkit-autofill:focus {
   box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
 }
 
+/* 3D CYBERPUNK BACKGROUND & PLANET OVERLAYS */
+.fx {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  width: 75vmax;
+  height: 75vmax;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.b1 {
+  left: -15vmax;
+  top: -20vmax;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.4), transparent 62%);
+  animation: d1 14s ease-in-out infinite alternate;
+}
+
+.b2 {
+  right: -20vmax;
+  top: 5vmax;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.35), transparent 62%);
+  animation: d2 16s ease-in-out infinite alternate;
+}
+
+.b3 {
+  left: 20vw;
+  bottom: -30vmax;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 62%);
+  animation: d3 18s ease-in-out infinite alternate;
+}
+
+.floor {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  bottom: -12vh;
+  height: 50vh;
+  overflow: hidden;
+  transform: perspective(380px) rotateX(64deg);
+  -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+}
+
+.grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -64px;
+  bottom: 0;
+  background-image: linear-gradient(rgba(34, 211, 238, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.35) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: run 2.5s linear infinite;
+}
+
+#bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sweep {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140vmax;
+  height: 140vmax;
+  margin: -70vmax 0 0 -70vmax;
+  background: conic-gradient(from 0deg, transparent 0, rgba(34, 211, 238, 0.15) 12%, transparent 30%, rgba(139, 92, 246, 0.18) 55%, transparent 75%, rgba(59, 130, 246, 0.15) 90%, transparent);
+  animation: rot 36s linear infinite;
+  will-change: transform;
+}
+
+.planet {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  perspective: 800px;
+  animation: flt 9s ease-in-out infinite alternate;
+}
+
+.p1 {
+  --s: 28vmin;
+  right: 4vw;
+  top: 6vh;
+}
+
+.p2 {
+  --s: 16vmin;
+  left: 3vw;
+  bottom: 12vh;
+  animation-duration: 12s;
+  animation-direction: alternate-reverse;
+}
+
+.ball {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fff 0, #a5f3fc 8%, #22d3ee 30%, #6d5bf0 62%, #1b1450 100%);
+  box-shadow: 0 0 60px rgba(34, 211, 238, 0.35);
+  opacity: 0.85;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(165, 243, 252, 0.6);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.3);
+  animation: orbit 14s linear infinite;
+}
+
+.ring:after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 14px #22d3ee, 0 0 30px #22d3ee;
+}
+
+.p2 .ring {
+  border-color: rgba(196, 181, 253, 0.6);
+  animation-duration: 18s;
+  animation-direction: reverse;
+}
+
+/* 3D DOCUMENT STACK */
+.stack {
+  position: relative;
+  width: 70px;
+  height: 90px;
+  transform-style: preserve-3d;
+  animation: spin 9s linear infinite;
+  margin: 10px auto 14px;
+}
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(160deg, rgba(34, 211, 238, 0.25), rgba(139, 92, 246, 0.25));
+}
+
+.sheet:nth-child(1) { transform: translateZ(-18px); }
+.sheet:nth-child(3) { transform: translateZ(18px); }
+
+@keyframes rot { to { transform: rotate(360deg); } }
+@keyframes flt { from { transform: translateY(-2vh) rotate(-3deg); } to { transform: translateY(3vh) rotate(3deg); } }
+@keyframes orbit { from { transform: rotateX(72deg) rotateY(-18deg) rotateZ(0); } to { transform: rotateX(72deg) rotateY(-18deg) rotateZ(360deg); } }
+@keyframes d1 { to { transform: translate(24vmax, 15vmax) scale(1.2); } }
+@keyframes d2 { to { transform: translate(-22vmax, 18vmax) scale(0.9); } }
+@keyframes d3 { to { transform: translate(18vmax, -14vmax) scale(1.2); } }
+@keyframes run { to { transform: translateY(64px); } }
+@keyframes spin { from { transform: rotateX(-16deg) rotateY(0); } to { transform: rotateX(-16deg) rotateY(360deg); } }
+
+@media (max-width: 700px) {
+  .sweep, .p2 { display: none; }
+  .p1 { --s: 36vmin; right: -4vw; }
+  .floor { height: 35vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx *, .stack { animation: none !important; transition: none !important; }
+}
+
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
+}
+
