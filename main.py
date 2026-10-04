@@ -1,8 +1,13 @@
+import logging
+import os
+import shutil
+
 try:
     import watchtower
     HAS_WATCHTOWER = True
 except ImportError:
     HAS_WATCHTOWER = False
+
 
 import uuid
 from datetime import datetime
@@ -22,17 +27,25 @@ logger = logging.getLogger("uvicorn.error")
 if HAS_WATCHTOWER:
     try:
         if os.getenv("AWS_ACCESS_KEY_ID") and os.getenv("AWS_SECRET_ACCESS_KEY"):
+            import boto3
+            cw_client = boto3.client(
+                "logs",
+                region_name=os.getenv("AWS_REGION", "ap-south-1"),
+                aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+                aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            )
             cw_handler = watchtower.CloudWatchLogHandler(
                 log_group_name="/aws/ec2/agentic-rag-engine",
                 log_stream_name="api-server-logs",
-                region_name=os.getenv("AWS_REGION", "ap-south-1"),
+                boto3_client=cw_client,
                 create_log_group=True,
             )
             logging.getLogger().addHandler(cw_handler)
             logger.addHandler(cw_handler)
-            logging.info("AWS CloudWatch Logging handler attached successfully!")
+            logger.info("AWS CloudWatch Logging handler attached successfully!")
     except Exception as cw_err:
         logger.warning(f"CloudWatch Logger not attached: {cw_err}")
+
 
 
 
